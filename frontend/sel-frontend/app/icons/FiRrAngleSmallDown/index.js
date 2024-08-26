@@ -1,0 +1,1 @@
+export { FiRrAngleSmallDown } from "./FiRrAngleSmallDown";
