@@ -1,9 +1,8 @@
-'use client'
+"use client";
 
 import React, { useState } from "react";
 
 const Analytics = () => {
-
   const [todoItems, setTodoItems] = useState([
     { id: 1, text: "적립대상 1", completed: false },
     { id: 2, text: "적립대상 2", completed: false },
@@ -73,13 +72,10 @@ const Analytics = () => {
                   checked={item.completed}
                   onChange={() => toggleTodo(item.id)}
                 />
-                <label
-                  style={{
-                    textDecoration: item.completed ? "line-through" : "none",
-                  }}
-                >
-                  {item.text}
-                </label>
+                <div style={styles.insideOfItem}>
+                  <label style={styles.itemText}>{item.text}</label>
+                  <button style={styles.detButton}>Det</button>
+                </div>
               </div>
             ))}
           </div>
@@ -200,22 +196,44 @@ const styles = {
   },
 
   pointEarningList: {
-    paddingTop:"10px",
+    paddingTop: "10px",
     background: "white",
     display: "flex",
     flexDirection: "column",
-    borderRadius :"20px",
+    borderRadius: "20px",
   },
 
   pointEarningItem: {
-    margin : "10px 20px 10px 20px",
+    margin: "10px 20px",
     display: "flex",
     alignItems: "center",
     marginBottom: "10px",
   },
 
+  insideOfItem: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%", // Full width of the container
+    marginLeft: "15px", // Space between checkbox and text
+  },
+
+  itemText: {
+    flexGrow: 1, // Makes the text take up remaining space
+  },
+
   centerContent: {
     textAlign: "center",
+  },
+
+  detButton: {
+    padding: "5px 10px",
+    backgroundColor: "#FF5733",
+    color: "white",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    marginLeft: "10px", // Space between text and Det button
   },
 };
 
