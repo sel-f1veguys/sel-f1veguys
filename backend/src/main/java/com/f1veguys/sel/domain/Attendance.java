@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class Attendance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "users_id")
+    @Column(name = "attendance_id")
     private int attendanceId;
 
     @Column(name = "users_id")
