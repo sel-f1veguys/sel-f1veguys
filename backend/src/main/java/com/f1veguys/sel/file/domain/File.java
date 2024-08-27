@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder(toBuilder = true)
-@Setter
 @Getter
+@Setter
 public class File {
 
     @Id
@@ -21,19 +21,20 @@ public class File {
     @Column(name = "files_id")
     private int fileId;
 
-    @Column(nullable = false)
+    @Column(name = "files_path", nullable = false)
     private String path;
 
-    @Column(length = 100, nullable = false)
+    @Column(name = "files_name", length = 100, nullable = false)
     private String name;
 
-    @Column(length = 25, nullable = false)
+    @Column(name = "files_type", length = 25, nullable = false)
     private String type;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "campaign_id")
+    @JoinColumn(name = "campaign_id", nullable = false)
     private Campaign campaign;
 
     @CreationTimestamp
-    private LocalDateTime uploadDate;
+    @Column(name = "uploaded_date")
+    private LocalDateTime uploadedDate;
 }

@@ -15,11 +15,11 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileController {
     private final FileService fileService;
 
-    @PostMapping(consumes = "multipart/form-data")
-    @Operation(summary = "이미지 업로드", description = "이미지 파일을 DB에 업로드합니다.")
-    public ResponseEntity<?> upload(@RequestPart("file") MultipartFile file) throws Exception {
-        return ResponseEntity.ok(fileService.saveFile(file));
-    }
+//    @PostMapping(consumes = "multipart/form-data")
+//    @Operation(summary = "이미지 업로드", description = "이미지 파일을 DB에 업로드합니다.")
+//    public ResponseEntity<?> upload(@RequestPart("file") MultipartFile file) throws Exception {
+//        return ResponseEntity.ok(fileService.saveFile(file));
+//    }
 
     @DeleteMapping("/{fileId}")
     @Operation(summary = "이미지 삭제", description = "이미지 파일을 DB에서 삭제합니다.")

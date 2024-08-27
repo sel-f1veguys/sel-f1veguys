@@ -7,9 +7,8 @@ public record FileResponse(
         String filePath,
         String fileName,
         String fileType
-
 ) {
     public FileResponse(File file) {
-        this(file.getFileId(), file.getPath(), file.getName(), file.getPath());
+        this(file.getFileId(), file.getPath(), file.getName(), file.getType());
     }
 }
