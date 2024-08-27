@@ -1,7 +1,7 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import React from 'react';
+import styles from './Tree.module.css';
 
-export default function Home() {
+const Tree = () => {
   return (
     <main className={styles.main}>
       <div>
@@ -15,4 +15,7 @@ export default function Home() {
       </div>
     </main>
   );
-}
+};
+
+export default Tree
+;
