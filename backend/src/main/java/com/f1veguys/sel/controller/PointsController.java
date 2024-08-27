@@ -21,11 +21,12 @@ import java.util.Objects;
 public class PointsController {
     private final PointsRepository pointsRepository;
     private final HeaderUtil headerUtil;
+
     @GetMapping
     public List<Points> getAllPoints() {
         Map<String, String> request = headerUtil.createHeader("name","code");
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject("http://localhost:8080/points", List.class);
-        
+
     }
 }
