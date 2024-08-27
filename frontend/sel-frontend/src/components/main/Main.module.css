@@ -1,0 +1,136 @@
+.bluebg {
+    height: 281px;
+    width: 100%;
+    background-color: #009CF4;
+    position: absolute; 
+    z-index: -1; 
+  }
+  
+  .contentContainer {
+    display: flex;
+    flex-direction: column;
+    padding-top: 70px;
+    /* align-items: center; */
+  }
+  
+  .pointText {
+    font-size: 18px;
+    color: white;
+    margin-bottom: 10px;
+    margin-left: 32px;
+  }
+  
+  .gameBox {
+    background: #fff;
+    padding: 20px;
+    text-align: center;
+    width: 80%;
+    height: 232px;
+    border-radius: 6px;
+    background: linear-gradient(180deg, #9EACF7 0%, #716AE7 100%);
+    box-shadow: 0px 14px 20px 0px rgba(116, 110, 232, 0.36);
+    display:flex;
+    flex-direction: row;
+  }
+
+  .treegrow{
+    display: flex;
+    flex-direction: column;
+    width: 160px;
+  }
+  
+  .gameTitle1, .gameTitle2 {
+    font-size: 36px;    
+    color: white;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  .gameTitle1{
+    margin-top: 38px;
+  }
+  
+  .gameButton {
+    background-color: #ffffff;
+    color: #736DE8;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-top: 40px;
+    transition: 0.3s ease;
+  }
+  
+  .gameButton:hover {
+    background-color: hsl(243, 100%, 85%);
+    color: white;
+    transition: 0.3s ease;
+}
+  
+  .treeImage {
+    /* margin-top: 10px; */
+    margin-left: 30px;
+  }
+  
+  .campaignContainer {
+    padding: 20px;
+  }
+  
+  .campaignTitle {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .campaignImage {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .campaignDetails {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+  }
+  
+  .campaignText {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .campaignInfo {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .campaignDays, .campaignAmount {
+    font-size: 14px;
+  }
+  
+  .campaignProgress {
+    font-size: 14px;
+    color: #009CF4;
+  }
+  
+
+  .mainstyle{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 60px;
+  }
+
+  .cardcontain{
+    display: flex;
+    justify-content: center;
+  }
+
+  .campaignlink{
+    text-decoration: none;
+    color: black;
+  }
