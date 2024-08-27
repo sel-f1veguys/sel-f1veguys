@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import MainView from "./components/main/Main";
 import AnalyticsView from "./components/analytics/Analytics";
+import CalenderView from "./components/calendarCheck/CalendarCheck.jsx"
 import CampaignView from "./components/campaign/Campaign";
 import MypageView from "./components/mypage/Mypage";
 import TreeView from "./components/tree/Tree";
@@ -30,6 +31,7 @@ const AppContent = () => {
       <Routes>
       <Route path="/" element={<MainView />} />
       <Route path="/analytics" element={<AnalyticsView />} />
+      <Route path="/calendar" element={<CalenderView />} />
       <Route path="/campaign" element={<CampaignView />} />
       <Route path="/mypage" element={<MypageView />} />
       <Route path="/tree" element={<TreeView />} />
