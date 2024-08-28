@@ -8,6 +8,7 @@ import MypageView from "./components/mypage/Mypage";
 import TreeView from "./components/tree/Tree";
 import Navbar from "./components/navbar/Navbar"; 
 import Header from './components/header/Header';
+import MyPointView from './components/mypoint/MyPoint.jsx';
 import './App.css';
 
 const App = () => {
@@ -35,6 +36,7 @@ const AppContent = () => {
       <Route path="/campaign" element={<CampaignView />} />
       <Route path="/mypage" element={<MypageView />} />
       <Route path="/tree" element={<TreeView />} />
+      <Route path="/mypoint" element={<MyPointView />} />
       </Routes>
       <Navbar />  
     </div>
