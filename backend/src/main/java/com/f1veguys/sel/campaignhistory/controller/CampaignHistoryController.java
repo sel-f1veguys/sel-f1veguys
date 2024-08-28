@@ -25,4 +25,6 @@ public class CampaignHistoryController {
         CampaignHistory campaignHistory = campaignHistoryService.participateInCampaign(campaignId, userId, pay);
         return ResponseEntity.ok(campaignHistory);
     }
+    
+    // TODO 참여한 캠페인 모두 조회
 }

@@ -2,10 +2,13 @@ package com.f1veguys.sel.campaignhistory.domain;
 
 import com.f1veguys.sel.campaign.domain.Campaign;
 import com.f1veguys.sel.user.domain.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "campaign_history")
@@ -16,24 +19,32 @@ import java.io.Serializable;
 @Setter
 @IdClass(CampaignHistory.CampaignHistoryId.class)
 public class CampaignHistory {
+
     @Id
-    @Column(name = "campaign_id")
+    @Column(name = "campaign_id", insertable = false, updatable = false)
     private int campaignId;
 
     @Id
-    @Column(name = "user_id")
+    @Column(name = "user_id", insertable = false, updatable = false)
     private int userId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "campaign_id", nullable = false)
+    @MapsId("campaignId")
+    @JsonBackReference
     private Campaign campaign;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    @MapsId("userId")
+    @JsonBackReference
     private User user;
 
     @Column(name = "amount")
     private int amount;
+
+    @CreationTimestamp
+    private LocalDateTime attendedDate;
 
     @Getter
     @Setter

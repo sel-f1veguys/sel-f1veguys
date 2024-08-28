@@ -1,14 +1,14 @@
 package com.f1veguys.sel.campaign.repository;
 
 import com.f1veguys.sel.campaign.domain.Campaign;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 public interface CampaignRepository extends JpaRepository<Campaign, Integer> {
 
-    Slice<Campaign> findByCompletedFalse(Pageable pageable);
+    List<Campaign> findByCompletedFalse();
 
-    Slice<Campaign> findByCompletedTrue(Pageable pageable);
+    List<Campaign> findByCompletedTrue();
 
 }

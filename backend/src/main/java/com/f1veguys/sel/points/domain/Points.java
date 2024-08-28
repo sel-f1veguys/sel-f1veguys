@@ -10,6 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @Getter
+@Setter
 public class Points {
     @Id
     @Column(name = "users_id")

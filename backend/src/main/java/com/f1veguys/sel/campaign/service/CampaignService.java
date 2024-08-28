@@ -1,26 +1,24 @@
 package com.f1veguys.sel.campaign.service;
 
-import com.f1veguys.sel.campaign.domain.Campaign;
+import com.f1veguys.sel.campaign.dto.CampaignRequest;
 import com.f1veguys.sel.campaign.dto.CampaignResponse;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
 
 public interface CampaignService {
-    CampaignResponse createCampaign(Campaign campaign, List<MultipartFile> files) throws IOException;
+//    CampaignResponse createCampaign(CampaignRequest request, List<MultipartFile> files) throws IOException;
 
-    CampaignResponse updateCampaign(int id, Campaign updatedCampaign);
+//    CampaignResponse updateCampaign(int id, CampaignRequest request);
 
-    void deleteCampaign(int id);
+//    void deleteCampaign(int id);
 
-    Slice<CampaignResponse> getAllCampaigns(Pageable pageable);
+    List<CampaignResponse> getAllCampaigns();
 
-    Slice<CampaignResponse> getOngoingCampaigns(Pageable pageable);
+    List<CampaignResponse> getOngoingCampaigns();
 
-    Slice<CampaignResponse> getCompletedCampaigns(Pageable pageable);
+    List<CampaignResponse> getCompletedCampaigns();
 
     void completeCampaign(int id);
 }

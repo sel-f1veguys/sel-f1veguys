@@ -5,6 +5,7 @@ import com.f1veguys.sel.campaignhistory.domain.CampaignHistory;
 import com.f1veguys.sel.campaignhistory.repository.CampaignHistoryRepository;
 import com.f1veguys.sel.campaign.repository.CampaignRepository;
 import com.f1veguys.sel.global.error.exception.CampaignNotFoundException;
+import com.f1veguys.sel.global.error.exception.InsufficientPointsException;
 import com.f1veguys.sel.global.error.exception.PointsNotFoundException;
 import com.f1veguys.sel.global.error.exception.UserNotFoundException;
 import com.f1veguys.sel.points.domain.Points;
@@ -30,6 +31,7 @@ public class CampaignHistoryServiceImpl implements CampaignHistoryService {
 
         Campaign campaign = campaignRepository.findById(campaignId)
                 .orElseThrow(CampaignNotFoundException::new);
+
         User user = userRepository.findById(userId)
                 .orElseThrow(UserNotFoundException::new);
 
@@ -37,7 +39,7 @@ public class CampaignHistoryServiceImpl implements CampaignHistoryService {
                 .orElseThrow(PointsNotFoundException::new);
 
         if (pay > userPoints.getBalance()) {
-            throw new PointsNotFoundException();
+            throw new InsufficientPointsException();
         }
 
         CampaignHistory.CampaignHistoryId historyId = new CampaignHistory.CampaignHistoryId(campaignId, userId);
@@ -63,9 +65,7 @@ public class CampaignHistoryServiceImpl implements CampaignHistoryService {
                 .build();
         campaignRepository.save(campaign);
 
-        userPoints = userPoints.toBuilder()
-                .balance(userPoints.getBalance() - pay)
-                .build();
+        userPoints.setBalance(userPoints.getBalance() - pay);
         pointsRepository.save(userPoints);
 
         return campaignHistoryRepository.save(history);

@@ -30,7 +30,7 @@ public class File {
     @Column(name = "files_type", length = 25, nullable = false)
     private String type;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "campaign_id", nullable = false)
     private Campaign campaign;
 
