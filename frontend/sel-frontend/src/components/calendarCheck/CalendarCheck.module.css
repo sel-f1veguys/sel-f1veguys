@@ -1,4 +1,9 @@
 /* CalenderCheck.moudule.css */
+.dateText {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #ffffff;
+}
 .container {
     display: flex;
     flex-direction: column;
@@ -51,11 +56,6 @@
     border-radius: 50%;
   }
   
-  .dateText {
-    margin-top: 20px;
-    font-size: 18px;
-    color: #0047ab;
-  }
   
   .attendanceButton {
     margin-top: 20px;
