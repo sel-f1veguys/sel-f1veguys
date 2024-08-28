@@ -1,0 +1,59 @@
+.main {
+    background-image: url('../../../public/assets/background.jpg');
+    background-size: cover; /*  이미지가 컨테이너에 맞게 조정됩니다 */
+    background-position: center; /* 이미지가 중앙에 위치합니다 */
+    height: 100vh; /* 화면 전체 높이로 설정합니다 */
+    width: 50%; /* 전체 너비로 설정합니다 */
+  }
+
+  .treeimg{
+    width: 100px;
+  }
+
+  .modal {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 300px;
+    height: 500px;
+    margin: auto;
+    text-align: center;
+  }
+  
+  .overlay {
+    background: rgba(0, 0, 0, 0.75);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .giftButton {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .giftButton:nth-child(1) {
+    background-color: #E0F7FA;
+  }
+  
+  .giftButton:nth-child(2) {
+    background-color: #FCE4EC;
+  }
+  
+  .giftButton:nth-child(3) {
+    background-color: #F1F8E9;
+  }
+  
+  .modaltreeimg{
+    width: 200px;
+  }
