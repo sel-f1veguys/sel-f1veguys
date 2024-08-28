@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Tree.module.css';
+import Watering from './Watering';
 
 const Tree = () => {
   return (
@@ -12,6 +13,9 @@ const Tree = () => {
         <p>
           나무 키우기  
         </p>
+      </div>
+      <div>
+        <Watering />
       </div>
     </main>
   );
