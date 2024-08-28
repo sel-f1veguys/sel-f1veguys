@@ -14,6 +14,8 @@ public interface CampaignService {
 
 //    void deleteCampaign(int id);
 
+    CampaignResponse getCampaign(int campaignId);
+
     List<CampaignResponse> getAllCampaigns();
 
     List<CampaignResponse> getOngoingCampaigns();

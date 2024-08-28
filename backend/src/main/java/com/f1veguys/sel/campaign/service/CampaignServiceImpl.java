@@ -80,6 +80,12 @@ public class CampaignServiceImpl implements CampaignService {
 //    }
 
     @Override
+    public CampaignResponse getCampaign(int id) {
+        Campaign campaign = campaignRepository.findById(id).orElseThrow(CampaignNotFoundException::new);
+        return new CampaignResponse(campaign);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<CampaignResponse> getAllCampaigns() {
         return campaignRepository.findAll().stream()

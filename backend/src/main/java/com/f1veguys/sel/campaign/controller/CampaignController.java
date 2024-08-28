@@ -45,9 +45,14 @@ public class CampaignController {
 //        campaignService.deleteCampaign(id);
 //        return ResponseEntity.noContent().build();
 //    }
-    
-    // TODO 캠페인 상세조회
-    
+
+    @PostMapping("/{campaignId}")
+    @Operation(summary = "캠페인 상세조회", description = "진행 기간이 만료된 캠페인을 만료 처리합니다.")
+    public ResponseEntity<CampaignResponse> getCampaign(@PathVariable("campaignId") int id) {
+        CampaignResponse campaign = campaignService.getCampaign(id);
+        return ResponseEntity.ok(campaign);
+    }
+
     @PostMapping("/{campaignId}/complete")
     @Operation(summary = "캠페인 만료처리", description = "진행 기간이 만료된 캠페인을 만료 처리합니다.")
     public ResponseEntity<Void> completeCampaign(@PathVariable("campaignId") int id) {
