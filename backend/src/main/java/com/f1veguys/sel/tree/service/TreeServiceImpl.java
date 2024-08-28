@@ -2,7 +2,6 @@ package com.f1veguys.sel.tree.service;
 
 import com.f1veguys.sel.global.error.exception.*;
 import com.f1veguys.sel.global.error.exception.InsufficientPointsException;
-import com.f1veguys.sel.global.error.exception.TreeAlmostGrownException;
 import com.f1veguys.sel.points.domain.Points;
 import com.f1veguys.sel.points.repository.PointsRepository;
 import com.f1veguys.sel.tree.domain.Tree;
@@ -51,34 +50,30 @@ public class TreeServiceImpl implements TreeService {
     }
 
     @Override
-    public Tree waterTree(int id, int pay) {
+    public Tree waterTree(int id) {
         Tree tree = treeRepository.findById(id)
                 .orElseThrow(TreeNotFoundException::new);
 
         Points userPoints = pointsRepository.findByUserId(tree.getUser().getId())
                 .orElseThrow(PointsNotFoundException::new);
 
-        if (pay > userPoints.getBalance()) {
+        if (500 > userPoints.getBalance()) {
             throw new InsufficientPointsException();
         }
 
-        if (tree.getCount() + pay > 3000) {
-            throw new TreeAlmostGrownException(3000 - tree.getCount());
-        }
-
         // 포인트 차감
-        userPoints.setBalance(userPoints.getBalance() - pay);
+        userPoints.setBalance(userPoints.getBalance() - 500);
         pointsRepository.save(userPoints);
 
         // 나무 물주기
-        tree.setCount(tree.getCount() + pay);
+        tree.setCount(tree.getCount() + 500);
         return treeRepository.save(tree);
     }
 
     @Override
-    public void getGift(int id) {
+    public Tree getGift(int id) {
         Tree tree = treeRepository.findById(id).orElseThrow(TreeNotFoundException::new);
         tree.setCount(0);
-        treeRepository.save(tree);
+        return treeRepository.save(tree);
     }
 }
