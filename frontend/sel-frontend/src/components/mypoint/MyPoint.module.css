@@ -26,18 +26,6 @@
   font-weight: bold; /* Font weight for the header title */
 }
 
-.headerBottom {
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding: 20px;
-  position: relative;
-  top: -50px; /* Adjust to overlap with the blue part */
-  width: calc(100% - 40px); /* Adjust for padding */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Align items to the left */
-}
 
 .userInfoBox {
   width: 100%; /* Take full width for proper alignment */

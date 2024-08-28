@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import FilterPopup from './PointFilterPop';
 import PointHistory from './PointHistory';
 import styles from './MyPoint.module.css';
+import MyPointHeader from './MyPointHeader';
 
 const MyPoint = () => {
   const [showFilterPopup, setShowFilterPopup] = useState(false);
@@ -27,18 +28,7 @@ const MyPoint = () => {
         <div className={styles.headerTop}>
           마이페이지
         </div>
-        <div className={styles.headerBottom}>
-          <div className={styles.userInfoBox}>
-            <div className={styles.userName}>홍길동님</div>
-            <div className={styles.pointAmount}>
-              1,000 <span>포인트</span>
-            </div>
-            <div className={styles.buttonGroup}>
-              <button className={styles.historyButton}>내역보기</button>
-              <button className={styles.chargeButton}>사용하기</button>
-            </div>
-          </div>
-        </div>
+        <MyPointHeader />
       </div>
 
       <div className={styles.filterSection}>
