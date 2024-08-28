@@ -2,6 +2,7 @@ package com.f1veguys.sel.service;
 
 import com.f1veguys.sel.domain.Attendance;
 import com.f1veguys.sel.repository.AttendanceRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -11,8 +12,9 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AttendanceServiceImpl implements AttendanceService{
-    private AttendanceRepository attendanceRepository;
+    private final AttendanceRepository attendanceRepository;
 
     @Override
     public void attend(int userId) {
