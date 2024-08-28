@@ -1,0 +1,44 @@
+spring:
+    application:
+        name: sel
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        password: f1vepw
+        url: jdbc:mysql://localhost:3306/sel?useUnicode=true&serverTimezone=UTC
+        username: sel
+    jpa:
+        database: mysql
+        database-platform: org.hibernate.dialect.MySQL8Dialect
+        generate-ddl: false
+        hibernate:
+            ddl-auto: create-drop
+            naming:
+                physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+                strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        properties:
+            hibernate:
+                format_sql: true
+        show-sql: true
+
+api:
+    key: bd337e60c9164c25928cd98017ed7562
+    url: https://finopenapi.ssafy.io/ssafy/api/v1/edu/
+
+springdoc:
+    swagger-ui:
+        groups-order: DESC
+        tags-sorter: alpha
+        operations-sorter: method
+        disable-swagger-default-url: true
+        display-request-duration: true
+        defaultModelsExpandDepth: 2
+        defaultModelExpandDepth: 2
+    api-docs:
+        path: /api-docs
+    show-actuator: true
+    default-consumes-media-type: application/json
+    default-produces-media-type: application/json
+    writer-with-default-pretty-printer: true
+    model-and-view-allowed: true
+    paths-to-match:
+        - /api/v1/**
