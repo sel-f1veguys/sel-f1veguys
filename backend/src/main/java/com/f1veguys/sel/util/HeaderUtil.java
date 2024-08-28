@@ -27,10 +27,10 @@ public class HeaderUtil {
         header.put("transmissionDate", now.format(dateFormatter));
         header.put("transmissionTime", now.format(timeFormatter));
         header.put("apiKey", apiKey);
-        header.put("apiCode", apiCode);
+        header.put("apiServiceCode", apiCode);
         header.put("institutionCode", "00100");
         header.put("fintechAppNo", "001");
-        header.put("institutionTransactionalUniqueNo", UniqueNoGenerator.generateUniqueNo());
+        header.put("institutionTransactionUniqueNo", UniqueNoGenerator.generateUniqueNo());
 
         return header;
     }
