@@ -1,14 +1,43 @@
-body {
-	background : #FEFDE3;
-}        
-.slope {
-	background: #CADC88;
-	width: 100%;
-	height: 100px;
-	border-radius: 50% 50% 0px 0px / 100% 100% 0px 0px;
-	overflow: hidden;
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .slope {
+    background: #CADC88;
+    width: 100%;
+    height: 100px;
+    border-radius: 50% 50% 0px 0px / 100% 100% 0px 0px;
+    overflow: hidden;
     z-index: -1;
-}
+    position: relative;
+  }
+  
+  .pouring-button {
+    margin: 380px 0 0 25%;
+    padding: 12px 30px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+  }
+  
+  .pouring-button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .pouring-button:active {
+    background-color: #004494;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
 .slope:before {
     content: "";
     background: #F2EDB4;
@@ -19,8 +48,6 @@ body {
     left:50%;
     margin-left: -40px;
     top:-5px;   
-    
-    
 }
 .background {
     width: 350px;

@@ -1,81 +1,318 @@
-import React, { useState } from "react";
-import Modal from 'react-modal';
-import styles from './Tree.module.css';
-import ProgressLine from './ProgressLine';
 
-Modal.setAppElement('#root'); // 모달 접근성 설정, root를 메인 요소로 설정
+import React, { useEffect, useState } from "react";
+import Scene from "scenejs";
+import "./tree.css"; // Ensure to link the CSS file properly
 
-const Tree = () => {
-  const [water, setWater] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const TreeComponent = () => {
+  const [level, setLevel] = useState(0); // State to control the animation level
 
-  const handleWatering = () => {
-    if (water < 3000) {
-      setWater(prevWater => prevWater + 500);
+  useEffect(() => {
+    if (level === 1) {
+      const sceneTree = new Scene(
+        {
+          ".tree": {
+            0: { transform: "scale(0)" },
+            1.5: { transform: "scale(1)" },
+          },
+        },
+        {
+          selector: true,
+        }
+      );
+
+      sceneTree.playCSS();
     }
-  };
+  }, [level]); // Only runs when level changes to 1
 
-  const receiveGift = () => {
-    setIsModalOpen(true); // 모달 열기
-  };
+  useEffect(() => {
+    if (level === 2) {
+      const branch1 = document.querySelector(".branch1");
+      const sceneItem = new Scene(
+        {
+          ".branch1": {
+            0: { transform: "scale(0)" },
+            1: { transform: "scale(1)" },
+          },
+        },
+        {
+          selector: true,
+        }
+      );
 
-  const closeModal = () => {
-    setIsModalOpen(false); // 모달 닫기
-    setWater(0); // 물 양 초기화
-  };
-
-  const getImageSrc = () => {
-    if (water >= 3000) {
-      return './assets/tree4.png';
-    } else if (water >= 2000) {
-      return './assets/tree3.png';
-    } else if (water >= 1000) {
-      return './assets/tree2.png';
-    } else {
-      return './assets/tree1.png';
+      sceneItem.playCSS();
     }
+  }, [level]); // Only runs when level changes to 2
+
+  useEffect(() => {
+    if (level === 3) {
+      const branch2 = document.querySelector(".branch2");
+      const sceneItem = new Scene(
+        {
+          ".branch2": {
+            0: { transform: "scale(0)" },
+            1: { transform: "scale(1)" },
+          },
+        },
+        {
+          selector: true,
+        }
+      );
+
+      sceneItem.playCSS();
+    }
+  }, [level]); // Only runs when level changes to 3
+
+  useEffect(() => {
+    if (level === 4) {
+      const branch3 = document.querySelector(".branch3");
+      const sceneItem = new Scene(
+        {
+          ".branch3": {
+            0: { transform: "scale(0)" },
+            1: { transform: "scale(1)" },
+          },
+        },
+        {
+          selector: true,
+        }
+      );
+
+      sceneItem.playCSS();
+    }
+  }, [level]); // Only runs when level changes to 4
+
+  useEffect(() => {
+    if (level === 5) {
+      const branch4 = document.querySelector(".branch4");
+      const sceneItem = new Scene(
+        {
+          ".branch4": {
+            0: { transform: "scale(0)" },
+            1: { transform: "scale(1)" },
+          },
+        },
+        {
+          selector: true,
+        }
+      );
+
+      sceneItem.playCSS();
+    }
+  }, [level]); // Only runs when level changes to 5
+
+  useEffect(() => {
+    if (level === 6) {
+      const branch5 = document.querySelector(".branch5");
+      const sceneItem = new Scene(
+        {
+          ".branch5": {
+            0: { transform: "scale(0)" },
+            1: { transform: "scale(1)" },
+          },
+        },
+        {
+          selector: true,
+        }
+      );
+
+      sceneItem.playCSS();
+    }
+  }, [level]); // Only runs when level changes to 6
+
+  const handleButtonClick = () => {
+    setLevel((prevLevel) => (prevLevel < 6 ? prevLevel + 1 : 6));
   };
 
   return (
-    <main className={styles.main}>
-      <div>
-        <img className={styles.treeimg} src={getImageSrc()} alt="Tree" />
-        <ProgressLine
-          visualParts={[
-            {
-              percentage: `${(water / 3000) * 100}%`,
-              color: "#008DFF"
-            }
-          ]}
-        />
-        {water < 3000 ? (
-          <button onClick={handleWatering}>
-            물주기
+    <div className="container">
+      <div className="background">
+        <div className="slope">
+        </div>
+          <button className="pouring-button" onClick={handleButtonClick}>
+            Pouring Water
           </button>
-        ) : (
-          <button onClick={receiveGift}>
-            기프티콘 받기
-          </button>
+        {level >= 1 && (
+          <div className="tree">
+            {level >= 2 && (
+              <>
+                <div className="branch left branch1">
+                  <div className="branch left branch-inner1">
+                    <div className="leaf leaf1"></div>
+                    <div className="leaf leaf2"></div>
+                    <div className="leaf leaf3"></div>
+                    <div className="heart flower1 blueflower"></div>
+                  </div>
+                  <div className="branch left branch-inner2">
+                    <div className="leaf leaf1"></div>
+                    <div className="leaf leaf2"></div>
+                    <div className="leaf leaf3"></div>
+                    <div className="tulip flower1 redflower">
+                      <div className="peak"></div>
+                    </div>
+                  </div>
+                  <div className="branch left branch-inner3">
+                    <div className="leaf leaf1"></div>
+                    <div className="leaf leaf2"></div>
+                  </div>
+                  <div className="flower petal5 flower1 redflower">
+                    <div className="petal">
+                      <div className="petal">
+                        <div className="petal"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+            {level >= 3 && (
+              <>
+                <div className="branch right branch2">
+                  <div className="branch left branch-inner1">
+                    <div className="leaf leaf1"></div>
+                    <div className="leaf leaf2"></div>
+                    <div className="leaf leaf3"></div>
+                    <div className="flower petal5 flower1 blueflower">
+                      <div className="petal">
+                        <div className="petal">
+                          <div className="petal"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="branch right branch-inner2">
+                    <div className="leaf leaf1"></div>
+                    <div className="leaf leaf2"></div>
+                    <div className="leaf leaf3"></div>
+                    <div className="tulip flower1 greenflower">
+                      <div className="peak"></div>
+                    </div>
+                  </div>
+                  <div className="branch right branch-inner3">
+                    <div className="leaf leaf1"></div>
+                    <div className="leaf leaf2"></div>
+                    <div className="leaf leaf3"></div>
+                    <div className="branch left branch-inner4">
+                      <div className="leaf leaf1"></div>
+                      <div className="flower petal5 flower1 yellowflower">
+                        <div className="petal">
+                          <div className="petal">
+                            <div className="petal"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="tulip flower1 purpleflower">
+                      <div className="peak"></div>
+                    </div>
+                  </div>
+                  <div className="flower petal5 roundpetal flower1">
+                    <div className="petal">
+                      <div className="petal">
+                        <div className="petal">
+                          <div className="petal"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+            {level >= 4 && (
+              <>
+                <div className="branch left branch3">
+                  <div className="branch right branch-inner1">
+                    <div className="leaf leaf1"></div>
+                    <div className="leaf leaf2"></div>
+                    <div className="leaf leaf3"></div>
+                    <div className="heart flower1"></div>
+                  </div>
+                  <div className="branch left branch-inner2">
+                    <div className="leaf leaf1"></div>
+                    <div className="leaf leaf2"></div>
+                    <div className="leaf leaf3"></div>
+                    <div className="tulip flower1">
+                      <div className="peak"></div>
+                    </div>
+                  </div>
+                  <div className="leaf leaf1"></div>
+                  <div className="leaf leaf2"></div>
+                  <div className="flower roundpetal petal5 flower1 purpleflower">
+                    <div className="petal">
+                      <div className="petal">
+                        <div className="petal"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+            {level >= 5 && (
+              <>
+                <div className="branch right branch4">
+                  <div className="branch left branch-inner1">
+                    <div className="leaf leaf1"></div>
+                    <div className="leaf leaf2"></div>
+                    <div className="leaf leaf3"></div>
+                    <div className="flower petal5 flower1 yellowflower">
+                      <div className="petal">
+                        <div className="petal">
+                          <div className="petal"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="branch right branch-inner2">
+                    <div className="leaf leaf1"></div>
+                    <div className="leaf leaf2"></div>
+                    <div className="leaf leaf3"></div>
+                    <div className="tulip tulip1 flower1 purpleflower">
+                      <div className="peak"></div>
+                    </div>
+                  </div>
+                  <div className="flower petal5 roundpetal flower1">
+                    <div className="petal">
+                      <div className="petal">
+                        <div className="petal">
+                          <div className="petal"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+            {level >= 6 && (
+              <>
+                <div className="branch left branch5">
+                  <div className="branch right branch-inner1">
+                    <div className="leaf leaf1"></div>
+                    <div className="leaf leaf2"></div>
+                    <div className="leaf leaf3"></div>
+                    <div className="heart flower1"></div>
+                  </div>
+                  <div className="branch left branch-inner2">
+                    <div className="leaf leaf1"></div>
+                    <div className="leaf leaf2"></div>
+                    <div className="leaf leaf3"></div>
+                    <div className="tulip flower1 greenflower">
+                      <div className="peak"></div>
+                    </div>
+                  </div>
+                  <div className="flower roundpetal petal5 flower1 blueflower">
+                    <div className="petal">
+                      <div className="petal">
+                        <div className="petal"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
         )}
       </div>
-
-      {/* 모달 컴포넌트 */}
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        contentLabel="기프티콘 받기"
-        className={styles.modal}
-        overlayClassName={styles.overlay}
-      >
-        <h2>축하합니다! 나무가 다 컸어요</h2>
-        <img src="./assets/tree4.png" alt="Tree" className={styles.modaltreeimg} />
-        <p>보상을 선택하세요</p>
-        <button onClick={closeModal} className={styles.giftButton}>커피</button>
-        <button onClick={closeModal} className={styles.giftButton}>간식</button>
-        <button onClick={closeModal} className={styles.giftButton}>빵</button>
-      </Modal>
-    </main>
+    </div>
   );
 };
 
-export default Tree;
+export default TreeComponent;
