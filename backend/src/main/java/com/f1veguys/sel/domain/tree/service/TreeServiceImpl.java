@@ -61,6 +61,10 @@ public class TreeServiceImpl implements TreeService {
             throw new InsufficientPointsException();
         }
 
+        if (tree.getCount() >= 3000) {
+            throw new TreeAlmostGrownException(0);
+        }
+
         // 포인트 차감
         userPoints.setBalance(userPoints.getBalance() - 500);
         pointsRepository.save(userPoints);
