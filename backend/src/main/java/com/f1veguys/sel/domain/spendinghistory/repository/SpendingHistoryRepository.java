@@ -1,6 +1,6 @@
 package com.f1veguys.sel.domain.spendinghistory.repository;
 
-import com.f1veguys.sel.domain.Points;
+import com.f1veguys.sel.domain.points.domain.Points;
 import com.f1veguys.sel.domain.spendinghistory.domain.SpendingHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

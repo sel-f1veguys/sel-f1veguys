@@ -1,7 +1,7 @@
 package com.f1veguys.sel.domain.points.controller;
 
 import com.f1veguys.sel.domain.points.domain.Points;
-import com.f1veguys.sel.repository.PointsRepository;
+import com.f1veguys.sel.domain.points.repository.PointsRepository;
 import com.f1veguys.sel.global.util.HeaderUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

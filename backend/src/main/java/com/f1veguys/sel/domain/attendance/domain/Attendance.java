@@ -1,5 +1,6 @@
 package com.f1veguys.sel.domain.attendance.domain;
 
+import com.f1veguys.sel.domain.user.domain.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

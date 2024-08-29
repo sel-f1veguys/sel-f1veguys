@@ -1,5 +1,6 @@
 package com.f1veguys.sel.domain.spendinghistory.domain;
 
+import com.f1veguys.sel.domain.user.domain.User;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
