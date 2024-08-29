@@ -3,8 +3,8 @@ spring:
         name: sel
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        username: sel
-        password: f1vepw
+        username: root
+        password: userpw
         url: jdbc:mysql://localhost:3306/sel?useUnicode=true&serverTimezone=UTC
     jpa:
         database: mysql
