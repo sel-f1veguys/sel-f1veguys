@@ -33,7 +33,7 @@ const AppContent = () => {
       <Route path="/" element={<MainView />} />
       <Route path="/analytics" element={<AnalyticsView />} />
       <Route path="/calendar" element={<CalenderView />} />
-      <Route path="/campaign" element={<CampaignView />} />
+      <Route path="/campaign/:campaignId" element={<CampaignView />} />
       <Route path="/mypage" element={<MypageView />} />
       <Route path="/tree" element={<TreeView />} />
       <Route path="/mypoint" element={<MyPointView />} />

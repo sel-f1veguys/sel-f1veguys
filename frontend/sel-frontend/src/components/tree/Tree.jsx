@@ -108,18 +108,13 @@ const TreeComponent = () => {
 
   useEffect(() => {
     if (level === 2) {
-      const branch1 = document.querySelector(".branch1");
-  
-      // sceneTree 객체를 먼저 생성
       const sceneTree = new Scene({}, { selector: true });
+      const branchs = document.querySelectorAll(".branch1, .branch1 .branch-inner, .branch1 .leaf, .branch1 .flower1");
   
-      // 선택한 요소들(branch, leaf, flower)을 반복 처리하여 애니메이션 설정
-      const branchs = document.querySelectorAll(".tree .branch, .tree .leaf, .tree .flower1");
-      console.log(branchs)
       const depths = [0, 0, 0];
   
       for (let i = 0; i < branchs.length; ++i) {
-        const sceneItem = sceneTree.newItem("item" + i);
+        const sceneItem = sceneTree.newItem("item2-" + i); // Unique item name
         const className = branchs[i].className;
   
         if (className.includes("branch-inner")) {
@@ -140,136 +135,147 @@ const TreeComponent = () => {
         sceneItem.set(time + 1, "transform", "scale", 1);
       }
   
-      // 브랜치1에 대한 기존 애니메이션 설정
-      const sceneItemBranch1 = new Scene(
-        {
-          ".branch1": {
-            0: { transform: "scale(0)" },
-            1: { transform: "scale(1)" },
-          },
-        },
-        {
-          selector: true,
-        }
-      );
-  
-      // 새로 생성된 sceneTree와 branch1 애니메이션 재생
-      sceneTree.playCSS();
-      sceneItemBranch1.playCSS();
+      sceneTree.playCSS(); // 애니메이션 실행
     }
-  }, [level]); // Only runs when level changes to 2
+  }, [level]);
   
-
   useEffect(() => {
     if (level === 3) {
-      const sceneTreeLevel3 = new Scene({}, { selector: true });
-      const branchsLevel3 = document.querySelectorAll(".branch2, .branch2 .branch-inner, .branch2 .leaf, .branch2 .flower1");
-      console.log(branchsLevel3)
-      const depthsLevel3 = [0, 0, 0];
+      const sceneTree = new Scene({}, { selector: true });
+      const branchs = document.querySelectorAll(".branch2, .branch2 .branch-inner, .branch2 .leaf, .branch2 .flower1");
   
-      for (let i = 0; i < branchsLevel3.length; ++i) {
-        const sceneItem = sceneTreeLevel3.newItem("item3-" + i); // Unique item name
-        const className = branchsLevel3[i].className;
+      const depths = [0, 0, 0];
+  
+      for (let i = 0; i < branchs.length; ++i) {
+        const sceneItem = sceneTree.newItem("item3-" + i); // Unique item name
+        const className = branchs[i].className;
   
         if (className.includes("branch-inner")) {
-          ++depthsLevel3[1];
-          depthsLevel3[2] = 0;
+          ++depths[1];
+          depths[2] = 0;
         } else if (className.includes("branch")) {
-          ++depthsLevel3[0];
-          depthsLevel3[1] = 0;
-          depthsLevel3[2] = 0;
+          ++depths[0];
+          depths[1] = 0;
+          depths[2] = 0;
         } else if (className.includes("leaf") || className.includes("flower1")) {
-          ++depthsLevel3[2];
+          ++depths[2];
         }
-        sceneItem.setElement(branchsLevel3[i]);
+        sceneItem.setElement(branchs[i]);
         sceneItem.setCSS(0, ["transform"]);
   
-        const time = depthsLevel3[0] * 0.5 + depthsLevel3[1] * 0.5 + depthsLevel3[2] * 0.5;
+        const time = depths[0] * 0.5 + depths[1] * 0.5 + depths[2] * 0.5;
         sceneItem.set(time, "transform", "scale", 0);
         sceneItem.set(time + 1, "transform", "scale", 1);
       }
   
-      sceneTreeLevel3.playCSS(); // 애니메이션 실행
+      sceneTree.playCSS(); // 애니메이션 실행
     }
   }, [level]);
-
-  // useEffect(() => {
-  //   if (level === 3) {
-  //     const branch2 = document.querySelector(".branch2");
-  //     const sceneItem = new Scene(
-  //       {
-  //         ".branch2": {
-  //           0: { transform: "scale(0)" },
-  //           1: { transform: "scale(1)" },
-  //         },
-  //       },
-  //       {
-  //         selector: true,
-  //       }
-  //     );
-
-  //     sceneItem.playCSS();
-  //   }
-  // }, [level]); // Only runs when level changes to 3
-
+  
   useEffect(() => {
     if (level === 4) {
-      const branch3 = document.querySelector(".branch3");
-      const sceneItem = new Scene(
-        {
-          ".branch3": {
-            0: { transform: "scale(0)" },
-            1: { transform: "scale(1)" },
-          },
-        },
-        {
-          selector: true,
+      const sceneTree = new Scene({}, { selector: true });
+      const branchs = document.querySelectorAll(".branch3, .branch3 .branch-inner, .branch3 .leaf, .branch3 .flower1");
+  
+      const depths = [0, 0, 0];
+  
+      for (let i = 0; i < branchs.length; ++i) {
+        const sceneItem = sceneTree.newItem("item4-" + i); // Unique item name
+        const className = branchs[i].className;
+  
+        if (className.includes("branch-inner")) {
+          ++depths[1];
+          depths[2] = 0;
+        } else if (className.includes("branch")) {
+          ++depths[0];
+          depths[1] = 0;
+          depths[2] = 0;
+        } else if (className.includes("leaf") || className.includes("flower1")) {
+          ++depths[2];
         }
-      );
-
-      sceneItem.playCSS();
+        sceneItem.setElement(branchs[i]);
+        sceneItem.setCSS(0, ["transform"]);
+  
+        const time = depths[0] * 0.5 + depths[1] * 0.5 + depths[2] * 0.5;
+        sceneItem.set(time, "transform", "scale", 0);
+        sceneItem.set(time + 1, "transform", "scale", 1);
+      }
+  
+      sceneTree.playCSS(); // 애니메이션 실행
     }
-  }, [level]); // Only runs when level changes to 4
-
+  }, [level]);
+  
   useEffect(() => {
     if (level === 5) {
-      const branch4 = document.querySelector(".branch4");
-      const sceneItem = new Scene(
-        {
-          ".branch4": {
-            0: { transform: "scale(0)" },
-            1: { transform: "scale(1)" },
-          },
-        },
-        {
-          selector: true,
+      const sceneTree = new Scene({}, { selector: true });
+      const branchs = document.querySelectorAll(".branch4, .branch4 .branch-inner, .branch4 .leaf, .branch4 .flower1");
+  
+      const depths = [0, 0, 0];
+  
+      for (let i = 0; i < branchs.length; ++i) {
+        const sceneItem = sceneTree.newItem("item5-" + i); // Unique item name
+        const className = branchs[i].className;
+  
+        if (className.includes("branch-inner")) {
+          ++depths[1];
+          depths[2] = 0;
+        } else if (className.includes("branch")) {
+          ++depths[0];
+          depths[1] = 0;
+          depths[2] = 0;
+        } else if (className.includes("leaf") || className.includes("flower1")) {
+          ++depths[2];
         }
-      );
-
-      sceneItem.playCSS();
+        sceneItem.setElement(branchs[i]);
+        sceneItem.setCSS(0, ["transform"]);
+  
+        const time = depths[0] * 0.5 + depths[1] * 0.5 + depths[2] * 0.5;
+        sceneItem.set(time, "transform", "scale", 0);
+        sceneItem.set(time + 1, "transform", "scale", 1);
+      }
+  
+      sceneTree.playCSS(); // 애니메이션 실행
     }
-  }, [level]); // Only runs when level changes to 5
-
+  }, [level]);
+  
   useEffect(() => {
     if (level === 6) {
-      const branch5 = document.querySelector(".branch5");
-      const sceneItem = new Scene(
-        {
-          ".branch5": {
-            0: { transform: "scale(0)" },
-            1: { transform: "scale(1)" },
-          },
-        },
-        {
-          selector: true,
+      const sceneTree = new Scene({}, { selector: true });
+      const branchs = document.querySelectorAll(".branch5, .branch5 .branch-inner, .branch5 .leaf, .branch5 .flower1");
+  
+      const depths = [0, 0, 0];
+  
+      for (let i = 0; i < branchs.length; ++i) {
+        const sceneItem = sceneTree.newItem("item6-" + i); // Unique item name
+        const className = branchs[i].className;
+  
+        if (className.includes("branch-inner")) {
+          ++depths[1];
+          depths[2] = 0;
+        } else if (className.includes("branch")) {
+          ++depths[0];
+          depths[1] = 0;
+          depths[2] = 0;
+        } else if (className.includes("leaf") || className.includes("flower1")) {
+          ++depths[2];
         }
-      );
-
-      sceneItem.playCSS();
+        sceneItem.setElement(branchs[i]);
+        sceneItem.setCSS(0, ["transform"]);
+  
+        const time = depths[0] * 0.5 + depths[1] * 0.5 + depths[2] * 0.5;
+        sceneItem.set(time, "transform", "scale", 0);
+        sceneItem.set(time + 1, "transform", "scale", 1);
+      }
+  
+      sceneTree.playCSS(); // 애니메이션 실행
     }
-  }, [level]); // Only runs when level changes to 6
+  }, [level]);
+  
 
 
+  useEffect(() => {
+    console.log(waterPoint)
+  }, [waterPoint]); // Only runs when level changes to 6
 
   const handleButtonClick = async () => {
     try {
@@ -278,7 +284,7 @@ const TreeComponent = () => {
       // 서버에서 반환된 데이터를 처리하거나, 상태를 업데이트하는 코드 추가 가능
       console.log("Watering successful:", response.data);
       setLevel(response.data.count/500); 
-      setWaterPoint(level);
+      setWaterPoint(response.data.count/500);
 
     } catch (error) {
       if (error.response && error.response.data.message === "보유하고 있는 포인트가 부족합니다.") {
