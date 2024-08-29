@@ -11,10 +11,9 @@ public class WebCosConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**") // 경로
                 .allowedMethods("*") // httpMethod
-                .allowCredentials(true)
                 .allowedHeaders("*")
                 .allowedOrigins("*")
-                .exposedHeaders("*"); //
+                .exposedHeaders("*");
 
     }
 }
