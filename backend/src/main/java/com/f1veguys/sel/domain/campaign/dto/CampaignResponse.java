@@ -9,7 +9,8 @@ public record CampaignResponse(
         String title,
         int goalAmount,
         int nowAmount,
-        boolean completed,
+        LocalDateTime startDate,
+        LocalDateTime endDate,
         LocalDateTime uploadDate
 ) {
     public CampaignResponse(Campaign campaign) {
@@ -18,7 +19,8 @@ public record CampaignResponse(
                 campaign.getTitle(),
                 campaign.getGoalAmount(),
                 campaign.getNowAmount(),
-                campaign.isCompleted(),
+                campaign.getStartDate(),
+                campaign.getEndDate(),
                 campaign.getUploadDate()
         );
     }

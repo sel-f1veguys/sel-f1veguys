@@ -92,14 +92,7 @@ public class CampaignServiceImpl implements CampaignService {
     @Transactional(readOnly = true)
     public List<CampaignResponse> getOngoingCampaigns() {
         return campaignRepository.findByCompletedFalse().stream()
-                .map(campaign -> new CampaignResponse(
-                        campaign.getId(),
-                        campaign.getTitle(),
-                        campaign.getGoalAmount(),
-                        campaign.getNowAmount(),
-                        campaign.isCompleted(),
-                        campaign.getUploadDate()
-                ))
+                .map(CampaignResponse::new)
                 .collect(Collectors.toList());
     }
 
@@ -107,14 +100,7 @@ public class CampaignServiceImpl implements CampaignService {
     @Transactional(readOnly = true)
     public List<CampaignResponse> getCompletedCampaigns() {
         return campaignRepository.findByCompletedTrue().stream()
-                .map(campaign -> new CampaignResponse(
-                        campaign.getId(),
-                        campaign.getTitle(),
-                        campaign.getGoalAmount(),
-                        campaign.getNowAmount(),
-                        campaign.isCompleted(),
-                        campaign.getUploadDate()
-                ))
+                .map(CampaignResponse::new)
                 .collect(Collectors.toList());
     }
 
