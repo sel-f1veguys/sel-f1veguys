@@ -1,4 +1,4 @@
-.container {
+.treecontainer {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,7 +15,33 @@
   }
   
   .pouring-button {
-    margin: 380px 0 0 25%;
+    margin: 380px 0 0 35%;
+    padding: 12px 30px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    
+  }
+  
+  .pouring-button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .pouring-button:active {
+    background-color: #004494;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .receive-button {
+    margin: 380px 0 0 29%;
     padding: 12px 30px;
     background-color: #007bff;
     color: #fff;
@@ -29,15 +55,16 @@
     position: relative;
   }
   
-  .pouring-button:hover {
+  .receive-button:hover {
     background-color: #0056b3;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   }
   
-  .pouring-button:active {
+  .receive-button:active {
     background-color: #004494;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   }
+
 .slope:before {
     content: "";
     background: #F2EDB4;
@@ -49,42 +76,42 @@
     margin-left: -40px;
     top:-5px;   
 }
-.background {
+.treebackground {
     width: 350px;
     height: 445px;
     position: absolute;
     margin: auto;
-    bottom: 0;
+    bottom: 10%;
     left: -200px;
     right: -200px;
     
 }
-.background .slope {
+.treebackground .slope {
     position: absolute;
     bottom:0;
 }
-.background>.flower {
+.treebackground>.flower {
     width: 25px;
     height: 25px;
     z-index: 0;
 }
-.background>.flower1 {
+.treebackground>.flower1 {
     top: 30px;
     left: 20%;
 }
-.background>.flower2 {
+.treebackground>.flower2 {
     top: 50px;
     left: 40%;
 }
-.background>.flower3 {
+.treebackground>.flower3 {
     top: 20px;
     left: 60%;
 }
-.background>.flower4 {
+.treebackground>.flower4 {
     top: 80px;
     left: 80%;
 }
-.background>.flower5 {
+.treebackground>.flower5 {
     top: 80px;
     left: 50%;
 }
