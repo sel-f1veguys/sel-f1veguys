@@ -47,7 +47,7 @@ public class TreeController {
     @PutMapping("/{id}/gifticon")
     @Operation(summary = "완성된 나무에서 기프티콘 받기", description = "완성된 나무에서 기프티콘 받기 버튼을 눌러 나무를 초기화합니다")
     public ResponseEntity<Tree> getGift(@PathVariable int id) {
-        Tree tree = treeService.waterTree(id);
+        Tree tree = treeService.getGift(id);
         return ResponseEntity.ok(tree);
     }
     

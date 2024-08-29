@@ -43,7 +43,7 @@ public class User {
     private LocalDateTime createdDate;
 
     @Column(name = "account_num", nullable = false, unique = true)
-    private String accountNum;
+    private String accountNum ="";
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CampaignHistory> campaignHistories;
