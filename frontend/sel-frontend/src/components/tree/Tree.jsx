@@ -2,9 +2,91 @@
 import React, { useEffect, useState } from "react";
 import Scene from "scenejs";
 import "./tree.css"; // Ensure to link the CSS file properly
+import axios from "axios"; 
+import Modal from 'react-modal';
+import styles from './Tree.module.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+Modal.setAppElement('#root'); // 모달 접근성 설정, root를 메인 요소로 설정
 
 const TreeComponent = () => {
   const [level, setLevel] = useState(0); // State to control the animation level
+  const [waterPoint, setWaterPoint] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModal2Open, setIsModal2Open] = useState(false);
+  const [selectedGift, setSelectedGift] = useState(""); 
+
+
+  useEffect(() => {
+    const fetchWaterPoint = async () => {
+      try {
+        const response = await axios.get(`/api/tree/1`);
+        setWaterPoint(response.data.count/500); 
+        console.log(response.data)
+      } catch (error) {
+        console.error("Failed to fetch water point data:", error);
+      }
+    };
+
+    fetchWaterPoint(); // 컴포넌트가 마운트될 때 API 호출
+  }, []); 
+
+  useEffect(() => {
+    if (level < waterPoint) {
+      if(level === 0){
+        const timer = setTimeout(() => {
+          setLevel((prevLevel) => prevLevel + 1);
+        }, 0); 
+        return () => clearTimeout(timer); 
+      }else{
+        const timer = setTimeout(() => {
+          setLevel((prevLevel) => prevLevel + 1);
+        }, 1000);
+        return () => clearTimeout(timer); 
+      }
+
+    }
+  }, [level, waterPoint]); // level과 waterPoint 값이 변경될 때마다 실행
+
+  useEffect(() => {
+    if (level >= 6) {
+      const sceneTree = new Scene(
+        {
+          ".treebackground>.flower": function (i) {
+            return {
+              0: {opacity: 0, transform: "translateY(0px) rotate(0deg)"},
+              1: {opacity: 1},
+              4: {opacity: 1},
+              5: {opacity: 0, transform: "translateY(300px) rotate(360deg)"},
+              options: {
+                delay: 2 + i,
+                iterationCount: "infinite"
+              },
+            };
+          },
+        }, {
+          selector: true
+        }
+      );
+
+      sceneTree.playCSS();
+    }else{
+      const sceneTree = new Scene(
+        {
+          ".treebackground>.flower": function (i) {
+            return {
+              0: {opacity: 0, transform: "translateY(0px) rotate(0deg)"}
+            };
+          },
+        }, {
+          selector: true
+        }
+      );
+
+      sceneTree.playCSS();
+    }
+  }, [level]); 
 
   useEffect(() => {
     if (level === 1) {
@@ -12,7 +94,7 @@ const TreeComponent = () => {
         {
           ".tree": {
             0: { transform: "scale(0)" },
-            1.5: { transform: "scale(1)" },
+            1: { transform: "scale(1)" },
           },
         },
         {
@@ -27,7 +109,39 @@ const TreeComponent = () => {
   useEffect(() => {
     if (level === 2) {
       const branch1 = document.querySelector(".branch1");
-      const sceneItem = new Scene(
+  
+      // sceneTree 객체를 먼저 생성
+      const sceneTree = new Scene({}, { selector: true });
+  
+      // 선택한 요소들(branch, leaf, flower)을 반복 처리하여 애니메이션 설정
+      const branchs = document.querySelectorAll(".tree .branch, .tree .leaf, .tree .flower1");
+      console.log(branchs)
+      const depths = [0, 0, 0];
+  
+      for (let i = 0; i < branchs.length; ++i) {
+        const sceneItem = sceneTree.newItem("item" + i);
+        const className = branchs[i].className;
+  
+        if (className.includes("branch-inner")) {
+          ++depths[1];
+          depths[2] = 0;
+        } else if (className.includes("branch")) {
+          ++depths[0];
+          depths[1] = 0;
+          depths[2] = 0;
+        } else if (className.includes("leaf") || className.includes("flower1")) {
+          ++depths[2];
+        }
+        sceneItem.setElement(branchs[i]);
+        sceneItem.setCSS(0, ["transform"]);
+  
+        const time = depths[0] * 0.5 + depths[1] * 0.5 + depths[2] * 0.5;
+        sceneItem.set(time, "transform", "scale", 0);
+        sceneItem.set(time + 1, "transform", "scale", 1);
+      }
+  
+      // 브랜치1에 대한 기존 애니메이션 설정
+      const sceneItemBranch1 = new Scene(
         {
           ".branch1": {
             0: { transform: "scale(0)" },
@@ -38,29 +152,65 @@ const TreeComponent = () => {
           selector: true,
         }
       );
-
-      sceneItem.playCSS();
+  
+      // 새로 생성된 sceneTree와 branch1 애니메이션 재생
+      sceneTree.playCSS();
+      sceneItemBranch1.playCSS();
     }
   }, [level]); // Only runs when level changes to 2
+  
 
   useEffect(() => {
     if (level === 3) {
-      const branch2 = document.querySelector(".branch2");
-      const sceneItem = new Scene(
-        {
-          ".branch2": {
-            0: { transform: "scale(0)" },
-            1: { transform: "scale(1)" },
-          },
-        },
-        {
-          selector: true,
+      const sceneTreeLevel3 = new Scene({}, { selector: true });
+      const branchsLevel3 = document.querySelectorAll(".branch2, .branch2 .branch-inner, .branch2 .leaf, .branch2 .flower1");
+      console.log(branchsLevel3)
+      const depthsLevel3 = [0, 0, 0];
+  
+      for (let i = 0; i < branchsLevel3.length; ++i) {
+        const sceneItem = sceneTreeLevel3.newItem("item3-" + i); // Unique item name
+        const className = branchsLevel3[i].className;
+  
+        if (className.includes("branch-inner")) {
+          ++depthsLevel3[1];
+          depthsLevel3[2] = 0;
+        } else if (className.includes("branch")) {
+          ++depthsLevel3[0];
+          depthsLevel3[1] = 0;
+          depthsLevel3[2] = 0;
+        } else if (className.includes("leaf") || className.includes("flower1")) {
+          ++depthsLevel3[2];
         }
-      );
-
-      sceneItem.playCSS();
+        sceneItem.setElement(branchsLevel3[i]);
+        sceneItem.setCSS(0, ["transform"]);
+  
+        const time = depthsLevel3[0] * 0.5 + depthsLevel3[1] * 0.5 + depthsLevel3[2] * 0.5;
+        sceneItem.set(time, "transform", "scale", 0);
+        sceneItem.set(time + 1, "transform", "scale", 1);
+      }
+  
+      sceneTreeLevel3.playCSS(); // 애니메이션 실행
     }
-  }, [level]); // Only runs when level changes to 3
+  }, [level]);
+
+  // useEffect(() => {
+  //   if (level === 3) {
+  //     const branch2 = document.querySelector(".branch2");
+  //     const sceneItem = new Scene(
+  //       {
+  //         ".branch2": {
+  //           0: { transform: "scale(0)" },
+  //           1: { transform: "scale(1)" },
+  //         },
+  //       },
+  //       {
+  //         selector: true,
+  //       }
+  //     );
+
+  //     sceneItem.playCSS();
+  //   }
+  // }, [level]); // Only runs when level changes to 3
 
   useEffect(() => {
     if (level === 4) {
@@ -119,18 +269,133 @@ const TreeComponent = () => {
     }
   }, [level]); // Only runs when level changes to 6
 
-  const handleButtonClick = () => {
-    setLevel((prevLevel) => (prevLevel < 6 ? prevLevel + 1 : 6));
+
+
+  const handleButtonClick = async () => {
+    try {
+      const response = await axios.put(`/api/tree/1/water`);
+      
+      // 서버에서 반환된 데이터를 처리하거나, 상태를 업데이트하는 코드 추가 가능
+      console.log("Watering successful:", response.data);
+      setLevel(response.data.count/500); 
+      setWaterPoint(level);
+
+    } catch (error) {
+      if (error.response && error.response.data.message === "보유하고 있는 포인트가 부족합니다.") {
+        toast.error("보유하고 있는 포인트가 부족합니다.");
+      } else {
+        console.error("Failed to send watering request:", error);
+      }
+    }
+  };
+
+  const receiveGift = async () => {
+    setIsModalOpen(true); // 모달 열기
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false); 
+  };
+
+  const closeModal2 = () => {
+    setIsModal2Open(false); 
+  };
+
+  const choiceGift = async (gift) => {
+    try {
+      const response = await axios.put(`/api/tree/1/gifticon`);
+      setSelectedGift(gift); 
+      console.log("Watering successful:", response.data);
+      setWaterPoint(0); // 물 양 초기화
+      setLevel(response.data.count); 
+      setIsModalOpen(false); 
+      setIsModal2Open(true); // 새로운 모달 열기
+    } catch (error) {
+      console.error("Failed to send watering request:", error);
+      setIsModalOpen(false); 
+    }
+    console.log("닫음");
   };
 
   return (
-    <div className="container">
-      <div className="background">
+    <div className={styles.mainmain}>
+
+    <div className="treecontainer">
+        <ToastContainer position="top-center" autoClose={3000} /> 
+      <div className="treebackground">
+      <div className="flower roundpetal petal5 flower1">
+    <div className="petal">
+      <div className="petal">
+        <div className="petal">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div className="flower roundpetal petal5 flower2 blueflower">
+    <div className="petal">
+      <div className="petal">
+        <div className="petal">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div className="flower roundpetal petal5 flower3 yellowflower">
+    <div className="petal">
+      <div className="petal">
+        <div className="petal">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div className="flower roundpetal petal5 flower4 purpleflower">
+    <div className="petal">
+      <div className="petal">
+        <div className="petal">
+        </div>
+      </div>
+    </div>
+  </div>
         <div className="slope">
         </div>
+        {waterPoint < 6 ? (
           <button className="pouring-button" onClick={handleButtonClick}>
-            Pouring Water
+            물 주기
           </button>
+          ) : (
+          <button className="receive-button" onClick={receiveGift}>
+            기프티콘 받기
+          </button>
+        )}
+        <Modal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        contentLabel="기프티콘 받기"
+        className={styles.modal}
+        overlayClassName={styles.overlay}
+      >
+        <h2>축하합니다! 나무가 다 컸어요</h2>
+        <img src="./assets/tree4.png" alt="Tree" className={styles.modaltreeimg} />
+        <p>보상을 선택하세요</p>
+        <button onClick={() => choiceGift("커피")} className={styles.giftButton1}>커피</button>
+  <button onClick={() => choiceGift("간식")} className={styles.giftButton2}>간식</button>
+  <button onClick={() => choiceGift("빵")} className={styles.giftButton3}>빵</button>
+      </Modal>
+      <Modal
+  isOpen={isModal2Open}
+  onRequestClose={closeModal2}
+  contentLabel="선택한 기프티콘"
+  className={styles.modal}
+  overlayClassName={styles.overlay}
+>
+  <h2>축하합니다</h2>
+  <img src={`./assets/${selectedGift}.jpg`} alt={selectedGift} className={styles.giftimg} />
+  <div className={styles.buttonContainer}>
+    <a href={`./assets/${selectedGift}.jpg`} download={`${selectedGift}.jpg`} className={styles.saveimg}>
+      저장하기
+    </a>
+    <button onClick={closeModal2} className={styles.closeButton}>닫기</button>
+  </div>
+</Modal>
         {level >= 1 && (
           <div className="tree">
             {level >= 2 && (
@@ -311,6 +576,7 @@ const TreeComponent = () => {
           </div>
         )}
       </div>
+    </div>
     </div>
   );
 };
