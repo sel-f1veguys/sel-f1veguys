@@ -1,7 +1,8 @@
 package com.f1veguys.sel.domain.spendinghistory.controller;
 
+import com.f1veguys.sel.domain.spendinghistory.dto.PeriodStatisticsResponse;
 import com.f1veguys.sel.domain.spendinghistory.service.SpendingHistoryService;
-import com.f1veguys.sel.dto.StatisticsResponse;
+import com.f1veguys.sel.domain.spendinghistory.dto.StatisticsResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,11 +20,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class SpendingHistoryController {
     private final SpendingHistoryService spendingHistoryService;
 
-    @GetMapping({"", "/{period}"})
-    public ResponseEntity<?> getStatistics(@PathVariable(value = "period", required = false) Integer period, HttpServletRequest request) {
+    @GetMapping("")
+    public ResponseEntity<?> getStatistics(HttpServletRequest request) {
         int userId = request.getIntHeader("userId");
-        int actualPeriod = period != null ? period : 30;
-        StatisticsResponse statisticsResponse = spendingHistoryService.getStatistics(userId, actualPeriod);
+        StatisticsResponse statisticsResponse = spendingHistoryService.getStatistics(userId);
         return ResponseEntity.status(HttpStatus.OK).body(statisticsResponse);
+    }
+    @GetMapping("/{period}")
+    public ResponseEntity<?> getPeriodStatistics(@PathVariable(value = "period") int period, HttpServletRequest request) {
+        int userId = request.getIntHeader("userId");
+        PeriodStatisticsResponse periodStatistics = spendingHistoryService.getPeriodStatistics(userId, period);
+        return ResponseEntity.status(HttpStatus.OK).body(periodStatistics);
     }
 }
