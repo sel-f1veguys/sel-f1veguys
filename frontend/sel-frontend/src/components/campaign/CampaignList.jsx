@@ -52,12 +52,6 @@ const CampaignList = () => {
       {/* 파란색 배경만 존재 */}
       <div className={styles.bluebg}></div>
 
-      {/* 상단 아이콘들 */}
-      <div className={styles.topIcons}>
-        <BiDotsVerticalRounded className={styles.moreIcon} />
-        <BiUser className={styles.userIcon} />
-      </div>
-
       {/* 캠페인 검색 및 리스트 */}
       <div className={styles.campaignContainer}>
         <p className={styles.campaignTitle}>캠페인 모아보기</p>

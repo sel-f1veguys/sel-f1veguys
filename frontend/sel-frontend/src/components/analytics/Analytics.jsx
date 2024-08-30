@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Line, Bar, Doughnut } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -12,10 +12,12 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import axios from "axios";
 import { CheckCircle, ArrowDownward, ArrowUpward } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"; // Import Material-UI Icons for Expand
 import ExpandLessIcon from "@mui/icons-material/ExpandLess"; // Import the Collapse Icon
+
 
 ChartJS.register(
   CategoryScale,
@@ -30,6 +32,11 @@ ChartJS.register(
 );
 
 const Analytics = () => {
+
+
+  const [myPoint, setMypoint] = useState();
+  const [totalAndEco, setTotalAndEco] = useState([]);
+
   const [todoItems, setTodoItems] = useState([
     { id: 1, text: "영수증 인증하기(100p)", completed: false },
     { id: 2, text: "6000보 걷기(100p)", completed: false },
@@ -158,6 +165,60 @@ const Analytics = () => {
     maintainAspectRatio: false,
   };
 
+  //기본 통계를 받는 API
+  const fetchStatistics = async () => {
+    try {
+      // 출석 API 호출
+      const response = await axios.get("/api/statistics", {
+        headers: { userId: 5 }, // userId 헤더 추가
+      });
+
+      
+
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error updating statistics:", error);
+    }
+  };
+
+  //기본 한달 에코 소비내역 통계를 받는 API
+  const fetchStatistics30 = async () => {
+    try {
+      // 출석 API 호출
+      const response = await axios.get("/api/statistics/30", {
+        headers: { userId: 5}, // userId 헤더 추가
+      });
+
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error updating statistics for 30:", error);
+    }
+  };
+
+   //기본 한달 에코 소비내역 통계를 받는 API
+   const fetchMypoint = async () => {
+    try {
+      // 출석 API 호출
+      const response = await axios.get("/api/points/mypoint", {
+        headers: { userId: 5 }, // userId 헤더 추가
+      });
+      setMypoint(response.data)
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error updating statistics for 30:", error);
+    }
+  };
+
+
+  useEffect(() => {
+    /**
+     * API로 부르기
+     */
+    fetchStatistics();
+    fetchStatistics30();
+    fetchMypoint();
+  }, []);
+
   return (
     <div style={styles.fullWidthBackground}>
       <div style={styles.background}>
@@ -228,7 +289,7 @@ const Analytics = () => {
               <div style={styles.donateText}>
                 <div>
                   <p style={styles.transparentText}>기부포인트 총액</p>
-                  <p style={styles.boldBigText}>1200p 기부</p>
+                  <p style={styles.boldBigText}>{myPoint}P 기부</p>
                   <p style={styles.greenText}>+23% 지난 주 대비</p>
                 </div>
               </div>
@@ -270,7 +331,7 @@ const Analytics = () => {
           <div style={styles.pointEarning}>
             <div style={styles.pointEarningHeader}>
               <h3 style={styles.pointEarningtitle}>포인트 적립하기</h3>
-              <button style={styles.pointEarningDetail}>New Task</button>
+              <button style={styles.pointEarningDetail}>:</button>
             </div>
             <div style={styles.pointEarningList}>
               {todoItems.map((item) => (
@@ -282,7 +343,7 @@ const Analytics = () => {
                   />
                   <div style={styles.insideOfItem}>
                     <label style={styles.itemText}>{item.text}</label>
-                    <button style={styles.detButton}>Det</button>
+                    <button style={styles.detButton}>참여하기</button>
                   </div>
                 </div>
               ))}
