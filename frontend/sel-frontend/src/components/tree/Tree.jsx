@@ -325,7 +325,6 @@ const TreeComponent = () => {
 
   return (
     <div className={styles.mainmain}>
-
     <div className="treecontainer">
         <ToastContainer position="top-center" autoClose={3000} /> 
       <div className="treebackground">
@@ -364,9 +363,16 @@ const TreeComponent = () => {
         <div className="slope">
         </div>
         {waterPoint < 6 ? (
+          <div>
           <button className="pouring-button" onClick={handleButtonClick}>
             물 주기
           </button>
+{/* <button className={styles.buttonliq}>
+  <span className={styles.liquid}></span>  
+  <span className={styles.btntxt123}><i class="bi bi-droplet-half"></i></span>
+</button> */}
+          </div>
+          
           ) : (
           <button className="receive-button" onClick={receiveGift}>
             기프티콘 받기
