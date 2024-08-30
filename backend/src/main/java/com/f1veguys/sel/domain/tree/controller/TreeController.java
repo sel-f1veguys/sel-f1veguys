@@ -18,8 +18,8 @@ public class TreeController {
 
     @GetMapping("/{userId}")
     @Operation(summary = "나무 정보 조회", description = "나무의 상세 정보를 조회합니다.")
-    public ResponseEntity<Tree> getTree(@PathVariable int userId) {
-        Tree tree = treeService.getTree(userId);
+    public ResponseEntity<Tree> getTree(@PathVariable("userId") int id) {
+        Tree tree = treeService.getTree(id);
         return ResponseEntity.ok(tree);
     }
 
@@ -30,9 +30,9 @@ public class TreeController {
 //    }
 
     // 물주기
-    @PutMapping("/{id}/water")
+    @PutMapping("/{treeId}/water")
     @Operation(summary = "나무에 물주기", description = "나무에 물(포인트, 500)를 줍니다.")
-    public ResponseEntity<Tree> waterTree(@PathVariable int id) {
+    public ResponseEntity<Tree> waterTree(@PathVariable("treeId") int id) {
         Tree tree = treeService.waterTree(id);
         return ResponseEntity.ok(tree);
     }
@@ -44,9 +44,9 @@ public class TreeController {
 //    }
 
     // 기프티콘 받기
-    @PutMapping("/{id}/gifticon")
+    @PutMapping("/{treeId}/gifticon")
     @Operation(summary = "완성된 나무에서 기프티콘 받기", description = "완성된 나무에서 기프티콘 받기 버튼을 눌러 나무를 초기화합니다")
-    public ResponseEntity<Tree> getGift(@PathVariable int id) {
+    public ResponseEntity<Tree> getGift(@PathVariable("treeId") int id) {
         Tree tree = treeService.getGift(id);
         return ResponseEntity.ok(tree);
     }

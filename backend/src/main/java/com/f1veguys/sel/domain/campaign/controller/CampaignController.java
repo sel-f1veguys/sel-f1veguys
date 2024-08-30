@@ -42,7 +42,7 @@ public class CampaignController {
 //        return ResponseEntity.noContent().build();
 //    }
 
-    @PostMapping("/{campaignId}")
+    @GetMapping("/{campaignId}")
     @Operation(summary = "캠페인 상세조회", description = "캠페인을 상세조회 합니다.")
     public ResponseEntity<CampaignResponse> getCampaign(@PathVariable("campaignId") int id) {
         CampaignResponse campaign = campaignService.getCampaign(id);
