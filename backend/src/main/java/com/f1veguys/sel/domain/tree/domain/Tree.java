@@ -24,7 +24,7 @@ public class Tree {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference(value = "user-tree")
     private User user;
 
     @Column(name = "count", nullable = false)

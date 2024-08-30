@@ -4,6 +4,8 @@ import com.f1veguys.sel.domain.campaign.domain.Campaign;
 import com.f1veguys.sel.domain.campaignhistory.domain.CampaignHistory;
 import com.f1veguys.sel.domain.campaignhistory.repository.CampaignHistoryRepository;
 import com.f1veguys.sel.domain.campaign.repository.CampaignRepository;
+import com.f1veguys.sel.domain.pointshistory.service.PointsHistoryService;
+import com.f1veguys.sel.dto.Operation;
 import com.f1veguys.sel.global.error.exception.CampaignNotFoundException;
 import com.f1veguys.sel.global.error.exception.InsufficientPointsException;
 import com.f1veguys.sel.global.error.exception.PointsNotFoundException;
@@ -25,6 +27,7 @@ public class CampaignHistoryServiceImpl implements CampaignHistoryService {
     private final CampaignRepository campaignRepository;
     private final UserRepository userRepository;
     private final PointsRepository pointsRepository;
+    private final PointsHistoryService pointsHistoryService;
 
     @Override
     public CampaignHistory participateInCampaign(int campaignId, int userId, int pay) {
@@ -67,6 +70,9 @@ public class CampaignHistoryServiceImpl implements CampaignHistoryService {
 
         userPoints.setBalance(userPoints.getBalance() - pay);
         pointsRepository.save(userPoints);
+        
+        //내역 저장
+        pointsHistoryService.savePointsHistory(userId, Operation.SPEND, pay, "캠페인 참여");
 
         return campaignHistoryRepository.save(history);
     }

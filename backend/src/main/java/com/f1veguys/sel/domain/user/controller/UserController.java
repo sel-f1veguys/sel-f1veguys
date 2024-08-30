@@ -3,6 +3,7 @@ package com.f1veguys.sel.domain.user.controller;
 import com.f1veguys.sel.dto.LoginRequest;
 import com.f1veguys.sel.domain.user.domain.User;
 import com.f1veguys.sel.domain.user.service.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,8 @@ public class UserController {
 
     // 회원가입 API
     @PostMapping("/register")
-    public User register(@RequestBody User user) {
+    public User register(@RequestBody User user) throws JsonProcessingException {
+        System.out.println("start");
         return userService.register(user);
     }
 

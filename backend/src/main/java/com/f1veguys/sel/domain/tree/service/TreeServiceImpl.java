@@ -1,6 +1,9 @@
 package com.f1veguys.sel.domain.tree.service;
 
+import com.f1veguys.sel.domain.pointshistory.repository.PointsHistoryRepository;
+import com.f1veguys.sel.domain.pointshistory.service.PointsHistoryService;
 import com.f1veguys.sel.domain.tree.domain.Tree;
+import com.f1veguys.sel.dto.Operation;
 import com.f1veguys.sel.global.error.exception.*;
 import com.f1veguys.sel.global.error.exception.InsufficientPointsException;
 import com.f1veguys.sel.domain.points.domain.Points;
@@ -20,6 +23,7 @@ public class TreeServiceImpl implements TreeService {
 
     private final TreeRepository treeRepository;
     private final PointsRepository pointsRepository;
+    private final PointsHistoryService pointsHistoryService;
 
     @Override
     public Tree getTree(int userId) {
@@ -68,6 +72,9 @@ public class TreeServiceImpl implements TreeService {
         // 포인트 차감
         userPoints.setBalance(userPoints.getBalance() - 500);
         pointsRepository.save(userPoints);
+        
+        //내역 저장
+        pointsHistoryService.savePointsHistory(id, Operation.SPEND, 500, "나무 물 주기");
 
         // 나무 물주기
         tree.setCount(tree.getCount() + 500);

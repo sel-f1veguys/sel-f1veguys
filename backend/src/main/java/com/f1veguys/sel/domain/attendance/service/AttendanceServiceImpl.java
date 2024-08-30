@@ -2,6 +2,11 @@ package com.f1veguys.sel.domain.attendance.service;
 
 import com.f1veguys.sel.domain.attendance.domain.Attendance;
 import com.f1veguys.sel.domain.attendance.repository.AttendanceRepository;
+import com.f1veguys.sel.domain.points.domain.Points;
+import com.f1veguys.sel.domain.points.service.PointsService;
+import com.f1veguys.sel.domain.pointshistory.service.PointsHistoryService;
+import com.f1veguys.sel.domain.user.service.UserService;
+import com.f1veguys.sel.dto.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +19,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AttendanceServiceImpl implements AttendanceService{
     private final AttendanceRepository attendanceRepository;
+    private final PointsHistoryService pointsHistoryService;
+    private final PointsService pointsService;
 
     @Override
     public void attend(int userId) {
         Attendance attendance = new Attendance();
         attendance.setUserId(userId);
         attendance.setAttendanceDate(LocalDateTime.now());
+        Points points = pointsService.getPoints(userId);
+        points.setBalance(points.getBalance() + 10);
+        pointsHistoryService.savePointsHistory(userId, Operation.EARN, 10, "출석 체크");
         attendanceRepository.save(attendance);
     }
 

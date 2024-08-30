@@ -2,6 +2,7 @@ package com.f1veguys.sel.domain.user.domain;
 
 import com.f1veguys.sel.domain.campaignhistory.domain.CampaignHistory;
 import com.f1veguys.sel.domain.tree.domain.Tree;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -46,8 +47,10 @@ public class User {
     private String accountNum ="";
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference(value = "user-campaign-history")
     private List<CampaignHistory> campaignHistories;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference(value = "user-tree")
     private List<Tree> trees;
 }
