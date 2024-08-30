@@ -29,7 +29,7 @@ const AppContent = () => {
 
   return (
     <div className="App">
-      {/* <Header /> */}
+      <Header />
       <Routes>
       <Route path="/" element={<MainView />} />
       <Route path="/analytics" element={<AnalyticsView />} />
