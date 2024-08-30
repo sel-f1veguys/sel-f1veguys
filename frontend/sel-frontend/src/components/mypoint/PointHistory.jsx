@@ -1,16 +1,83 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './PointHistory.module.css';
+import axios from 'axios';
 
 const PointHistory = ({ filter }) => {
-  // 실제로는 여기서 filter를 사용하여 API 호출 등을 통해 데이터를 가져와야 합니다.
-  const dummyData = [
-    { date: '2024.01.03', time: '04:31:37', action: '출석 적립', points: 50, total: 1301 },
-    { date: '2024.01.01', time: '11:32:12', action: '나무 물주기', points: -50, total: 1251 },
-    { date: '2024.01.01', time: '15:20:22', action: '출석 적립', points: 30, total: 1281 },
-    { date: '2024.01.02', time: '08:14:56', action: '나무 물주기', points: -20, total: 1261 },
-  ];
+  // 최종 포인트를 주어진 값으로 설정합니다.
+  const finalTotal = 1251;
+  const dummyUser = 1; // 유저 ID를 설정 (예시)
 
-  const groupedData = dummyData.reduce((acc, item) => {
+  const [pointData, setPointData] = useState([]); // API 데이터를 저장할 상태
+  const [loading, setLoading] = useState(true); // 로딩 상태 관리
+  const [error, setError] = useState(null); // 에러 상태 관리
+
+  // 데이터 fetching 함수
+  const fetchPointHistory = async () => {
+    try {
+      const response = await axios.get(`/points-history/info`, {
+        headers: {
+          'Content-Type': 'application/json',
+          userId: dummyUser, // 헤더에 유저 ID 추가
+        },
+      });
+      console.log(response.data);
+
+      const data = response.data;
+      setPointData(data.PointHistory); // API에서 받은 데이터 설정
+    } catch (error) {
+      setError(error.message); // 에러 메시지 설정
+    } finally {
+      setLoading(false); // 로딩 상태 false로 설정
+    }
+  };
+
+  // 컴포넌트가 마운트될 때 데이터 fetching 실행
+  useEffect(() => {
+    fetchPointHistory();
+  }, []);
+
+  // 날짜별로 데이터를 정렬합니다 (최신 날짜 순).
+  const sortedData = [...pointData].sort(
+    (a, b) => new Date(b.createdTime) - new Date(a.createdTime)
+  );
+
+  // 포인트를 역산하여 각 항목의 `total`을 계산합니다.
+  const calculateTotals = (data) => {
+    let currentTotal = finalTotal;
+    return data.map((item) => {
+      const newTotal = currentTotal;
+
+      // createdTime이 있는지 확인하고, 없으면 기본값으로 설정합니다.
+      if (!item.createdTime) {
+        console.warn('Invalid createdTime:', item); // 잘못된 데이터 경고
+        return {
+          date: 'Invalid Date',
+          time: 'Invalid Time',
+          action: item.description || 'Unknown Action',
+          points: item.operation === 'EARN' ? item.amount : -item.amount,
+          total: newTotal,
+        };
+      }
+
+      const [date, time] = item.createdTime.split('T'); // 'YYYY-MM-DD'와 'HH:MM:SS'로 분리
+      const formattedDate = date ? date.replace(/-/g, '.') : 'Invalid Date'; // YYYY.MM.DD 형식으로 변환
+      const formattedTime = time ? time.split('.')[0] : 'Invalid Time'; // HH:MM:SS 형식으로 변환
+
+      currentTotal -= item.operation === 'EARN' ? item.amount : -item.amount; // EARN일 때 포인트 추가, SPEND일 때 포인트 차감
+      return {
+        date: formattedDate,
+        time: formattedTime,
+        action: item.description,
+        points: item.operation === 'EARN' ? item.amount : -item.amount,
+        total: newTotal,
+      };
+    });
+  };
+
+  const processedData = calculateTotals(sortedData);
+
+  // 데이터를 날짜별로 그룹화합니다.
+  const groupedData = processedData.reduce((acc, item) => {
     if (!acc[item.date]) {
       acc[item.date] = [];
     }
@@ -19,6 +86,9 @@ const PointHistory = ({ filter }) => {
   }, {});
 
   const dates = Object.keys(groupedData);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className={styles.pointHistory}>
