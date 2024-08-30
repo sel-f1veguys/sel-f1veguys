@@ -3,7 +3,7 @@ package com.f1veguys.sel.domain.ecocompany.domain;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Eco_Company")
+@Table(name = "eco_company")
 public class EcoCompany {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
