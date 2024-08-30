@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/campaignhistory")
@@ -25,6 +27,14 @@ public class CampaignHistoryController {
         CampaignHistory campaignHistory = campaignHistoryService.participateInCampaign(campaignId, userId, pay);
         return ResponseEntity.ok(campaignHistory);
     }
-    
-    // TODO 참여한 캠페인 모두 조회
+
+    @GetMapping("/{userId}")
+    @Operation(summary = "유저가 참여한 캠페인 조회", description = "사용자가 참여한 캠페인을 모두 조회합니다")
+    public ResponseEntity<List<CampaignHistory>> getAllCampaigns(@PathVariable("userId") int id) {
+        List<CampaignHistory> campaignHistories = campaignHistoryService.getAllCampaigns(id);
+        if (campaignHistories.size() == 0) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(campaignHistories);
+    }
 }

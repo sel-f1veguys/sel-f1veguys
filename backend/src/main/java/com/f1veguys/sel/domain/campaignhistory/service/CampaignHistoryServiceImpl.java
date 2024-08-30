@@ -18,6 +18,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -75,5 +77,10 @@ public class CampaignHistoryServiceImpl implements CampaignHistoryService {
         pointsHistoryService.savePointsHistory(userId, Operation.SPEND, pay, "캠페인 참여");
 
         return campaignHistoryRepository.save(history);
+    }
+
+    @Override
+    public List<CampaignHistory> getAllCampaigns(int userId) {
+        return campaignHistoryRepository.findAllByUser_Id(userId);
     }
 }
