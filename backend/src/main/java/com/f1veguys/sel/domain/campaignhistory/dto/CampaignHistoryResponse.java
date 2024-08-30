@@ -8,10 +8,10 @@ public record CampaignHistoryResponse(
         int campaignId,
         int userId,
         int amount,
-        boolean completed,
-        LocalDateTime attendedDate
+        LocalDateTime startDate,
+        LocalDateTime endDate
 ) {
-    public CampaignHistoryResponse(CampaignHistory campaignHistory, boolean completed) {
-        this(campaignHistory.getCampaignId(), campaignHistory.getUserId(), campaignHistory.getAmount(), completed, campaignHistory.getAttendedDate());
+    public CampaignHistoryResponse(CampaignHistory campaignHistory, LocalDateTime startDate, LocalDateTime endDate) {
+        this(campaignHistory.getCampaignId(), campaignHistory.getUserId(), campaignHistory.getAmount(),startDate, endDate);
     }
 }
