@@ -2,6 +2,7 @@ package com.f1veguys.sel.domain.campaignhistory.service;
 
 import com.f1veguys.sel.domain.campaign.domain.Campaign;
 import com.f1veguys.sel.domain.campaignhistory.domain.CampaignHistory;
+import com.f1veguys.sel.domain.campaignhistory.dto.CampaignHistoryResponse;
 import com.f1veguys.sel.domain.campaignhistory.repository.CampaignHistoryRepository;
 import com.f1veguys.sel.domain.campaign.repository.CampaignRepository;
 import com.f1veguys.sel.domain.pointshistory.service.PointsHistoryService;
@@ -18,7 +19,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -80,7 +83,14 @@ public class CampaignHistoryServiceImpl implements CampaignHistoryService {
     }
 
     @Override
-    public List<CampaignHistory> getAllCampaigns(int userId) {
-        return campaignHistoryRepository.findAllByUser_Id(userId);
+    public List<CampaignHistoryResponse> getAllCampaigns(int userId) {
+        List<CampaignHistory> campaignHistories = campaignHistoryRepository.findAllByUser_Id(userId);
+
+        return campaignHistories.stream().map(campaignHistory -> {
+            Campaign campaign = campaignRepository.findById(campaignHistory.getCampaignId())
+                    .orElseThrow(CampaignNotFoundException::new);
+            boolean completed = campaign.getEndDate().isBefore(LocalDateTime.now());
+            return new CampaignHistoryResponse(campaignHistory, completed);
+        }).collect(Collectors.toList());
     }
 }

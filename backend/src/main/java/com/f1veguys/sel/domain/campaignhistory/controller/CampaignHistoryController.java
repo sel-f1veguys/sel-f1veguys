@@ -1,6 +1,7 @@
 package com.f1veguys.sel.domain.campaignhistory.controller;
 
 import com.f1veguys.sel.domain.campaignhistory.domain.CampaignHistory;
+import com.f1veguys.sel.domain.campaignhistory.dto.CampaignHistoryResponse;
 import com.f1veguys.sel.domain.campaignhistory.service.CampaignHistoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -30,8 +31,8 @@ public class CampaignHistoryController {
 
     @GetMapping("/{userId}")
     @Operation(summary = "유저가 참여한 캠페인 조회", description = "사용자가 참여한 캠페인을 모두 조회합니다")
-    public ResponseEntity<List<CampaignHistory>> getAllCampaigns(@PathVariable("userId") int id) {
-        List<CampaignHistory> campaignHistories = campaignHistoryService.getAllCampaigns(id);
+    public ResponseEntity<List<CampaignHistoryResponse>> getAllCampaigns(@PathVariable("userId") int id) {
+        List<CampaignHistoryResponse> campaignHistories = campaignHistoryService.getAllCampaigns(id);
         if (campaignHistories.size() == 0) {
             return ResponseEntity.notFound().build();
         }
