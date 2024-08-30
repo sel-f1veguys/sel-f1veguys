@@ -50,5 +50,5 @@ public class TreeController {
         Tree tree = treeService.getGift(id);
         return ResponseEntity.ok(tree);
     }
-    
+
 }

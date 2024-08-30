@@ -1,7 +1,9 @@
 package com.f1veguys.sel.domain.user.domain;
 
+import com.f1veguys.sel.domain.badge.domain.Badge;
 import com.f1veguys.sel.domain.campaignhistory.domain.CampaignHistory;
 import com.f1veguys.sel.domain.tree.domain.Tree;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -53,4 +55,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference(value = "user-tree")
     private List<Tree> trees;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference(value = "user-badge")
+    private List<Badge> badges;
 }
