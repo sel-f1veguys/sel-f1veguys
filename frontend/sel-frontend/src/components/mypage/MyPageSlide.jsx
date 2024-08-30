@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Slider from "react-slick";
 import styles from './MyPageSlide.module.css';
 import ProgressLine from '../main/ProgressLine';
-import "slick-carousel/slick/slick.css"; 
-import "slick-carousel/slick/slick-theme.css";
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 const MyPageSlide = () => {
   const [campaigns, setCampaigns] = useState([]);
@@ -37,7 +36,7 @@ const MyPageSlide = () => {
           캠페인 바로가기 <i className="bi bi-chevron-right"></i>
         </Link>
       </div>
-      <Slider {...settings}>
+      <Carousel  {...settings}>
         {campaigns.map((campaign, index) => (
           <div key={campaign.id} className={styles.slide}>
             <div className={styles.imageWrapper}>
@@ -64,7 +63,7 @@ const MyPageSlide = () => {
             </div>
           </div>
         ))}
-      </Slider>
+      </Carousel>
     </div>
   );
 };
