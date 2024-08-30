@@ -14,9 +14,43 @@
     position: relative;
   }
   
+  .button-container{
+    margin: 250px 0 0 85%;
+  }
+
+  .info-button{
+    padding: 12px 15px;
+    background-color: #7a7a7a;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    margin-bottom: 15px;
+  }
+
+  .dogam-button{
+    padding: 12px 15px;
+    background-color: #ffdc84;
+    color: #141414;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    margin-bottom: 15px;
+  }
+
   .pouring-button {
-    margin: 380px 0 0 35%;
-    padding: 12px 30px;
+    /* margin: 380px 0 0 85%; */
+    padding: 12px 15px;
     background-color: #007bff;
     color: #fff;
     font-size: 16px;
@@ -29,7 +63,17 @@
     position: relative;
     
   }
+
+  .info-button:hover {
+    background-color: #4d4d4d;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
   
+  .dogam-button:hover {
+    background-color: #ceb26b;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+
   .pouring-button:hover {
     background-color: #0056b3;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
@@ -41,9 +85,8 @@
   }
 
   .receive-button {
-    margin: 380px 0 0 29%;
-    padding: 12px 30px;
-    background-color: #007bff;
+    padding: 12px 15px;
+    background-color: #ff5050;
     color: #fff;
     font-size: 16px;
     font-weight: 600;
@@ -56,7 +99,7 @@
   }
   
   .receive-button:hover {
-    background-color: #0056b3;
+    background-color: #c23b3b;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   }
   
@@ -81,9 +124,10 @@
     height: 445px;
     position: absolute;
     margin: auto;
-    bottom: 10%;
+    bottom: 7%;
     left: -200px;
     right: -200px;
+    overflow: hidden;
     
 }
 .treebackground .slope {
