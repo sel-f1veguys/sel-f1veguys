@@ -1,6 +1,5 @@
 package com.f1veguys.sel.domain.tree.service;
 
-import com.f1veguys.sel.domain.pointshistory.repository.PointsHistoryRepository;
 import com.f1veguys.sel.domain.pointshistory.service.PointsHistoryService;
 import com.f1veguys.sel.domain.tree.domain.Tree;
 import com.f1veguys.sel.dto.Operation;
