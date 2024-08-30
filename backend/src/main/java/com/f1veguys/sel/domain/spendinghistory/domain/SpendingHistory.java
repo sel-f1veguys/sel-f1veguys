@@ -2,9 +2,15 @@ package com.f1veguys.sel.domain.spendinghistory.domain;
 
 import com.f1veguys.sel.domain.user.domain.User;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "Spending_History")
 public class SpendingHistory {
@@ -29,4 +35,11 @@ public class SpendingHistory {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id", insertable = false, updatable = false)
     private User user;
+
+    public SpendingHistory(int userId, int amount, String description) {
+        this.userId = userId;
+        this.amount = amount;
+        this.description = description;
+        this.spendTime = LocalDateTime.now();
+    }
 }

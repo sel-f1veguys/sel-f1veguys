@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/attendance")
+@RequestMapping("/api/attendance")
 @Slf4j
 @RequiredArgsConstructor
 public class AttendanceController {

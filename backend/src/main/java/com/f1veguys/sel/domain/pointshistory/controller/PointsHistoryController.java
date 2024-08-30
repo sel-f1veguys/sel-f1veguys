@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/points-history")
+@RequestMapping("/api/points-history")
 @RequiredArgsConstructor
 public class PointsHistoryController {
     private final PointsHistoryService pointsHistoryService;

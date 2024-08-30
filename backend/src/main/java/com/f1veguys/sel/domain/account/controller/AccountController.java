@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/deposit")
+@RequestMapping("/api/deposit")
 public class AccountController {
     private final AccountService accountService;
 
@@ -31,6 +31,13 @@ public class AccountController {
         int amount = withdrawalRequest.getAmount();
         String description = withdrawalRequest.getDescription();
         accountService.withdrawBalance(userId, amount, description);
+        return ResponseEntity.ok("success");
+    }
+
+    @PostMapping("/check")
+    public ResponseEntity<?> checkAccount(HttpServletRequest request) {
+        int userId = request.getIntHeader("userId");
+        accountService.checkAccount(userId);
         return ResponseEntity.ok("success");
     }
 }

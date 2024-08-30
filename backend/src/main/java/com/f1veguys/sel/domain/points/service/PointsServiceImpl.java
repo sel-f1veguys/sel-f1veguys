@@ -4,6 +4,7 @@ import com.f1veguys.sel.domain.points.domain.Points;
 import com.f1veguys.sel.domain.points.repository.PointsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -11,6 +12,7 @@ public class PointsServiceImpl implements PointsService{
 
     private final PointsRepository pointsRepository;
     @Override
+    @Transactional
     public int addPoints(int userId, int amount) {
         return pointsRepository.addBalance(userId, amount);
     }
@@ -21,6 +23,7 @@ public class PointsServiceImpl implements PointsService{
     }
 
     @Override
+    @Transactional
     public int removePoints(int userId, int amount) {
         return pointsRepository.removeBalance(userId, amount);
     }

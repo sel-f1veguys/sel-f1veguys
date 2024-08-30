@@ -16,7 +16,7 @@ public class Points {
     @Column(name = "users_id")
     private int userId;
 
-    private Integer balance;
+    private Integer balance=0;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id", insertable = false, updatable = false)
