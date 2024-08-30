@@ -1,23 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styles from './MyPageSlide.module.css';
-import ProgressLine from '../main/ProgressLine';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import axios from 'axios';
 
 const MyPageSlide = () => {
   const [campaigns, setCampaigns] = useState([]);
+  const userId = 1;
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Simulating API call to fetch campaigns
-    const fetchedCampaigns = [
-      { id: 1, image: "/assets/green1.png", title: "미래 세대의 숲을 지켜주세요", daysLeft: 35, amount: 2812379, percent: 80, userPoints: 1000 },
-      { id: 2, image: "/assets/green2.png", title: "바다를 깨끗이 합시다", daysLeft: 20, amount: 1500000, percent: 60, userPoints: 500 },
-      { id: 3, image: "/assets/green3.png", title: "재활용으로 지구를 살리자", daysLeft: 45, amount: 3000000, percent: 40, userPoints: 750 },
-    ];
-    setCampaigns(fetchedCampaigns);
+    // 캠페인 데이터를 가져오는 함수
+    const fetchCampaigns = async () => {
+      try {
+        console.log('userId', userId);
+        const response = await axios.get(`/api/campaignhistory/${userId}`);
+        console.log("res", response.data);
+        setCampaigns(response.data); // 가져온 데이터를 상태에 저장
+      } catch (error) {
+        console.error("Failed to fetch campaigns:", error);
+      }
+    };
+
+    fetchCampaigns(); // 데이터를 가져오는 함수를 호출
   }, []);
+
+  // 캠페인 클릭 핸들러
+  const handleClickCampaign = (campaign) => {
+    if (campaign.completed) {
+      window.alert("이미 종료된 캠페인입니다.");
+    } else {
+      navigate(`/campaign/${campaign.campaignId + 1}`);
+    }
+  };
 
   const settings = {
     dots: true,
@@ -32,34 +49,34 @@ const MyPageSlide = () => {
     <div className={styles.campaignContainer}>
       <div className={styles.campaignHeader}>
         <p className={styles.campaignTitle}>참여한 캠페인</p>
-        <Link to="/campaign" className={styles.campaignlink}>
-          캠페인 바로가기 <i className="bi bi-chevron-right"></i>
-        </Link>
       </div>
-      <Carousel  {...settings}>
-        {campaigns.map((campaign, index) => (
-          <div key={campaign.id} className={styles.slide}>
+      <Carousel {...settings}>
+        {campaigns.map((campaign) => (
+          <div key={campaign.campaignId} className={styles.slide}>
             <div className={styles.imageWrapper}>
-              <img className={styles.campaignImage} src={campaign.image} alt={`Campaign ${index + 1}`} />
+              <img
+                className={styles.campaignImage}
+                src={`/assets/${campaign.campaignId + 1}.png`}
+                alt={`Campaign ${campaign.campaignId}`}
+              />
             </div>
             <div className={styles.campaignDetails}>
               <p className={styles.campaignText}>{campaign.title}</p>
               <div className={styles.campaignInfo}>
-                <p className={styles.campaignDays}>d-{campaign.daysLeft}</p>
-                <p className={styles.campaignAmount}>{campaign.amount.toLocaleString()}원</p>
+                <p className={styles.campaignDays}>{campaign.completed ? "종료" : "진행 중"}</p>
+                <p className={styles.campaignAmount}>{campaign.amount.toLocaleString()} 포인트</p>
               </div>
-              <p className={styles.campaignProgress}>{campaign.percent}%</p>
-              <ProgressLine
-                visualParts={[
-                  {
-                    percentage: `${campaign.percent}%`,
-                    color: "#008DFF"
-                  }
-                ]}
-              />
               <div className={styles.userPoints}>
-                <p>소비한 포인트: {campaign.userPoints.toLocaleString()} P</p>
+                <p>소비한 포인트: {campaign.amount.toLocaleString()} P</p>
               </div>
+              {/* 캠페인 보러가기 버튼 */}
+              <button
+                className={styles.campaignButton}
+                onClick={() => handleClickCampaign(campaign)}
+                disabled={campaign.completed} // 완료된 캠페인은 비활성화
+              >
+                캠페인 보러가기
+              </button>
             </div>
           </div>
         ))}
