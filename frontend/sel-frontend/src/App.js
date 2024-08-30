@@ -4,6 +4,7 @@ import MainView from "./components/main/Main";
 import AnalyticsView from "./components/analytics/Analytics";
 import CalenderView from "./components/calendarCheck/CalendarCheck.jsx"
 import CampaignView from "./components/campaign/Campaign";
+import CampaignListView from "./components/campaign/CampaignList.jsx";
 import MypageView from "./components/mypage/Mypage";
 import TreeView from "./components/tree/Tree";
 import Navbar from "./components/navbar/Navbar"; 
@@ -33,6 +34,7 @@ const AppContent = () => {
       <Route path="/" element={<MainView />} />
       <Route path="/analytics" element={<AnalyticsView />} />
       <Route path="/calendar" element={<CalenderView />} />
+      <Route path="/campaignList" element={<CampaignListView />} />
       <Route path="/campaign/:campaignId" element={<CampaignView />} />
       <Route path="/mypage" element={<MypageView />} />
       <Route path="/tree" element={<TreeView />} />
