@@ -39,7 +39,7 @@
 
 
 .App{
-  min-height: 800px;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   width: 100%;
