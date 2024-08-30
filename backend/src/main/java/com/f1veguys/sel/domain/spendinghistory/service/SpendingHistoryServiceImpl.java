@@ -6,6 +6,7 @@ import com.f1veguys.sel.domain.ecoratio.repository.EcoRatioRepository;
 import com.f1veguys.sel.domain.points.service.PointsService;
 import com.f1veguys.sel.domain.pointshistory.service.PointsHistoryService;
 import com.f1veguys.sel.domain.spendinghistory.domain.SpendingHistory;
+import com.f1veguys.sel.domain.spendinghistory.dto.PeriodStatisticsResponse;
 import com.f1veguys.sel.domain.spendinghistory.dto.PreviousMonthSummaryDto;
 import com.f1veguys.sel.dto.Operation;
 import com.f1veguys.sel.domain.spendinghistory.dto.StatisticsResponse;
@@ -27,7 +28,8 @@ public class SpendingHistoryServiceImpl implements SpendingHistoryService{
     private final PointsHistoryService pointsHistoryService;
     private final EcoRatioRepository ecoRatioRepository;
     @Override
-    public StatisticsResponse getStatistics(int userId, int period) {
+    public StatisticsResponse getStatistics(int userId) {
+        int period = 30;
         LocalDateTime endDate = LocalDateTime.now();
         LocalDateTime startDate = endDate.minusDays(period);
         int totalAmount = spendingHistoryRepository.getTotalAmount(userId, startDate, endDate);
@@ -53,6 +55,16 @@ public class SpendingHistoryServiceImpl implements SpendingHistoryService{
         double lastMonth = (double) ecoAmount / totalAmount;
         return new StatisticsResponse(totalAmount, ecoAmount, (lastMonth-previousMonth)*100,
                 (lastMonth-eco)*100);
+    }
+
+    @Override
+    public PeriodStatisticsResponse getPeriodStatistics(int userId, int period) {
+        LocalDateTime endDate = LocalDateTime.now();
+        LocalDateTime startDate = endDate.minusDays(period);
+        int totalAmount = spendingHistoryRepository.getTotalAmount(userId, startDate, endDate);
+        int ecoAmount = spendingHistoryRepository.getEcoAmount(userId, startDate, endDate);
+        return new PeriodStatisticsResponse(totalAmount, ecoAmount);
+
     }
 
     @Override
