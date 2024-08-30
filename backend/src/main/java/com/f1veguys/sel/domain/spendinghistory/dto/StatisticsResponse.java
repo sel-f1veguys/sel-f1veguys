@@ -12,5 +12,5 @@ public class StatisticsResponse {
     int ecoSpend;
     double previousMonthCompare;
     double averageCompare;
-
+    int campaignPoint;
 }

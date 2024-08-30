@@ -8,6 +8,7 @@ import com.f1veguys.sel.domain.pointshistory.service.PointsHistoryService;
 import com.f1veguys.sel.domain.spendinghistory.domain.SpendingHistory;
 import com.f1veguys.sel.domain.spendinghistory.dto.PeriodStatisticsResponse;
 import com.f1veguys.sel.domain.spendinghistory.dto.PreviousMonthSummaryDto;
+import com.f1veguys.sel.domain.user.repository.UserRepository;
 import com.f1veguys.sel.dto.Operation;
 import com.f1veguys.sel.domain.spendinghistory.dto.StatisticsResponse;
 import com.f1veguys.sel.domain.spendinghistory.repository.SpendingHistoryRepository;
@@ -27,6 +28,7 @@ public class SpendingHistoryServiceImpl implements SpendingHistoryService{
     private final PointsService pointsService;
     private final PointsHistoryService pointsHistoryService;
     private final EcoRatioRepository ecoRatioRepository;
+    private final UserRepository userRepository;
     @Override
     public StatisticsResponse getStatistics(int userId) {
         int period = 30;
@@ -54,7 +56,7 @@ public class SpendingHistoryServiceImpl implements SpendingHistoryService{
         }
         double lastMonth = (double) ecoAmount / totalAmount;
         return new StatisticsResponse(totalAmount, ecoAmount, (lastMonth-previousMonth)*100,
-                (lastMonth-eco)*100);
+                (lastMonth-eco)*100, userRepository.findCampaignPointById(userId));
     }
 
     @Override
