@@ -16,6 +16,7 @@ import com.f1veguys.sel.domain.points.repository.PointsRepository;
 import com.f1veguys.sel.domain.user.domain.User;
 import com.f1veguys.sel.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -89,8 +90,9 @@ public class CampaignHistoryServiceImpl implements CampaignHistoryService {
         return campaignHistories.stream().map(campaignHistory -> {
             Campaign campaign = campaignRepository.findById(campaignHistory.getCampaignId())
                     .orElseThrow(CampaignNotFoundException::new);
-            boolean completed = campaign.getEndDate().isBefore(LocalDateTime.now());
-            return new CampaignHistoryResponse(campaignHistory, completed);
+            LocalDateTime startDate = campaign.getStartDate();
+            LocalDateTime endDate = campaign.getEndDate();
+            return new CampaignHistoryResponse(campaignHistory, startDate, endDate);
         }).collect(Collectors.toList());
     }
 }
