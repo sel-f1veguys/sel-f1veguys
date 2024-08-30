@@ -19,4 +19,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("UPDATE User u SET u.campaignPoint = u.campaignPoint + :amount WHERE u.id = :userId")
     int addCampaignPoint(@Param("userId") int userId, @Param("amount") int amount);
 
+    @Query("SELECT u.campaignPoint FROM User u WHERE u.id = :id")
+    int findCampaignPointById(@Param("id") int id);
+
 }
