@@ -270,7 +270,7 @@ const Analytics = () => {
           <div style={styles.pointEarning}>
             <div style={styles.pointEarningHeader}>
               <h3 style={styles.pointEarningtitle}>포인트 적립하기</h3>
-              <button style={styles.pointEarningDetail}>New Task</button>
+              <button style={styles.pointEarningDetail}>:</button>
             </div>
             <div style={styles.pointEarningList}>
               {todoItems.map((item) => (
@@ -282,7 +282,7 @@ const Analytics = () => {
                   />
                   <div style={styles.insideOfItem}>
                     <label style={styles.itemText}>{item.text}</label>
-                    <button style={styles.detButton}>Det</button>
+                    <button style={styles.detButton}>참여하기</button>
                   </div>
                 </div>
               ))}

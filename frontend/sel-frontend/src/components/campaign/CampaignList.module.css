@@ -78,6 +78,17 @@
   background-color: #F5F7FA;
 }
 
+/* Campaign Container */
+.campaignContainer {
+  position: absolute;
+  top: 0px; /* Adjusted to start below the search bar */
+  bottom: 30px; /* Stops 80px before the bottom to account for the footer */
+  left: 0;
+  right: 0;
+  overflow-y: auto; /* Allows scrolling if content overflows */
+  padding-bottom: 20px; /* Padding to avoid content touching the footer */
+}
+
 /* Campaign List Style */
 .campaignList {
   list-style-type: none;
