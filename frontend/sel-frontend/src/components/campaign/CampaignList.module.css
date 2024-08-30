@@ -9,7 +9,7 @@
 /* Background Blue Section */
 .bluebg {
   position: absolute;
-  width: 375px;
+  width: 100%;
   height: 169px;
   top: 0;
   background: #009CF4;
