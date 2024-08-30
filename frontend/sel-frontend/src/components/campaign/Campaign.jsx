@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import CampaignSlide from './CampaignSlide';
 import { useParams } from 'react-router-dom';
-import styles from './Campaign.module.css'; // Assuming you will create a Campaign.module.css file
+import styles from './Campaign.module.css';
 
 const Campaign = () => {
   const { campaignId } = useParams();
+  const campaignSlideRef = useRef();
+
+  const handleParticipateClick = () => {
+    if (campaignSlideRef.current) {
+      campaignSlideRef.current.donateDirectly();
+    }
+  };
 
   return (
     <div className={styles.campaignContainer}>
@@ -14,7 +21,15 @@ const Campaign = () => {
         className={styles.iframe}
       >
       </iframe>
-      <CampaignSlide className={styles.campaignSlide} />
+
+      {/* Button to directly trigger the donate action */}
+      <button onClick={handleParticipateClick} className={styles.openModalButton}>
+        바로 참여하기
+      </button>
+
+      {/* CampaignSlide component */}
+      <CampaignSlide ref={campaignSlideRef} className={styles.openModalButton} />
+
     </div>
   );
 };

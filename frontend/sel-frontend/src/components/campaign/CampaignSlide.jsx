@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, forwardRef, useImperativeHandle } from 'react';
 import styles from './campaignSlide.module.css';
 
-export default function CampaignSlide() {
+const CampaignSlide = forwardRef((props, ref) => {
   const [isOpen, setIsOpen] = useState(false);
   const [points, setPoints] = useState('');
   const [remainingPoints, setRemainingPoints] = useState(1000); // 초기 포인트를 1000으로 설정
@@ -51,10 +51,22 @@ export default function CampaignSlide() {
     setPoints(remainingPoints.toString());
   };
 
+  // Expose a function to be called by the parent component
+  useImperativeHandle(ref, () => ({
+    donateDirectly() {
+      if (!isOpen) {
+        toggleModal(); // Open the modal first if it's not open
+      }
+      setTimeout(() => {
+        handleDonate(); // Trigger the donate action
+      }, 300); // Wait for the modal to open
+    },
+  }));
+
   return (
     <div className={styles.container}>
       <button onClick={toggleModal} className={styles.button}>
-        Button
+        기부하기
       </button>
 
       {isOpen && (
@@ -81,4 +93,6 @@ export default function CampaignSlide() {
       )}
     </div>
   );
-}
+});
+
+export default CampaignSlide;
