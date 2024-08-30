@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import styles from './PointHistory.module.css';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 const PointHistory = ({ filter }) => {
   // 최종 포인트를 주어진 값으로 설정합니다.
-  const finalTotal = 1251;
-  const dummyUser = 1; // 유저 ID를 설정 (예시)
-
+  const dummyUser = 1; // 유저 ID를 설정
+  const location = useLocation();
+  const { total: finalTotalFromState } = location.state || {};
+  const finalTotal = finalTotalFromState || 0; // 기본값을 설정
   const [pointData, setPointData] = useState([]); // API 데이터를 저장할 상태
   const [loading, setLoading] = useState(true); // 로딩 상태 관리
   const [error, setError] = useState(null); // 에러 상태 관리
@@ -14,7 +16,7 @@ const PointHistory = ({ filter }) => {
   // 데이터 fetching 함수
   const fetchPointHistory = async () => {
     try {
-      const response = await axios.get(`/points-history/info`, {
+      const response = await axios.get(`/api/points-history/info`, {
         headers: {
           'Content-Type': 'application/json',
           userId: dummyUser, // 헤더에 유저 ID 추가
