@@ -15,6 +15,7 @@ import {
 import { CheckCircle, ArrowDownward, ArrowUpward } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"; // Import Material-UI Icons for Expand
+import ExpandLessIcon from "@mui/icons-material/ExpandLess"; // Import the Collapse Icon
 
 ChartJS.register(
   CategoryScale,
@@ -30,11 +31,11 @@ ChartJS.register(
 
 const Analytics = () => {
   const [todoItems, setTodoItems] = useState([
-    { id: 1, text: "적립대상 1", completed: false },
-    { id: 2, text: "적립대상 2", completed: false },
-    { id: 3, text: "적립대상 3", completed: false },
-    { id: 4, text: "적립대상 4", completed: false },
-    { id: 5, text: "적립대상 5", completed: false },
+    { id: 1, text: "영수증 인증하기(100p)", completed: false },
+    { id: 2, text: "6000보 걷기(100p)", completed: false },
+    { id: 3, text: "친환경 캠페인 참여하기", completed: false },
+    { id: 4, text: "친환경 퀴즈 참여하기", completed: false },
+    { id: 5, text: "친환경 기부하기", completed: false },
     { id: 6, text: "적립대상 6", completed: false },
     { id: 7, text: "적립대상 7", completed: false },
   ]);
@@ -249,17 +250,20 @@ const Analytics = () => {
                   onClick={toggleSavedCostList}
                   style={styles.expandButton}
                 >
-                  <ExpandMoreIcon />
+                  {showSavedCostList ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                 </IconButton>
               </div>
               {/* Toggle List */}
-              {showSavedCostList && (
-                <ul style={styles.savedCostList}>
-                  <li>절약한 물 사용량: 120L</li>
-                  <li>절약한 전기 사용량: 100kWh</li>
-                  <li>절약한 CO2 배출량: 30kg</li>
-                </ul>
-              )}
+              <ul
+                style={{
+                  ...styles.savedCostList,
+                  ...(showSavedCostList ? styles.savedCostListOpen : {}),
+                }}
+              >
+                <li>절약한 물 사용량: 120L</li>
+                <li>절약한 전기 사용량: 100kWh</li>
+                <li>절약한 CO2 배출량: 30kg</li>
+              </ul>
             </div>
           </div>
 
@@ -504,6 +508,26 @@ const styles = {
     paddingLeft: "10px",
     marginTop: "10px",
     fontSize: "12px",
+    position: "absolute",
+    top: "100%", // Position it just below the button
+    left: "10px",
+    right: "10px",
+    zIndex: 10, // Ensure it appears on top
+    backgroundColor: "white", // Ensure background is visible
+    borderRadius: "10px",
+    boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
+    padding: "10px",
+    transition: "max-height 0.3s ease, opacity 0.3s ease", // Smooth expand/collapse and fade-in
+    overflow: "hidden",
+    maxHeight: "0", // Start with height 0
+    opacity: 0, // Start fully invisible
+    visibility: "hidden", // Hide it from the document flow
+  },
+
+  savedCostListOpen: {
+    maxHeight: "200px", // Maximum height when open (adjust as needed)
+    opacity: 1, // Fully visible
+    visibility: "visible", // Make it visible in the document flow
   },
 
   pointEarning: {

@@ -4,6 +4,7 @@ import Calendar from "react-calendar"; // react-calendar 라이브러리에서 C
 import moment from "moment"; // moment.js 라이브러리에서 moment 함수를 가져옵니다.
 import styles from "./CalendarCheck.module.css"; // 모듈 CSS 파일을 가져옵니다.
 import "react-calendar/dist/Calendar.css";
+import axios from "axios"; // axios 라이브러리를 가져옵니다.
 
 // REST API 응답을 시뮬레이션하는 더미 데이터
 const attendanceData = {
@@ -18,18 +19,62 @@ export default function CalendarComponent() {
 
   // 출석 데이터를 불러오는 useEffect 훅
   useEffect(() => {
+    /**
+     * 로컬 더미데이터로 불러오기
+     */
     setAttendance(attendanceData.attendance); // 더미 데이터에서 출석 정보를 상태에 설정합니다.
     setTodayCheck(attendanceData.todayCheck); // 더미 데이터에서 오늘의 출석 여부를 상태에 설정합니다.
+    /**
+     * API로 데이터 불러오기
+     */
+    CallAttendanceMonth();
+  
   }, []);
 
-  const handleAttendance = () => {
+  //출석을 기록하는 Attend API와 그에 따른 동적 함수
+  const handleAttendance = async () => {
     const today = moment().date(); // 오늘 날짜의 일을 가져옵니다.
+
     if (!attendance.includes(today)) {
       setAttendance([...attendance, today]); // 출석하지 않은 경우 출석 날짜에 추가합니다.
       setTodayCheck(true); // 오늘의 출석 체크 상태를 true로 설정합니다.
       // 여기서 업데이트된 출석 정보를 API로 전송하는 로직을 추가할 수 있습니다.
+      // userId 는 int로
+
+      try {
+        // 출석 API 호출
+        const response = await axios.get("/api/attendance/attend", {
+          headers: { userId: 5 }, // userId 헤더 추가
+        });
+
+        setAttendance(response.data.check); // API 응답에서 새로운 출석 정보를 상태에 설정합니다.
+        setTodayCheck(response.data.todayCheck); // 오늘의 출석 체크 상태를 true로 설정합니다.
+      } catch (error) {
+        console.error("Error updating attendance:", error);
+      }
+
     }
   };
+
+  //이번달 출석 목록을 불러오는 APi
+  const CallAttendanceMonth = async () => {
+
+      try {
+        // 출석 API 호출
+        const response = await axios.get("/api/attendance/check", {
+          headers: { userId: 5 }, // userId 헤더 추가
+        });
+
+        setAttendance(response.data.check); // API 응답에서 새로운 출석 정보를 상태에 설정합니다.
+        setTodayCheck(response.data.todayCheck); // 오늘의 출석 체크 상태를 true로 설정합니다.
+        console.log(response.data.check);
+
+      } catch (error) {
+        console.error("Error updating attendance:", error);
+      }
+
+  };
+
 
   // 타일에 적용할 클래스 이름을 결정하는 함수
   const tileClassName = ({ date, view }) => {
@@ -94,6 +139,7 @@ export default function CalendarComponent() {
             // minDetail="month" // 달력에서 최소로 볼 수 있는 단위 설정 (month)
             // maxDetail="month" // 달력에서 최대로 볼 수 있는 단위 설정 (month)
             tileClassName={tileClassName} // 각 날짜 타일에 적용할 클래스 이름 결정
+            locale="kor-US" // Set the locale to 'en-US' to start the week on Sunday
             formatDay={(locale, date) => moment(date).format("D")} // "일" 없이 날짜만 표시
             prevLabel={null} // 이전 버튼 제거
             nextLabel={null} // 다음 버튼 제거

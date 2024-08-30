@@ -16,6 +16,7 @@
   font-weight: bold;
   font-size: 26px;
   width: 100%;
+  color: white;
 }
 
 .IntroduceContent{
@@ -27,6 +28,7 @@
 .IntroduceText{
   font-size: 14px;
   line-height: 0.5; /* Example: Set line height */
+  color: whitesmoke;
 }
 
 .mascotTree{
@@ -140,7 +142,6 @@
     color: white !important;
     border-radius: 50%;
   }
-  
   
   .attendanceButton {
     margin: 20px auto; /* Center horizontally by setting auto margin */
