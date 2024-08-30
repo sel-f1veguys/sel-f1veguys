@@ -1,7 +1,7 @@
-'use client';
-
-import React, { useState, forwardRef, useImperativeHandle } from 'react';
+import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
+import { useNavigate } from 'react-router-dom'; // useNavigate 훅 사용
 import styles from './campaignSlide.module.css';
+import axios from 'axios';
 
 const CampaignSlide = forwardRef((props, ref) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -92,7 +92,7 @@ const CampaignSlide = forwardRef((props, ref) => {
       }
       setTimeout(() => {
         handleDonate(); // Trigger the donate action
-      }, 300); // Wait for the modal to open
+      }, 30000); // Wait for the modal to open
     },
   }));
 
