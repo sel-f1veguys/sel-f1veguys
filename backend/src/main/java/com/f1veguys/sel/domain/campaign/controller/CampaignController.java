@@ -43,7 +43,7 @@ public class CampaignController {
 //    }
 
     @PostMapping("/{campaignId}")
-    @Operation(summary = "캠페인 상세조회", description = "진행 기간이 만료된 캠페인을 만료 처리합니다.")
+    @Operation(summary = "캠페인 상세조회", description = "캠페인을 상세조회 합니다.")
     public ResponseEntity<CampaignResponse> getCampaign(@PathVariable("campaignId") int id) {
         CampaignResponse campaign = campaignService.getCampaign(id);
         return ResponseEntity.ok(campaign);
