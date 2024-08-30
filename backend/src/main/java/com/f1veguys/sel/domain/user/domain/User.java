@@ -46,6 +46,9 @@ public class User {
     @Column(name = "account_num", nullable = false, unique = true)
     private String accountNum ="";
 
+    @Column(name = "campaign_point", nullable = false)
+    private int campaignPoint = 0;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference(value = "user-campaign-history")
     private List<CampaignHistory> campaignHistories;

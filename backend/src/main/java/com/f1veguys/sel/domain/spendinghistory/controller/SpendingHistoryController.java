@@ -1,7 +1,7 @@
 package com.f1veguys.sel.domain.spendinghistory.controller;
 
 import com.f1veguys.sel.domain.spendinghistory.service.SpendingHistoryService;
-import com.f1veguys.sel.dto.StatisticsResponse;
+import com.f1veguys.sel.domain.spendinghistory.dto.StatisticsResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

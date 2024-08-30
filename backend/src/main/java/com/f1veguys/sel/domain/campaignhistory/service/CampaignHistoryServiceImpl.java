@@ -79,6 +79,7 @@ public class CampaignHistoryServiceImpl implements CampaignHistoryService {
         
         //내역 저장
         pointsHistoryService.savePointsHistory(userId, Operation.SPEND, pay, "캠페인 참여");
+        userRepository.addCampaignPoint(userId, pay);
 
         return campaignHistoryRepository.save(history);
     }
