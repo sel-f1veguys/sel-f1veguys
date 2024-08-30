@@ -41,5 +41,6 @@ public class SpendingHistory {
         this.amount = amount;
         this.description = description;
         this.spendTime = LocalDateTime.now();
+        this.isEco = false;
     }
 }
