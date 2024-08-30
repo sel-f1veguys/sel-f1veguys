@@ -1,28 +1,37 @@
 package com.f1veguys.sel.domain.user.controller;
 
+import com.f1veguys.sel.domain.points.domain.Points;
+import com.f1veguys.sel.domain.points.repository.PointsRepository;
+import com.f1veguys.sel.domain.points.service.PointsService;
+import com.f1veguys.sel.domain.user.repository.UserRepository;
 import com.f1veguys.sel.dto.LoginRequest;
 import com.f1veguys.sel.domain.user.domain.User;
 import com.f1veguys.sel.domain.user.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
+@RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
+    private final UserRepository userRepository;
+    private final PointsService pointsService;
+    private final PointsRepository pointsRepository;
 
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     // 회원가입 API
     @PostMapping("/register")
     public User register(@RequestBody User user) throws JsonProcessingException {
         System.out.println("start");
-        return userService.register(user);
+        userService.register(user);
+        int userId = user.getId();
+        Points points = pointsService.makePoints(userId);
+        pointsRepository.save(points);
+        return user;
     }
 
     // 로그인 API

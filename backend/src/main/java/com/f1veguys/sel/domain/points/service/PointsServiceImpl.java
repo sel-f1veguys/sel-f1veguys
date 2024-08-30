@@ -27,4 +27,9 @@ public class PointsServiceImpl implements PointsService{
     public int removePoints(int userId, int amount) {
         return pointsRepository.removeBalance(userId, amount);
     }
+
+    @Override
+    public Points makePoints(int userId) {
+        return new Points(userId);
+    }
 }

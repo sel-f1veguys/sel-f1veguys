@@ -21,4 +21,8 @@ public class Points {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id", insertable = false, updatable = false)
     private User user;
+
+    public Points(int userId) {
+        this.userId = userId;
+    }
 }
