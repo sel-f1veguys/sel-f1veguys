@@ -1,4 +1,6 @@
 package com.f1veguys.sel.domain.user.service;
+import com.f1veguys.sel.domain.points.domain.Points;
+import com.f1veguys.sel.domain.points.repository.PointsRepository;
 import com.f1veguys.sel.domain.user.domain.User;
 import com.f1veguys.sel.global.util.HeaderUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -31,6 +33,7 @@ public class UserServiceImpl implements UserService {
     private RestTemplate restTemplate;
 
     private final UserRepository userRepository;
+    private final PointsRepository pointsRepository;
 
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
