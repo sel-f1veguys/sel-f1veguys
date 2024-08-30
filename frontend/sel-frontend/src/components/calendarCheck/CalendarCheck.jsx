@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react"; // React 및 훅을 가져�
 import Calendar from "react-calendar"; // react-calendar 라이브러리에서 Calendar 컴포넌트를 가져옵니다.
 import moment from "moment"; // moment.js 라이브러리에서 moment 함수를 가져옵니다.
 import styles from "./CalendarCheck.module.css"; // 모듈 CSS 파일을 가져옵니다.
-import 'react-calendar/dist/Calendar.css';
+import "react-calendar/dist/Calendar.css";
 
 // REST API 응답을 시뮬레이션하는 더미 데이터
 const attendanceData = {
@@ -33,7 +33,8 @@ export default function CalendarComponent() {
 
   // 타일에 적용할 클래스 이름을 결정하는 함수
   const tileClassName = ({ date, view }) => {
-    if (view === "month") { // 달력 뷰가 'month'일 때만 적용합니다.
+    if (view === "month") {
+      // 달력 뷰가 'month'일 때만 적용합니다.
       const day = date.getDate(); // 현재 타일의 날짜를 가져옵니다.
       if (attendance.includes(day)) {
         return styles.attended; // 출석한 날이면 'attended' 클래스 적용
@@ -51,33 +52,65 @@ export default function CalendarComponent() {
   };
 
   return (
-    <div className={styles.container}>
-      <p className={styles.dateText}>
-        <b>{moment(dateState).format("M")}월</b>
-      </p>
-      <Calendar
-        className={styles.calendar} // 달력에 모듈 CSS 스타일 적용
-        value={dateState} // 달력에 표시할 현재 날짜 상태
-        // minDetail="month" // 달력에서 최소로 볼 수 있는 단위 설정 (month)
-        // maxDetail="month" // 달력에서 최대로 볼 수 있는 단위 설정 (month)
-        tileClassName={tileClassName} // 각 날짜 타일에 적용할 클래스 이름 결정
-        formatDay={(locale, date) => moment(date).format("D")} // "일" 없이 날짜만 표시
-        prevLabel={null} // 이전 버튼 제거
-        nextLabel={null} // 다음 버튼 제거
-        showNavigation={false} // 네비게이션 표시 여부
-        showNeighboringMonth={false} // 인접한 달의 날짜 표시 여부
-        navigationLabel={renderCustomHeader} // 커스텀 헤더 사용
-        onClickMonth={null} // 월 클릭 기능 비활성화
-      />
-      <button
-        className={styles.attendanceButton} // 출석 버튼에 모듈 CSS 스타일 적용
-        onClick={handleAttendance} // 출석 버튼 클릭 시 실행할 함수
-        disabled={todayCheck} // 오늘 출석 체크가 완료된 경우 버튼 비활성화
-      >
-        {todayCheck
-          ? "오늘은 이미 출석하셨습니다"
-          : "오늘의 출석 체크"}
-      </button>
+    <div className={styles.fullBackGroundColor}>
+      <div className={styles.MainCalendar}>
+        <div className={styles.IntroduceCalendarCheck}>
+          <div className={styles.IntroduceTitle}>
+            신한 에코 리더 출석 이벤트
+          </div>
+          <div className={styles.IntroduceContent}>
+            <div className={styles.IntroduceText}>
+              <p>출석 체크 이벤트를 참여하고</p>
+              <p>포인트를 받아가세요!</p>
+              <p>연속 출석 이벤트까지!</p>
+            </div>
+            {/* 대표 이미지 */}
+            <img
+              src="/assets/icon/mascotTree.png"
+              alt="mascot"
+              className={styles.mascotTree}
+            />
+          </div>
+        </div>
+
+        <div className={styles.HowManyBox}>
+          <div className={styles.ThisMonthCount}>
+            <p>이번달 출석 횟수</p>
+            <b>0일</b>
+          </div>
+
+          <div className={styles.ThisMonthPoint}>
+            <p>이번달 출석 포인트</p>
+            <b>0P</b>
+          </div>
+        </div>
+        <div className={styles.calendarContent}>
+          <p className={styles.dateText}>
+            <b>{moment(dateState).format("M")}월</b>
+          </p>
+          <Calendar
+            className={styles.calendar} // 달력에 모듈 CSS 스타일 적용
+            value={dateState} // 달력에 표시할 현재 날짜 상태
+            // minDetail="month" // 달력에서 최소로 볼 수 있는 단위 설정 (month)
+            // maxDetail="month" // 달력에서 최대로 볼 수 있는 단위 설정 (month)
+            tileClassName={tileClassName} // 각 날짜 타일에 적용할 클래스 이름 결정
+            formatDay={(locale, date) => moment(date).format("D")} // "일" 없이 날짜만 표시
+            prevLabel={null} // 이전 버튼 제거
+            nextLabel={null} // 다음 버튼 제거
+            showNavigation={false} // 네비게이션 표시 여부
+            showNeighboringMonth={false} // 인접한 달의 날짜 표시 여부
+            navigationLabel={renderCustomHeader} // 커스텀 헤더 사용
+            onClickMonth={null} // 월 클릭 기능 비활성화
+          />
+          <button
+            className={styles.attendanceButton} // 출석 버튼에 모듈 CSS 스타일 적용
+            onClick={handleAttendance} // 출석 버튼 클릭 시 실행할 함수
+            disabled={todayCheck} // 오늘 출석 체크가 완료된 경우 버튼 비활성화
+          >
+            {todayCheck ? "오늘은 이미 출석하셨습니다" : "오늘의 출석 체크"}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

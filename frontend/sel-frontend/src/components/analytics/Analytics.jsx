@@ -158,129 +158,131 @@ const Analytics = () => {
   };
 
   return (
-    <div style={styles.background}>
-      <div style={styles.monthgraph}>
-        <h4 style={styles.topLeftText}>오늘의 소비 : $100</h4>
-        <Line data={lineChartData} options={lineChartOptions} />
-      </div>
-
-      <div style={styles.Main}>
-        <div style={styles.MonthButtonSection}>
-          <button style={styles.MonthButton}>일간</button>
-          <button style={styles.MonthButton}>주간</button>
-          <button style={styles.MonthButton}>월간</button>
+    <div style={styles.fullWidthBackground}>
+      <div style={styles.background}>
+        <div style={styles.monthgraph}>
+          <h4 style={styles.topLeftText}>오늘의 소비 : $100</h4>
+          <Line data={lineChartData} options={lineChartOptions} />
         </div>
 
-        <div style={styles.subgraphSection}>
-          <div style={styles.subgraph1}>
-            <h4 style={styles.topLeftText}>6787 걸음</h4>
-            <Bar data={barChartData} options={barChartOptions} />
-          </div>
-          <div style={styles.subgraph1}>
-            <h4 style={styles.topLeftText}>내 에코 소비 비율</h4>
-            <Doughnut
-              data={doughnutChartData}
-              options={doughnutChartOptions}
-            />
-            <div style={styles.doughnutLegend}>
-              <div>
-                <span style={styles.ecoBox}></span> 에코
-              </div>
-              <div>
-                <span style={styles.normalBox}></span> 일반
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Compare Section */}
-        <div style={styles.compare}>
-          <div style={styles.compareGraph}>
-            <div style={styles.iconCircle}>
-              <CheckCircle style={{ color: "#4CAF50", fontSize: "32px" }} />
-            </div>
-            <div style={styles.textSection}>
-              <p style={styles.transparentText}>또래보다 친환경적이에요.</p>
-              <p style={styles.boldText}>
-                <span style={styles.greenText}>+21</span> 건의 친환경 소비
-              </p>
-            </div>
-          </div>
-          <div style={styles.compareGraph}>
-            <div style={styles.iconCircle}>
-              <ArrowDownward style={{ color: "#FF5733", fontSize: "32px" }} />
-            </div>
-            <div style={styles.textSection}>
-              <p style={styles.transparentText}>지난 달보다 줄었어요.</p>
-              <p style={styles.boldText}>
-                <span style={styles.redText}>-5</span> 건 전달 대비
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Payment Section */}
-        <div style={styles.payment}>
-          {/* Donation Total */}
-          <div style={styles.paymentGraph}>
-            <div style={styles.donateText}>
-              <div>
-                <p style={styles.transparentText}>기부포인트 총액</p>
-                <p style={styles.boldBigText}>1200p 기부</p>
-                <p style={styles.greenText}>+23% 지난 주 대비</p>
-              </div>
-            </div>
+        <div style={styles.Main}>
+          <div style={styles.MonthButtonSection}>
+            <button style={styles.MonthButton}>일간</button>
+            <button style={styles.MonthButton}>주간</button>
+            <button style={styles.MonthButton}>월간</button>
           </div>
 
-          {/* Saved Environmental Cost */}
-          <div style={styles.paymentGraph}>
-            <div style={styles.saveTheEarth}>
-              <div style={styles.savingText}>
-                <p style={styles.transparentText}>절약한 환경 비용</p>
-                <p style={styles.boldBigText}>2,390만원</p>
-              </div>
-              <img
-                src="/assets/icon/tree.png"
-                alt="Tree Icon"
-                style={styles.treeIcon}
+          <div style={styles.subgraphSection}>
+            <div style={styles.subgraph1}>
+              <h4 style={styles.topLeftText}>6787 걸음</h4>
+              <Bar data={barChartData} options={barChartOptions} />
+            </div>
+            <div style={styles.subgraph1}>
+              <h4 style={styles.topLeftText}>내 에코 소비 비율</h4>
+              <Doughnut
+                data={doughnutChartData}
+                options={doughnutChartOptions}
               />
-              <IconButton
-                onClick={toggleSavedCostList}
-                style={styles.expandButton}
-              >
-                <ExpandMoreIcon />
-              </IconButton>
-            </div>
-            {/* Toggle List */}
-            {showSavedCostList && (
-              <ul style={styles.savedCostList}>
-                <li>절약한 물 사용량: 120L</li>
-                <li>절약한 전기 사용량: 100kWh</li>
-                <li>절약한 CO2 배출량: 30kg</li>
-              </ul>
-            )}
-          </div>
-        </div>
-
-        <div style={styles.pointEarning}>
-          <div style={styles.pointEarningHeader}>
-            <h3 style={styles.pointEarningtitle}>포인트 적립하기</h3>
-            <button style={styles.pointEarningDetail}>New Task</button>
-          </div>
-          <div style={styles.pointEarningList}>
-            {todoItems.map((item) => (
-              <div key={item.id} style={styles.pointEarningItem}>
-                <input
-                  type="checkbox"
-                  checked={item.completed}
-                  onChange={() => toggleTodo(item.id)}
-                />
-                <div style={styles.insideOfItem}>
-                  <label style={styles.itemText}>{item.text}</label>
-                  <button style={styles.detButton}>Det</button>
+              <div style={styles.doughnutLegend}>
+                <div>
+                  <span style={styles.ecoBox}></span> 에코
+                </div>
+                <div>
+                  <span style={styles.normalBox}></span> 일반
                 </div>
               </div>
-            ))}
+            </div>
+          </div>
+
+          {/* Compare Section */}
+          <div style={styles.compare}>
+            <div style={styles.compareGraph}>
+              <div style={styles.iconCircle}>
+                <CheckCircle style={{ color: "#4CAF50", fontSize: "32px" }} />
+              </div>
+              <div style={styles.textSection}>
+                <p style={styles.transparentText}>또래보다 친환경적이에요.</p>
+                <p style={styles.boldText}>
+                  <span style={styles.greenText}>+21</span> 건의 친환경 소비
+                </p>
+              </div>
+            </div>
+            <div style={styles.compareGraph}>
+              <div style={styles.iconCircle}>
+                <ArrowDownward style={{ color: "#FF5733", fontSize: "32px" }} />
+              </div>
+              <div style={styles.textSection}>
+                <p style={styles.transparentText}>지난 달보다 줄었어요.</p>
+                <p style={styles.boldText}>
+                  <span style={styles.redText}>-5</span> 건 전달 대비
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Payment Section */}
+          <div style={styles.payment}>
+            {/* Donation Total */}
+            <div style={styles.paymentGraph}>
+              <div style={styles.donateText}>
+                <div>
+                  <p style={styles.transparentText}>기부포인트 총액</p>
+                  <p style={styles.boldBigText}>1200p 기부</p>
+                  <p style={styles.greenText}>+23% 지난 주 대비</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Saved Environmental Cost */}
+            <div style={styles.paymentGraph}>
+              <div style={styles.saveTheEarth}>
+                <div style={styles.savingText}>
+                  <p style={styles.transparentText}>절약한 환경 비용</p>
+                  <p style={styles.boldBigText}>2,390만원</p>
+                </div>
+                <img
+                  src="/assets/icon/tree.png"
+                  alt="Tree Icon"
+                  style={styles.treeIcon}
+                />
+                <IconButton
+                  onClick={toggleSavedCostList}
+                  style={styles.expandButton}
+                >
+                  <ExpandMoreIcon />
+                </IconButton>
+              </div>
+              {/* Toggle List */}
+              {showSavedCostList && (
+                <ul style={styles.savedCostList}>
+                  <li>절약한 물 사용량: 120L</li>
+                  <li>절약한 전기 사용량: 100kWh</li>
+                  <li>절약한 CO2 배출량: 30kg</li>
+                </ul>
+              )}
+            </div>
+          </div>
+
+          <div style={styles.pointEarning}>
+            <div style={styles.pointEarningHeader}>
+              <h3 style={styles.pointEarningtitle}>포인트 적립하기</h3>
+              <button style={styles.pointEarningDetail}>New Task</button>
+            </div>
+            <div style={styles.pointEarningList}>
+              {todoItems.map((item) => (
+                <div key={item.id} style={styles.pointEarningItem}>
+                  <input
+                    type="checkbox"
+                    checked={item.completed}
+                    onChange={() => toggleTodo(item.id)}
+                  />
+                  <div style={styles.insideOfItem}>
+                    <label style={styles.itemText}>{item.text}</label>
+                    <button style={styles.detButton}>Det</button>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -289,14 +291,19 @@ const Analytics = () => {
 };
 
 const styles = {
+  fullWidthBackground: {
+    width: "100%",
+    background: `linear-gradient(to bottom, #0046ff 200px, #F4F7FE 200px)`,
+    display: "flex",
+    justifyContent: "center",
+  },
   background: {
+    alignItems: "center", // Align horizontally
     display: "flex",
     flexDirection: "column", // Align vertically
-    alignItems: "center", // Align horizontally
     position: "relative",
     width: "390px",
     height: "844px",
-    background: "linear-gradient(to bottom, blue 200px, #F4F7FE 200px)",
   },
 
   monthgraph: {
@@ -435,7 +442,7 @@ const styles = {
   greenText: {
     color: "#4CAF50", // Green for positive numbers
     fontSize: "10px",
-    margin:"0"
+    margin: "0",
   },
 
   redText: {
@@ -468,29 +475,28 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
-    marginLeft:"10px",
+    marginLeft: "10px",
   },
 
-  savingText:{
-  },
-  
+  savingText: {},
+
   saveTheEarth: {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
     width: "100%",
-    marginLeft:"10px",
+    marginLeft: "10px",
   },
 
   treeIcon: {
-    margin:"0 0 0 0px",
+    margin: "0 0 0 0px",
     width: "30px",
     height: "30px",
   },
 
   expandButton: {
-    margin:"0 10px 0 0",
-    padding:"0",
+    margin: "0 10px 0 0",
+    padding: "0",
   },
 
   savedCostList: {
