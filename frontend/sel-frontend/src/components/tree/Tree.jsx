@@ -16,22 +16,80 @@
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isModal2Open, setIsModal2Open] = useState(false);
     const [isInfoModalOpen, setIsInfoModalOpen] = useState(false); // 정보 모달 상태 추가
+    const [isNewTreeModalOpen, setNewTreeModalOpen] = useState(false); // 정보 모달 상태 추가
+    const [isDogamModalOpen, setIsDogamModalOpen] = useState(false); // 정보 모달 상태 추가
+    const [newTreeMessage, setNewTreeMessage] = useState("");
     const [selectedGift, setSelectedGift] = useState(""); 
+    const [treeNum,  setTreeNum] = useState(0); 
+    const [tree1, setTree1] = useState(false);
+    const [tree2, setTree2] = useState(false);
+    const [tree3, setTree3] = useState(false);
+    const [tree4, setTree4] = useState(false);
+    const [tree5, setTree5] = useState(false);
+    const [tree6, setTree6] = useState(false);
+    const [tree7, setTree7] = useState(false);
+    const [tree8, setTree8] = useState(false);
+    const [tree9, setTree9] = useState(false);  
 
 
     useEffect(() => {
       const fetchWaterPoint = async () => {
         try {
           const response = await axios.get(`/api/tree/1`);
-          setWaterPoint(response.data.count/500); 
+          setWaterPoint(response.data.count / 500); 
           console.log(response.data)
         } catch (error) {
           console.error("Failed to fetch water point data:", error);
         }
       };
-
-      fetchWaterPoint(); // 컴포넌트가 마운트될 때 API 호출
+  
+      const fetchBadgeData = async () => {
+        try {
+          const response = await axios.get(`/api/badge/1`);
+          const badgeData = response.data;
+          // type에 따라 tree1 ~ tree9까지 값을 설정
+          badgeData.forEach(item => {
+            switch (item.type) {
+              case 1:
+                setTree1(true);
+                break;
+                case 2:
+                  setTree2(true);
+                  break;
+                  case 3:
+                setTree3(true);
+                break;
+              case 4:
+                setTree4(true);
+                break;
+              case 5:
+                setTree5(true);
+                break;
+              case 6:
+                setTree6(true);
+                break;
+              case 7:
+                setTree7(true);
+                break;
+              case 8:
+                setTree8(true);
+                break;
+              case 9:
+                setTree9(true);
+                break;
+              default:
+                break;
+            }
+          });
+        } catch (error) {
+          console.error("Failed to fetch badge data:", error);
+        }
+      };
+  
+      fetchWaterPoint(); 
+      fetchBadgeData(); // 트리 상태를 가져옴
     }, []); 
+
 
     useEffect(() => {
       if (level < waterPoint) {
@@ -278,15 +336,104 @@
       console.log(waterPoint)
     }, [waterPoint]); // Only runs when level changes to 6
 
+
+    useEffect(() => {
+      console.log(tree5)
+    }, [tree5]); // Only runs when level changes to 6
+
     const handleButtonClick = async () => {
       try {
         const response = await axios.put(`/api/tree/1/water`);
-        
-        // 서버에서 반환된 데이터를 처리하거나, 상태를 업데이트하는 코드 추가 가능
+    
         console.log("Watering successful:", response.data);
-        setLevel(response.data.count/500); 
-        setWaterPoint(response.data.count/500);
-
+        const newLevel = response.data.count / 500;
+        setLevel(newLevel); 
+        setWaterPoint(newLevel);
+    
+        if (newLevel === 6) {
+          // 6 레벨에 도달하면 랜덤 배지 API 호출
+          // const randomNumber = Math.floor(Math.random() * 9) + 1;
+          const randomNumber = 1;
+          const badgeResponse = await axios.post(`/api/badge/1/${randomNumber}`);
+    
+          // 랜덤 숫자에 따른 트리 상태 업데이트
+          switch (randomNumber) {
+            case 1:
+              if (!tree1) {
+                setTree1(true);
+                setNewTreeMessage("가시오갈피나무");
+                setTreeNum(1);
+                setNewTreeModalOpen(true);
+              }
+              break;
+            case 2:
+              if (!tree2) {
+                setTree2(true);
+                setNewTreeMessage("개가시나무");
+                setTreeNum(2);
+                setNewTreeModalOpen(true);
+              }
+              break;
+            case 3:
+              if (!tree3) {
+                setTree3(true);
+                setNewTreeMessage("무주나무");
+                setTreeNum(3);
+                setNewTreeModalOpen(true);
+              }
+              break;
+            case 4:
+              if (!tree4) {
+                setTree4(true);
+                setNewTreeMessage("산분꽃나무");
+                setTreeNum(4);
+                setNewTreeModalOpen(true);
+              }
+              break;
+            case 5:
+              if (!tree5) {
+                setTree5(true);
+                setNewTreeMessage("섬개야광나무");
+                setTreeNum(5);
+                setNewTreeModalOpen(true);
+              }
+              break;
+            case 6:
+              if (!tree6) {
+                setTree6(true);
+                setNewTreeMessage("구상나무");
+                setTreeNum(6);
+                setNewTreeModalOpen(true);
+              }
+              break;
+            case 7:
+              if (!tree7) {
+                setTree7(true);
+                setNewTreeMessage("섬국수나무");
+                setTreeNum(7);
+                setNewTreeModalOpen(true);
+              }
+              break;
+            case 8:
+              if (!tree8) {
+                setTree8(true);
+                setNewTreeMessage("섬향나무");
+                setTreeNum(8);
+                setNewTreeModalOpen(true);
+              }
+              break;
+            case 9:
+              if (!tree9) {
+                setTree9(true);
+                setNewTreeMessage("암매");
+                setTreeNum(9);
+                setNewTreeModalOpen(true);
+              }
+              break;
+            default:
+              break;
+          }
+        }
       } catch (error) {
         if (error.response && error.response.data.message === "보유하고 있는 포인트가 부족합니다.") {
           toast.error("보유하고 있는 포인트가 부족합니다.");
@@ -295,6 +442,7 @@
         }
       }
     };
+    
 
     const receiveGift = async () => {
       setIsModalOpen(true); // 모달 열기
@@ -308,6 +456,10 @@
       setIsModal2Open(false); 
     };
 
+    const closeNewTreeModal = () => {
+      setNewTreeModalOpen(false); 
+    };
+
     const openInfoModal = () => {
       setIsInfoModalOpen(true);
     };
@@ -315,6 +467,14 @@
     // 정보 모달을 닫는 함수
     const closeInfoModal = () => {
       setIsInfoModalOpen(false);
+    };
+
+    const openDogamModal = () => {
+      setIsDogamModalOpen(true);
+    };
+
+    const closeDogamModal = () => {
+      setIsDogamModalOpen(false);
     };
 
     const choiceGift = async (gift) => {
@@ -377,9 +537,9 @@
             <button className="info-button" onClick={openInfoModal}>
             <i className="bi bi-info-circle-fill"></i>
             </button>
-            <button className="dogam-button" onClick={openInfoModal}>
-            <i className="bi bi-book"></i>
-            </button>
+            <button className="dogam-button" onClick={openDogamModal}>
+              <i className="bi bi-book"></i>
+              </button>
             <button className="pouring-button" onClick={handleButtonClick}>
             <i className="bi bi-droplet-half"></i>
             </button>
@@ -387,18 +547,6 @@
     <span className={styles.liquid}></span>  
     <span className={styles.btntxt123}><i class="bi bi-droplet-half"></i></span>
   </button> */}
-
-<Modal
-            isOpen={isInfoModalOpen}
-            onRequestClose={closeInfoModal}
-            contentLabel="Information"
-            className={styles.modal}
-            overlayClassName={styles.overlay}
-          >
-            <h2>나무 키우기</h2>
-            <p>지금 까지 얻은 포인트로 나무가 자라도록 물을 주세요</p>
-            <button onClick={closeInfoModal} className={styles.closeButton}>닫기</button>
-          </Modal>
             </div>
 
             
@@ -409,7 +557,7 @@
               <button className="info-button" onClick={openInfoModal}>
               <i className="bi bi-info-circle-fill"></i>
               </button>
-              <button className="dogam-button" onClick={openInfoModal}>
+              <button className="dogam-button" onClick={openDogamModal}>
               <i className="bi bi-book"></i>
               </button>
             <button className="receive-button" onClick={receiveGift}>
@@ -417,6 +565,67 @@
             </button>
             </div>
           )}
+          <Modal
+            isOpen={isInfoModalOpen}
+            onRequestClose={closeInfoModal}
+            contentLabel="Information"
+            className={styles.modal}
+            overlayClassName={styles.overlay}
+          >
+            <h2>나무 키우기</h2>
+            <p>지금 까지 얻은 포인트로 나무가 자라도록 물을 주세요</p>
+            <button onClick={closeInfoModal} className={styles.closeButton}>닫기</button>
+          </Modal>
+          <Modal
+  isOpen={isDogamModalOpen}
+  onRequestClose={closeDogamModal}
+  contentLabel="Collection"
+  className={styles.modal}
+  overlayClassName={styles.overlay}
+>
+  <h2>도감</h2>
+  <div className={styles.gridContainer}>
+    <div className={styles.treeItem}>
+      <img className={styles.collectiontree} src={tree1 ? `./assets/treecollection1.png` : `./assets/questionmark.jpg`} alt="Tree 1" />
+      <p>{tree1 ? "가시오갈피나무" : "???"}</p>
+    </div>
+    <div className={styles.treeItem}>
+      <img className={styles.collectiontree} src={tree2 ? `./assets/treecollection2.png` : `./assets/questionmark.jpg`} alt="Tree 2" />
+      <p>{tree2 ? "개가시나무" : "???"}</p>
+    </div>
+    <div className={styles.treeItem}>
+      <img className={styles.collectiontree} src={tree3 ? `./assets/treecollection3.png` : `./assets/questionmark.jpg`} alt="Tree 3" />
+      <p>{tree3 ? "무주나무" : "???"}</p>
+    </div>
+    <div className={styles.treeItem}>
+      <img className={styles.collectiontree} src={tree4 ? `./assets/treecollection4.png` : `./assets/questionmark.jpg`} alt="Tree 4" />
+      <p>{tree4 ? "산분꽃나무" : "???"}</p>
+    </div>
+    <div className={styles.treeItem}>
+      <img className={styles.collectiontree} src={tree5 ? `./assets/treecollection5.png` : `./assets/questionmark.jpg`} alt="Tree 5" />
+      <p>{tree5 ? "섬개야광나무" : "???"}</p>
+    </div>
+    <div className={styles.treeItem}>
+      <img className={styles.collectiontree} src={tree6 ? `./assets/treecollection6.png` : `./assets/questionmark.jpg`} alt="Tree 6" />
+      <p>{tree6 ? "구상나무" : "???"}</p>
+    </div>
+    <div className={styles.treeItem}>
+      <img className={styles.collectiontree} src={tree7 ? `./assets/treecollection7.png` : `./assets/questionmark.jpg`} alt="Tree 7" />
+      <p>{tree7 ? "섬국수나무" : "???"}</p>
+    </div>
+    <div className={styles.treeItem}>
+      <img className={styles.collectiontree} src={tree8 ? `./assets/treecollection8.png` : `./assets/questionmark.jpg`} alt="Tree 8" />
+      <p>{tree8 ? "섬향나무" : "???"}</p>
+    </div>
+    <div className={styles.treeItem}>
+      <img className={styles.collectiontree} src={tree9 ? `./assets/treecollection9.png` : `./assets/questionmark.jpg`} alt="Tree 9" />
+      <p>{tree9 ? "암매" : "???"}</p>
+    </div>
+  </div>
+  <button onClick={closeDogamModal} className={styles.closeButton}>닫기</button>
+</Modal>
+
+
           <Modal
           isOpen={isModalOpen}
           onRequestClose={closeModal}
@@ -447,6 +656,18 @@
       <button onClick={closeModal2} className={styles.closeButton}>닫기</button>
     </div>
   </Modal>
+  <Modal
+      isOpen={isNewTreeModalOpen}
+      onRequestClose={closeNewTreeModal}
+      contentLabel="New Tree Unlocked"
+      className={styles.modal}
+      overlayClassName={styles.overlay}
+    >
+      <h2>축하합니다!<br/> 새로운 나무를 수집하였습니다.</h2>
+      <p>{newTreeMessage}</p>
+      <img src={`./assets/treecollection${treeNum}.png`} className={styles.newtree} />
+      <button onClick={closeNewTreeModal} className={styles.closeButton}>닫기</button>
+    </Modal>
           {level >= 1 && (
             <div className="tree">
               {level >= 2 && (
