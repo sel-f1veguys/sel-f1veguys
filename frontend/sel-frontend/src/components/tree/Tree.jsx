@@ -16,6 +16,8 @@
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isModal2Open, setIsModal2Open] = useState(false);
     const [isInfoModalOpen, setIsInfoModalOpen] = useState(false); // 정보 모달 상태 추가
+    const [isInfoModal2Open, setIsInfoModal2Open] = useState(false); // 정보 모달 상태 추가
+    const [isInfoModal3Open, setIsInfoModal3Open] = useState(false); // 정보 모달 상태 추가
     const [isNewTreeModalOpen, setNewTreeModalOpen] = useState(false); // 정보 모달 상태 추가
     const [isDogamModalOpen, setIsDogamModalOpen] = useState(false); // 정보 모달 상태 추가
     const [newTreeMessage, setNewTreeMessage] = useState("");
@@ -352,8 +354,8 @@
     
         if (newLevel === 6) {
           // 6 레벨에 도달하면 랜덤 배지 API 호출
-          // const randomNumber = Math.floor(Math.random() * 9) + 1;
-          const randomNumber = 1;
+          const randomNumber = Math.floor(Math.random() * 9) + 1;
+          // const randomNumber = 1;
           const badgeResponse = await axios.post(`/api/badge/1/${randomNumber}`);
     
           // 랜덤 숫자에 따른 트리 상태 업데이트
@@ -469,6 +471,25 @@
       setIsInfoModalOpen(false);
     };
 
+    const closeInfoModal2 = () => {
+      setIsInfoModalOpen(false);
+      setIsInfoModal2Open(true);
+    };
+
+    const closeInfoModal3 = () => {
+      setIsInfoModal2Open(false);
+    };
+
+    const closeInfoModal4 = () => {
+      setIsInfoModal2Open(false);
+      setIsInfoModal3Open(true);
+    };
+
+    const closeInfoModal5 = () => {
+      setIsInfoModal3Open(false);
+    };
+
+
     const openDogamModal = () => {
       setIsDogamModalOpen(true);
     };
@@ -573,14 +594,47 @@
             overlayClassName={styles.overlay}
           >
             <h2>나무 키우기</h2>
-            <p>지금 까지 얻은 포인트로 나무가 자라도록 물을 주세요</p>
-            <button onClick={closeInfoModal} className={styles.closeButton}>닫기</button>
+            
+            <p>지금 까지 얻은 포인트로<br/> 나무가 자라도록 물을 주세요</p>
+            <img src="./assets/choicewater.png" className={styles.infomodalimg} />
+            <button onClick={closeInfoModal2} className={styles.nextButton}>다음</button>
           </Modal>
+          
+          <Modal
+            isOpen={isInfoModal2Open}
+            onRequestClose={closeInfoModal3}
+            contentLabel="Information"
+            className={styles.modal}
+            overlayClassName={styles.overlay}
+          >
+            <h2>도감 확인하기</h2>
+            
+            <p>나무가 끝까지 성장하면 수집할 수 있고<br/> 수집한 나무는 도감에서 확인가능해요 </p>
+            <img src="./assets/choicecollection.png" className={styles.infomodalimg} />
+            <button onClick={closeInfoModal4} className={styles.nextButton}>다음</button>
+          </Modal>
+
+          <Modal
+            isOpen={isInfoModal3Open}
+            onRequestClose={closeInfoModal5}
+            contentLabel="Information"
+            className={styles.modal}
+            overlayClassName={styles.overlay}
+          >
+            <h2>도감 속 나무</h2>
+            
+            <p>성장하는 나무들은 멸종 위기종 나무예요<br/>나무를 수집하면서 도감을 채워봐요</p>
+            <img src="./assets/examplecollection.png" className={styles.infomodalimg} />
+            <button onClick={closeInfoModal5} className={styles.nextButton}>닫기</button>
+          </Modal>
+
+
+
           <Modal
   isOpen={isDogamModalOpen}
   onRequestClose={closeDogamModal}
   contentLabel="Collection"
-  className={styles.modal}
+  className={styles.modal2}
   overlayClassName={styles.overlay}
 >
   <h2>도감</h2>
@@ -622,7 +676,7 @@
       <p>{tree9 ? "암매" : "???"}</p>
     </div>
   </div>
-  <button onClick={closeDogamModal} className={styles.closeButton}>닫기</button>
+  <button onClick={closeDogamModal} className={styles.closeButton2}>닫기</button>
 </Modal>
 
 

@@ -47,6 +47,22 @@
     align-items: center;
     animation: bounceDown 0.6s ease; /* 애니메이션 추가 */
   }
+
+  .modal2 {
+    background-image: url('../../../public/assets/emptypaper.png');
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    height: 450px;
+    margin: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: bounceDown 0.6s ease; /* 애니메이션 추가 */
+  }
   
   .overlay {
     background: rgba(0, 0, 0, 0.75);
@@ -70,7 +86,7 @@
     cursor: pointer;
   }
   
-  .saveimg, .closeButton{
+  .saveimg, .closeButton, .closeButton2, .nextButton{
     background-color: #E0F7FA; /* 원하는 색상으로 수정 가능 */
     color: #000000; /* 텍스트 색상 */
   border: none;
@@ -93,6 +109,28 @@
     background-color: #8a8a8a; /* 원하는 색상으로 수정 가능 */
     color: #000000; /* 텍스트 색상 */
   }
+
+  .nextButton{
+    background-color: #007bff;/* 원하는 색상으로 수정 가능 */
+    color: #fff;
+  }
+
+  .nextButton:hover{
+    background-color: #0056b3;
+    color: #fff;
+  }
+  
+  
+
+  .closeButton2{
+    background-color: #ffffff; /* 원하는 색상으로 수정 가능 */
+    color: #000000; /* 텍스트 색상 */
+  }
+
+  .closeButton2:hover{
+    background-color: #d3d3d3; /* 원하는 색상으로 수정 가능 */
+    color: #000000; /* 텍스트 색상 */
+  }
   
   
   .giftButton1 {
@@ -112,6 +150,13 @@
   
   .modaltreeimg{
     width: 150px;
+  }
+
+  .infomodalimg{
+    width: 200px;
+    height: 240px;
+    margin-bottom: 20px;
+    border-radius: 20px;
   }
 
   .buttonContainer {
