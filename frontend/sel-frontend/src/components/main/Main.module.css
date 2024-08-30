@@ -135,6 +135,7 @@
   .campaignlink{
     text-decoration: none;
     color: black;
+    display: block;
   }
 
     .carouselContainer {
@@ -156,3 +157,40 @@
     display: none; /* 스크롤바 숨기기 */
   }
   
+
+  /* From Uiverse.io by preshpi */ 
+.spinner {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  animation: spinner-plncf9 3s infinite;
+}
+
+.spinner::before,
+.spinner::after {
+  content: "";
+  grid-area: 1/1;
+  border: 9px solid;
+  border-radius: 50%;
+  border-color: #009CF4 #009CF4 #0000 #0000;
+  mix-blend-mode: darken;
+  animation: spinner-plncf9 1s infinite linear;
+}
+
+.spinner::after {
+  border-color: #0000 #0000 #eff0ff #eff0ff;
+  animation-direction: reverse;
+}
+
+@keyframes spinner-plncf9 {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+.loadingcontainer{
+  display: flex;
+  justify-content: center;
+  height: 300px;
+  align-items: center;
+}
