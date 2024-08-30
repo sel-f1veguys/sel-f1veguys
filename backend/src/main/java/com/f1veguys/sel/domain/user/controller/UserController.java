@@ -10,6 +10,7 @@ import com.f1veguys.sel.domain.user.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,13 +26,13 @@ public class UserController {
 
     // 회원가입 API
     @PostMapping("/register")
-    public User register(@RequestBody User user) throws JsonProcessingException {
+    public ResponseEntity<?> register(@RequestBody User user) throws JsonProcessingException {
         System.out.println("start");
         userService.register(user);
         int userId = user.getId();
         Points points = pointsService.makePoints(userId);
         pointsRepository.save(points);
-        return user;
+        return ResponseEntity.status(200).body("registration successful");
     }
 
     // 로그인 API

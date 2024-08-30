@@ -43,7 +43,8 @@ public class AttendanceServiceImpl implements AttendanceService{
 
     @Override
     public boolean checkToday(List<Integer> attendance) {
+        if(attendance.isEmpty()) return false;
         int today = LocalDateTime.now().getDayOfMonth();
-        return attendance.get(attendance.size() - 1) != today;
+        return attendance.get(attendance.size() - 1) == today;
     }
 }
