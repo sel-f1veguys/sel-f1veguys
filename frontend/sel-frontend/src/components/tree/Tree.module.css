@@ -88,6 +88,12 @@
     background-color: #b0b0b0; /* 원하는 색상으로 수정 가능 */
     color: #000000; /* 텍스트 색상 */
   }
+
+  .closeButton:hover{
+    background-color: #8a8a8a; /* 원하는 색상으로 수정 가능 */
+    color: #000000; /* 텍스트 색상 */
+  }
+  
   
   .giftButton1 {
     background-color: #E0F7FA;
@@ -184,3 +190,33 @@
   }
 }
 
+.newtree{
+  width: 200px;
+  border-radius: 100%;
+  margin-bottom: 30px;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  justify-items: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.collectiontree {
+  width: 80px;
+  height: 80px;
+ border-radius: 100%;
+}
+
+.treeItem {
+  text-align: center;
+}
+
+.treeItem p{
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: 14px;
+}
