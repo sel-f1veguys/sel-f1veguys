@@ -47,7 +47,7 @@ public class CampaignHistoryServiceImpl implements CampaignHistoryService {
         Points userPoints = pointsRepository.findByUserId(userId)
                 .orElseThrow(PointsNotFoundException::new);
 
-        if (pay > userPoints.getBalance()) {
+        if (pay == 0 || pay > userPoints.getBalance()) {
             throw new InsufficientPointsException();
         }
 
@@ -76,7 +76,7 @@ public class CampaignHistoryServiceImpl implements CampaignHistoryService {
 
         userPoints.setBalance(userPoints.getBalance() - pay);
         pointsRepository.save(userPoints);
-        
+
         //내역 저장
         pointsHistoryService.savePointsHistory(userId, Operation.SPEND, pay, "캠페인 참여");
         userRepository.addCampaignPoint(userId, pay);
