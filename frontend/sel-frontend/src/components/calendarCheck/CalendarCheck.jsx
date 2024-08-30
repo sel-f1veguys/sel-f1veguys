@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react"; // React 및 훅을 가져�
 import Calendar from "react-calendar"; // react-calendar 라이브러리에서 Calendar 컴포넌트를 가져옵니다.
 import moment from "moment"; // moment.js 라이브러리에서 moment 함수를 가져옵니다.
 import styles from "./CalendarCheck.module.css"; // 모듈 CSS 파일을 가져옵니다.
+import 'react-calendar/dist/Calendar.css';
 
 // REST API 응답을 시뮬레이션하는 더미 데이터
 const attendanceData = {
@@ -57,8 +58,8 @@ export default function CalendarComponent() {
       <Calendar
         className={styles.calendar} // 달력에 모듈 CSS 스타일 적용
         value={dateState} // 달력에 표시할 현재 날짜 상태
-        minDetail="month" // 달력에서 최소로 볼 수 있는 단위 설정 (month)
-        maxDetail="month" // 달력에서 최대로 볼 수 있는 단위 설정 (month)
+        // minDetail="month" // 달력에서 최소로 볼 수 있는 단위 설정 (month)
+        // maxDetail="month" // 달력에서 최대로 볼 수 있는 단위 설정 (month)
         tileClassName={tileClassName} // 각 날짜 타일에 적용할 클래스 이름 결정
         formatDay={(locale, date) => moment(date).format("D")} // "일" 없이 날짜만 표시
         prevLabel={null} // 이전 버튼 제거
