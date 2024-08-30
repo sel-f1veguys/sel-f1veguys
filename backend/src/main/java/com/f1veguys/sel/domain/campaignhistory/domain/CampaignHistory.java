@@ -31,13 +31,13 @@ public class CampaignHistory {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "campaign_id", nullable = false)
     @MapsId("campaignId")
-    @JsonBackReference
+    @JsonBackReference(value = "campaign-history")
     private Campaign campaign;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @MapsId("userId")
-    @JsonBackReference
+    @JsonBackReference(value = "user-campaign-history")
     private User user;
 
     @Column(name = "amount")

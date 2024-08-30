@@ -6,6 +6,10 @@ import com.f1veguys.sel.domain.pointshistory.repository.PointsHistoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class PointsHistoryServiceImpl implements PointsHistoryService {
@@ -14,5 +18,13 @@ public class PointsHistoryServiceImpl implements PointsHistoryService {
     public void savePointsHistory(int userId, Operation action, int amount, String description) {
         PointsHistory pointsHistory = new PointsHistory(userId, action, amount, description);
         pointsHistoryRepository.save(pointsHistory);
+    }
+
+    @Override
+    public List<PointsHistory> getPointsHistory(int userId) {
+        List<PointsHistory> response = new ArrayList<>();
+        LocalDateTime from = LocalDateTime.now().minusMonths(1L);
+        response = pointsHistoryRepository.findLastMonthHistoryByUserId(userId, from);
+        return response;
     }
 }
