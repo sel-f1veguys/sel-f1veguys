@@ -38,6 +38,7 @@ const MyPointHeader = () => {
     navigate('/');
   };
   return (
+    <div className={styles.allcontainer}>
     <div className={styles.headerBottom}>
       <div className={styles.userInfoBox}>
       <div className={styles.pointInfo}>
@@ -49,6 +50,7 @@ const MyPointHeader = () => {
           <button className={styles.chargeButton} onClick={handleUsePoints}>사용하기</button>
         </div>
       </div>
+    </div>
     </div>
   );
 };

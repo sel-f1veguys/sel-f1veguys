@@ -1,8 +1,10 @@
 .campaignContainer {
-  padding: 20px;
+  margin-top: 30px;
   position: relative;
-  max-width: 100%;
+  max-width: 80%;
   overflow: hidden;
+  background-color: #f1f1f1;
+  border-radius: 15px;
 }
 
 .campaignHeader {
@@ -14,7 +16,9 @@
 
 .campaignTitle {
   font-size: 18px;
-  margin: 0;
+  margin-top: 30px;
+  margin-left: 20px;
+  /* margin: 0; */
 }
 
 .campaignlink {
@@ -28,14 +32,14 @@
 
 .imageWrapper {
   width: 100%;
-  padding-top: 56.25%; /* 16:9 Aspect Ratio */
-  position: relative;
+  /* padding-top: 56.25%; 16:9 Aspect Ratio */
+  /* position: relative; */
   overflow: hidden;
   border-radius: 10px;
 }
 
 .campaignImage {
-  position: absolute;
+  /* position: absolute; */
   top: 0;
   left: 0;
   width: 100%;
@@ -52,7 +56,6 @@
 
 .campaignText {
   font-size: 16px;
-  margin-bottom: 10px;
 }
 
 .campaignInfo {
@@ -122,4 +125,8 @@
 
 :global .slick-list {
   margin: 0 -10px;
+}
+
+.carosize{
+  height: 660px;
 }
