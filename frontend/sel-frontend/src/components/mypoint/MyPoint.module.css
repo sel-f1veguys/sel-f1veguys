@@ -1,6 +1,6 @@
 .fullBackGroundColor {
   width: 100%;
-  background: linear-gradient(to bottom, #0046ff 200px, #F4F7FE 200px);
+  background: linear-gradient(to bottom, #009CF4 200px, #F4F7FE 200px);
   display: flex;
   justify-content: center;
 }
@@ -23,7 +23,7 @@
 }
 
 .headerTop {
-  background-color: #006bcf;
+  background-color: #009CF4;
   height: 150px; /* Adjust the height as needed */
   display: flex;
   justify-content: center;

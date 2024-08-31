@@ -173,8 +173,6 @@ const Analytics = () => {
         headers: { userId: 5 }, // userId 헤더 추가
       });
 
-      
-
       console.log(response.data);
     } catch (error) {
       console.error("Error updating statistics:", error);
@@ -358,7 +356,7 @@ const Analytics = () => {
 const styles = {
   fullWidthBackground: {
     width: "100%",
-    background: `linear-gradient(to bottom, #0046ff 200px, #F4F7FE 200px)`,
+    background: `linear-gradient(to bottom, #009CF4 200px, #F4F7FE 200px)`,
     display: "flex",
     justifyContent: "center",
   },
