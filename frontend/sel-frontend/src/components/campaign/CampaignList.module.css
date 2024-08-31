@@ -8,7 +8,6 @@
 
 /* Background Blue Section */
 .bluebg {
-  position: absolute;
   width: 100%;
   height: 169px;
   top: 0;
@@ -80,9 +79,8 @@
 
 /* Campaign Container */
 .campaignContainer {
-  position: absolute;
   top: 0px; /* Adjusted to start below the search bar */
-  bottom: 30px; /* Stops 80px before the bottom to account for the footer */
+  bottom: 50px; /* Stops 80px before the bottom to account for the footer */
   left: 0;
   right: 0;
   overflow-y: auto; /* Allows scrolling if content overflows */
@@ -104,7 +102,6 @@
   font-size: 20px;
   color: #555555;
   margin-left: 25px; /* Align with search bar */
-  margin-top: 185px; /* Space between the search bar and count */
 }
 
 /* Campaign Item Style */

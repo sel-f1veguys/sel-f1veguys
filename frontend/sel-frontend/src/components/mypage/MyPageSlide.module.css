@@ -79,6 +79,25 @@
   margin-top: 15px;
 }
 
+.campaignButton{
+  background-color: #fff;
+  color: #006bcf;
+  border: 1px solid #006bcf;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 14px; /* Ensure font size consistency */
+  margin-top: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.campaignButton:hover{
+  background-color: #006bcf;
+  color: #fff;
+}
+
+
 /* Custom styles for react-slick */
 :global .slick-prev,
 :global .slick-next {
