@@ -11,6 +11,7 @@ import EventIcon from "@mui/icons-material/Event";
 import CampaignIcon from "@mui/icons-material/Campaign";
 import NatureIcon from "@mui/icons-material/Nature";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import SchoolIcon from "@mui/icons-material/School"; // 추가한 아이콘
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -94,6 +95,9 @@ const Header = () => {
           <Link to="/tree" className={styles.MenuItem} onClick={toggleMenu}>
             <NatureIcon className={styles.MenuIcon} /> 나무 키우기
           </Link>
+          <Link to="/todayquiz" className={styles.MenuItem} onClick={toggleMenu}>
+  <SchoolIcon className={styles.MenuIcon} /> 오늘의 퀴즈
+</Link>
         </div>
       </div>
 

@@ -54,7 +54,7 @@ const Main = () => {
             {/* 배경 아래에 콘텐츠 */}
             <div className={styles.contentContainer}>
             <div className={styles.titlename}>
-              <p className={styles.pointText}>포인트 사용</p>
+              <p className={styles.pointText}>마이신한포인트 사용</p>
               </div>
               <div className={styles.cardcontain}>
                 <div className={styles.gameBox}>
@@ -69,7 +69,7 @@ const Main = () => {
             </div>
             <div className={styles.todayQuiz}>
               <div className={styles.lefttext}>
-              <p>오늘의 퀴즈</p>
+              <p>오늘의 환경퀴즈</p>
               </div>
             <button className={styles.gameButton3} onClick={() => navigate('/todayquiz')}>
               <img src="/assets/quizquiz.png" className={styles.quizbanner} />

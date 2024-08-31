@@ -110,11 +110,15 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin-bottom: 15px; /* Reduced spacing between items */
+  margin-bottom: 35px; /* Reduced spacing between items */
   background: #F8F8F8;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.campaignList .campaignItem:last-child {
+  margin-bottom: 0px; /* 마지막 항목의 margin-bottom을 0으로 설정 */
 }
 
 .campaignLink {
