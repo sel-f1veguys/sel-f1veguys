@@ -7,6 +7,17 @@ const Campaign = () => {
   const { campaignId } = useParams();
   const campaignSlideRef = useRef();
 
+  // Mapping of campaign IDs to URLs
+  const campaignUrls = {
+    2: "https://www.shinhancard.com/pconts/html/benefit/event/1227117_2239.html",
+    3: "https://www.shinhancard.com/pconts/html/benefit/event/1227874_2239.html",
+    4: "https://m.shinhan.com/rib/mnew/index.jsp#220011320000",
+    5: "https://www.shinhancard.com/evt/MOBEVENTN/MOBEVT036R10.shc",
+  };
+
+  // Determine the URL based on the campaignId
+  const iframeUrl = campaignUrls[campaignId] || "https://www.shinhancard.com/pconts/html/benefit/event/1227874_2239.html"; // Default URL if id is not in the list
+
   const handleParticipateClick = () => {
     if (campaignSlideRef.current) {
       campaignSlideRef.current.donateDirectly();
@@ -16,7 +27,7 @@ const Campaign = () => {
   return (
     <div className={styles.campaignContainer}>
       <iframe
-        src="https://www.shinhancard.com/pconts/html/benefit/event/1227874_2239.html"
+        src={iframeUrl}
         title="Shinhan Card Event"
         className={styles.iframe}
       >
