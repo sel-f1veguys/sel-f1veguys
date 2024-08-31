@@ -71,7 +71,7 @@ const Main = () => {
               <div className={styles.lefttext}>
               <p>오늘의 퀴즈</p>
               </div>
-            <button className={styles.gameButton2} onClick={() => navigate('/todayquiz')}>
+            <button className={styles.gameButton3} onClick={() => navigate('/todayquiz')}>
               <img src="/assets/quizquiz.png" className={styles.quizbanner} />
               {/* 오늘의 퀴즈 바로가기 */}
               </button>
