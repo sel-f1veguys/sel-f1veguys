@@ -37,6 +37,7 @@ const MyPageSlide = () => {
   };
 
   const settings = {
+    showIndicators: false,
     dots: true,
     infinite: true,
     speed: 500,
@@ -50,7 +51,7 @@ const MyPageSlide = () => {
       <div className={styles.campaignHeader}>
         <p className={styles.campaignTitle}>참여한 캠페인</p>
       </div>
-      <Carousel {...settings}>
+      <Carousel showStatus={false}  {...settings} className={styles.carosize}>
         {campaigns.map((campaign) => (
           <div key={campaign.campaignId} className={styles.slide}>
             <div className={styles.imageWrapper}>
@@ -64,7 +65,6 @@ const MyPageSlide = () => {
               <p className={styles.campaignText}>{campaign.title}</p>
               <div className={styles.campaignInfo}>
                 <p className={styles.campaignDays}>{campaign.completed ? "종료" : "진행 중"}</p>
-                <p className={styles.campaignAmount}>{campaign.amount.toLocaleString()} 포인트</p>
               </div>
               <div className={styles.userPoints}>
                 <p>소비한 포인트: {campaign.amount.toLocaleString()} P</p>
