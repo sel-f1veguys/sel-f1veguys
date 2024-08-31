@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Line, Bar, Doughnut } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -12,10 +12,12 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import { CheckCircle, ArrowDownward, ArrowUpward } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore"; // Import Material-UI Icons for Expand
-import ExpandLessIcon from "@mui/icons-material/ExpandLess"; // Import the Collapse Icon
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
 ChartJS.register(
   CategoryScale,
@@ -30,17 +32,38 @@ ChartJS.register(
 );
 
 const Analytics = () => {
+  const [myPoint, setMypoint] = useState();
+  const [statistics, setStatistics] = useState({
+    totalSpend: 0,
+    ecoSpend: 0,
+    previousMonthCompare: 0,
+    averageCompare: 0,
+    campaignPoint: 0,
+  });
+
+  const [selectedButton, setSelectedButton] = useState("월간"); // Default selection
   const [todoItems, setTodoItems] = useState([
-    { id: 1, text: "영수증 인증하기(100p)", completed: false },
-    { id: 2, text: "6000보 걷기(100p)", completed: false },
-    { id: 3, text: "친환경 캠페인 참여하기", completed: false },
-    { id: 4, text: "친환경 퀴즈 참여하기", completed: false },
-    { id: 5, text: "친환경 기부하기", completed: false },
-    { id: 6, text: "적립대상 6", completed: false },
-    { id: 7, text: "적립대상 7", completed: false },
+    {
+      id: 1,
+      text: "출석체크 하기(100p)",
+      completed: false,
+      route: "/calendar",
+    },
+    { id: 2, text: "나무 키우기", completed: false, route: "/tree" },
+    {
+      id: 3,
+      text: "친환경 캠페인 참여하기",
+      completed: false,
+      route: "/campaignList",
+    },
+    { id: 4, text: "친환경 퀴즈 참여하기", completed: false, route: "/quiz" },
+    { id: 5, text: "친환경 기부하기", completed: false, route: "/campaign" },
+    { id: 6, text: "6000보 걷기(100p)", completed: false, route: "/item6" },
+    { id: 7, text: "영수증 인증하기(100p)", completed: false, route: "/item7" },
   ]);
 
   const [showSavedCostList, setShowSavedCostList] = useState(false);
+  const navigate = useNavigate();
 
   const toggleTodo = (id) => {
     setTodoItems((prevItems) =>
@@ -52,6 +75,14 @@ const Analytics = () => {
 
   const toggleSavedCostList = () => {
     setShowSavedCostList(!showSavedCostList);
+  };
+
+  const handleButtonClick = (button) => {
+    setSelectedButton(button);
+  };
+
+  const handleParticipateClick = (route) => {
+    navigate(route); // Navigate to the specified route
   };
 
   // Data for Line Chart (7 days consumption)
@@ -70,26 +101,29 @@ const Analytics = () => {
 
   // Data for Bar Chart (Footsteps)
   const barChartData = {
-    labels: ["월", "화", "수", "목", "금"], // Reduced to 5 days
+    labels: ["월", "화", "수", "목", "금"],
     datasets: [
       {
         label: "Footsteps",
-        data: [3000, 5000, 7000, 6000, 8000], // Example data reduced to 5 days
+        data: [3000, 5000, 7000, 6000, 8000],
         backgroundColor: "rgba(75, 192, 192, 0.8)",
         borderColor: "rgba(75, 192, 192, 1)",
         borderWidth: 1,
-        barThickness: 10, // Make bars thinner like sticks
+        barThickness: 10,
       },
     ],
   };
 
   // Data for Doughnut Chart (Eco vs Normal Consumption)
   const doughnutChartData = {
-    labels: ["Eco", "Normal"],
+    labels: ["에코", "일반"],
     datasets: [
       {
-        label: "Eco vs Normal Consumption",
-        data: [60, 40], // Example data
+        label: "에코 : 일반",
+        data: [
+          Math.round(statistics.ecoSpend),
+          Math.round(statistics.totalSpend - statistics.ecoSpend),
+        ],
         backgroundColor: ["#36A2EB", "#FF6384"],
         hoverOffset: 4,
       },
@@ -100,20 +134,20 @@ const Analytics = () => {
   const lineChartOptions = {
     scales: {
       x: {
-        display: false, // Hide x-axis
+        display: false,
       },
       y: {
-        display: false, // Hide y-axis
+        display: false,
       },
     },
     plugins: {
       legend: {
-        display: false, // Hide the legend
+        display: false,
       },
     },
     elements: {
       point: {
-        radius: 0, // Hide points on the line
+        radius: 0,
       },
     },
     responsive: true,
@@ -125,22 +159,22 @@ const Analytics = () => {
     scales: {
       x: {
         grid: {
-          display: false, // Hide vertical grid lines
+          display: false,
         },
         ticks: {
-          color: "black", // Color for x-axis labels
+          color: "black",
           font: {
-            size: 12, // Smaller font for x-axis labels
+            size: 12,
           },
         },
       },
       y: {
-        display: false, // Hide y-axis
+        display: false,
       },
     },
     plugins: {
       legend: {
-        display: false, // Hide the legend
+        display: false,
       },
     },
     responsive: true,
@@ -151,26 +185,104 @@ const Analytics = () => {
   const doughnutChartOptions = {
     plugins: {
       legend: {
-        display: false, // Hide the legend from above
+        display: false,
       },
     },
     responsive: true,
     maintainAspectRatio: false,
   };
 
+  const fetchStatistics = async () => {
+    try {
+      const response = await axios.get("/api/statistics", {
+        headers: { userId: 11 },
+      });
+
+      setStatistics(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error updating statistics:", error);
+    }
+  };
+
+  const fetchStatistics30 = async () => {
+    try {
+      const response = await axios.get("/api/statistics/30", {
+        headers: { userId: 11 },
+      });
+
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error updating statistics for 30:", error);
+    }
+  };
+
+  const fetchMypoint = async () => {
+    try {
+      const response = await axios.get("/api/points/mypoint", {
+        headers: { userId: 5 },
+      });
+      setMypoint(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error updating statistics for 30:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchStatistics();
+    fetchStatistics30();
+    fetchMypoint();
+  }, []);
+
   return (
     <div style={styles.fullWidthBackground}>
       <div style={styles.background}>
-        <div style={styles.monthgraph}>
-          <h4 style={styles.topLeftText}>오늘의 소비 : $100</h4>
-          <Line data={lineChartData} options={lineChartOptions} />
+        <div style={styles.topContent}>
+          {/* Example of an analytics icon or logo */}
+          <div style={styles.topText}>내 소비 보기</div>
+          <img
+            src="/assets/icon/analyticsMain_icon.png" // Replace this with the actual path to your logo or icon
+            alt="Analytics Logo"
+            style={styles.analyticsLogo}
+          />
         </div>
 
         <div style={styles.Main}>
           <div style={styles.MonthButtonSection}>
-            <button style={styles.MonthButton}>일간</button>
-            <button style={styles.MonthButton}>주간</button>
-            <button style={styles.MonthButton}>월간</button>
+            <button
+              style={{
+                ...styles.MonthButton,
+                backgroundColor:
+                  selectedButton === "일간" ? "#FF5733" : "#4CAF50",
+                color: selectedButton === "일간" ? "white" : "white",
+              }}
+              onClick={() => handleButtonClick("일간")}
+            >
+              일간
+            </button>
+            <button
+              style={{
+                ...styles.MonthButton,
+                backgroundColor:
+                  selectedButton === "주간" ? "#FF5733" : "#4CAF50",
+                color: selectedButton === "주간" ? "white" : "white",
+              }}
+              onClick={() => handleButtonClick("주간")}
+            >
+              주간
+            </button>
+            <button
+              style={{
+                ...styles.MonthButton,
+                backgroundColor:
+                  selectedButton === "월간" ? "#FF5733" : "#4CAF50",
+                color: selectedButton === "월간" ? "white" : "white",
+              }}
+              onClick={() => handleButtonClick("월간")}
+            >
+              월간
+            </button>
           </div>
 
           <div style={styles.subgraphSection}>
@@ -204,7 +316,17 @@ const Analytics = () => {
               <div style={styles.textSection}>
                 <p style={styles.transparentText}>또래보다 친환경적이에요.</p>
                 <p style={styles.boldText}>
-                  <span style={styles.greenText}>+21</span> 건의 친환경 소비
+                  <span
+                    style={{
+                      color:
+                        statistics.averageCompare > 0 ? "#4CAF50" : "#FF5733",
+                    }}
+                  >
+                    {statistics.averageCompare > 0
+                      ? `+${statistics.averageCompare.toFixed(0)}`
+                      : `${statistics.averageCompare.toFixed(0)}`}
+                  </span>{" "}
+                  %의 친환경 소비
                 </p>
               </div>
             </div>
@@ -215,7 +337,19 @@ const Analytics = () => {
               <div style={styles.textSection}>
                 <p style={styles.transparentText}>지난 달보다 줄었어요.</p>
                 <p style={styles.boldText}>
-                  <span style={styles.redText}>-5</span> 건 전달 대비
+                  <span
+                    style={{
+                      color:
+                        statistics.previousMonthCompare > 0
+                          ? "#4CAF50"
+                          : "#FF5733",
+                    }}
+                  >
+                    {statistics.previousMonthCompare > 0
+                      ? `+${statistics.previousMonthCompare}`
+                      : `${statistics.previousMonthCompare}`}
+                  </span>{" "}
+                  % 전달 대비
                 </p>
               </div>
             </div>
@@ -223,18 +357,16 @@ const Analytics = () => {
 
           {/* Payment Section */}
           <div style={styles.payment}>
-            {/* Donation Total */}
             <div style={styles.paymentGraph}>
               <div style={styles.donateText}>
                 <div>
                   <p style={styles.transparentText}>기부포인트 총액</p>
-                  <p style={styles.boldBigText}>1200p 기부</p>
+                  <p style={styles.boldBigText}>{myPoint}P 기부</p>
                   <p style={styles.greenText}>+23% 지난 주 대비</p>
                 </div>
               </div>
             </div>
 
-            {/* Saved Environmental Cost */}
             <div style={styles.paymentGraph}>
               <div style={styles.saveTheEarth}>
                 <div style={styles.savingText}>
@@ -253,7 +385,6 @@ const Analytics = () => {
                   {showSavedCostList ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                 </IconButton>
               </div>
-              {/* Toggle List */}
               <ul
                 style={{
                   ...styles.savedCostList,
@@ -270,7 +401,7 @@ const Analytics = () => {
           <div style={styles.pointEarning}>
             <div style={styles.pointEarningHeader}>
               <h3 style={styles.pointEarningtitle}>포인트 적립하기</h3>
-              <button style={styles.pointEarningDetail}>New Task</button>
+              <button style={styles.pointEarningDetail}>:</button>
             </div>
             <div style={styles.pointEarningList}>
               {todoItems.map((item) => (
@@ -282,7 +413,12 @@ const Analytics = () => {
                   />
                   <div style={styles.insideOfItem}>
                     <label style={styles.itemText}>{item.text}</label>
-                    <button style={styles.detButton}>Det</button>
+                    <button
+                      style={styles.detButton}
+                      onClick={() => handleParticipateClick(item.route)}
+                    >
+                      참여하기
+                    </button>
                   </div>
                 </div>
               ))}
@@ -297,33 +433,49 @@ const Analytics = () => {
 const styles = {
   fullWidthBackground: {
     width: "100%",
-    background: `linear-gradient(to bottom, #0046ff 200px, #F4F7FE 200px)`,
+    background: `linear-gradient(to bottom, #009CF4 200px, #F4F7FE 200px)`,
     display: "flex",
     justifyContent: "center",
   },
   background: {
-    alignItems: "center", // Align horizontally
+    alignItems: "center",
     display: "flex",
-    flexDirection: "column", // Align vertically
+    flexDirection: "column",
     position: "relative",
     width: "390px",
     height: "844px",
   },
 
-  monthgraph: {
-    width: "95%",
-    backgroundColor: "white",
-    position: "relative",
-    borderRadius: "10px",
-    boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-    marginTop: "50px",
+  // New styles for the topContent section
+  topContent: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    marginTop: "30px",
+    paddingBottom: "20px",
+    borderBottom: "2px solid #F4F7FE", // Add a subtle divider below the top section
+  },
+
+  topText: {
+    fontSize: "24px",
+    fontWeight: "bold",
+    color: "white",
+    textShadow: "1px 1px 3px rgba(0, 0, 0, 0.2)", // Add a subtle text shadow for better readability
+  },
+
+  analyticsLogo: {
     height: "140px",
+    marginTop: "0px",
+    borderRadius: "50%", // Make the logo circular
+    // boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", // Add some depth with a shadow
   },
 
   Main: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center", // Center horizontally
+    alignItems: "center",
     width: "90%",
     marginTop: "25px",
   },
@@ -340,18 +492,35 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     width: "100%",
-    marginBottom: "20px", // Add margin for spacing
+    marginBottom: "20px",
   },
 
   MonthButton: {
-    width: "100%", // Ensure buttons fill the width evenly
+    flex: 1,
+    padding: "10px 20px",
+    backgroundColor: "#4CAF50",
+    color: "white",
+    border: "none",
+    borderRadius: "10px",
+    cursor: "pointer",
+    fontSize: "14px",
+    fontWeight: "bold",
+    margin: "0 5px",
+    textAlign: "center",
+    boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
+    transition: "background-color 0.3s ease", // Smooth transition for hover
+    outline: "none",
+  },
+
+  MonthButtonHover: {
+    backgroundColor: "#FF5733", // Change color on hover
   },
 
   subgraphSection: {
     display: "flex",
     justifyContent: "space-between",
     width: "100%",
-    marginBottom: "20px", // Ensure consistent spacing between sections
+    marginBottom: "20px",
   },
 
   subgraph1: {
@@ -394,7 +563,7 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     width: "100%",
-    marginBottom: "20px", // Ensure consistent spacing between sections
+    marginBottom: "20px",
   },
 
   compareGraph: {
@@ -427,7 +596,7 @@ const styles = {
   transparentText: {
     fontSize: "8px",
     fontWeight: "bold",
-    color: "rgba(0, 0, 0, 0.4)", // 60% transparency
+    color: "rgba(0, 0, 0, 0.4)",
     margin: "0",
   },
 
@@ -444,13 +613,13 @@ const styles = {
   },
 
   greenText: {
-    color: "#4CAF50", // Green for positive numbers
+    color: "#4CAF50",
     fontSize: "10px",
     margin: "0",
   },
 
   redText: {
-    color: "#FF5733", // Red for negative numbers
+    color: "#FF5733",
     fontSize: "10px",
   },
 
@@ -458,7 +627,7 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     width: "100%",
-    marginBottom: "20px", // Ensure consistent spacing between sections
+    marginBottom: "20px",
   },
 
   paymentGraph: {
@@ -475,7 +644,6 @@ const styles = {
   },
 
   donateText: {
-    // display: "flex",
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
@@ -509,25 +677,25 @@ const styles = {
     marginTop: "10px",
     fontSize: "12px",
     position: "absolute",
-    top: "100%", // Position it just below the button
+    top: "100%",
     left: "10px",
     right: "10px",
-    zIndex: 10, // Ensure it appears on top
-    backgroundColor: "white", // Ensure background is visible
+    zIndex: 10,
+    backgroundColor: "white",
     borderRadius: "10px",
     boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
     padding: "10px",
-    transition: "max-height 0.3s ease, opacity 0.3s ease", // Smooth expand/collapse and fade-in
+    transition: "max-height 0.3s ease, opacity 0.3s ease",
     overflow: "hidden",
-    maxHeight: "0", // Start with height 0
-    opacity: 0, // Start fully invisible
-    visibility: "hidden", // Hide it from the document flow
+    maxHeight: "0",
+    opacity: 0,
+    visibility: "hidden",
   },
 
   savedCostListOpen: {
-    maxHeight: "200px", // Maximum height when open (adjust as needed)
-    opacity: 1, // Fully visible
-    visibility: "visible", // Make it visible in the document flow
+    maxHeight: "200px",
+    opacity: 1,
+    visibility: "visible",
   },
 
   pointEarning: {
@@ -543,7 +711,7 @@ const styles = {
 
   pointEarningtitle: {
     margin: 0,
-    textAlign: "left", // Align title to the left
+    textAlign: "left",
   },
 
   pointEarningDetail: {
@@ -574,12 +742,12 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    width: "100%", // Full width of the container
-    marginLeft: "15px", // Space between checkbox and text
+    width: "100%",
+    marginLeft: "15px",
   },
 
   itemText: {
-    flexGrow: 1, // Makes the text take up remaining space
+    flexGrow: 1,
   },
 
   centerContent: {
@@ -593,7 +761,7 @@ const styles = {
     border: "none",
     borderRadius: "5px",
     cursor: "pointer",
-    marginLeft: "10px", // Space between text and Det button
+    marginLeft: "10px",
   },
 };
 

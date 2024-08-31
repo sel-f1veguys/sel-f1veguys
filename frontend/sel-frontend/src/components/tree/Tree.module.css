@@ -3,7 +3,7 @@
   background-size: cover; /* 배경 이미지를 화면 전체에 맞게 조정합니다 */
   background-position: center; /* 배경 이미지를 화면 중앙에 위치시킵니다 */
   background-repeat: no-repeat; /* 배경 이미지가 반복되지 않도록 설정합니다 */
-  width: 100vh;
+  width: 100%;
   height: 100vh; /* 화면 전체 높이에 맞게 설정합니다 */
   z-index: 0;
 }
@@ -13,7 +13,7 @@
   }
 
   .giftimg{
-    width: 180px;
+    width: 150px;
   }
 
   @keyframes bounceDown {
@@ -39,7 +39,23 @@
     padding: 20px;
     border-radius: 10px;
     width: 300px;
-    height: 500px;
+    height: 450px;
+    margin: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: bounceDown 0.6s ease; /* 애니메이션 추가 */
+  }
+
+  .modal2 {
+    background-image: url('../../../public/assets/emptypaper.png');
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    height: 450px;
     margin: auto;
     text-align: center;
     display: flex;
@@ -70,7 +86,7 @@
     cursor: pointer;
   }
   
-  .saveimg, .closeButton{
+  .saveimg, .closeButton, .closeButton2, .nextButton{
     background-color: #E0F7FA; /* 원하는 색상으로 수정 가능 */
     color: #000000; /* 텍스트 색상 */
   border: none;
@@ -88,6 +104,34 @@
     background-color: #b0b0b0; /* 원하는 색상으로 수정 가능 */
     color: #000000; /* 텍스트 색상 */
   }
+
+  .closeButton:hover{
+    background-color: #8a8a8a; /* 원하는 색상으로 수정 가능 */
+    color: #000000; /* 텍스트 색상 */
+  }
+
+  .nextButton{
+    background-color: #007bff;/* 원하는 색상으로 수정 가능 */
+    color: #fff;
+  }
+
+  .nextButton:hover{
+    background-color: #0056b3;
+    color: #fff;
+  }
+  
+  
+
+  .closeButton2{
+    background-color: #ffffff; /* 원하는 색상으로 수정 가능 */
+    color: #000000; /* 텍스트 색상 */
+  }
+
+  .closeButton2:hover{
+    background-color: #d3d3d3; /* 원하는 색상으로 수정 가능 */
+    color: #000000; /* 텍스트 색상 */
+  }
+  
   
   .giftButton1 {
     background-color: #E0F7FA;
@@ -105,7 +149,14 @@
   }
   
   .modaltreeimg{
+    width: 150px;
+  }
+
+  .infomodalimg{
     width: 200px;
+    height: 240px;
+    margin-bottom: 20px;
+    border-radius: 20px;
   }
 
   .buttonContainer {
@@ -113,3 +164,104 @@
     justify-content: space-between;
     margin-top: 20px;
   } 
+
+
+  /* From Uiverse.io by abuayaan01 */ 
+.buttonliq {
+  background-color: #000;
+  border: none;
+  outline: 0px;
+  color: #000000;
+  width: 200px;
+  padding: 20px;
+  border-radius: 50px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.liquid {
+  background-color: #2893eb;
+  width: 200px;
+  height: 70px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  box-shadow: inset 5px -5px 25px #104e81,
+  inset -5px 0px 25px #104e81;
+}
+
+.liquid::after {
+  content: '';
+  width: 450px;
+  height: 400px;
+  background: #ffffff;
+  z-index: 1;
+  position: absolute;
+  left: -110px;
+  top: -380px;
+  border-radius: 45%;
+  animation: animate1 5s linear 2s infinite;
+}
+
+.liquid::before {
+  content: '';
+  width: 450px;
+  height: 400px;
+  background-color: rgb(68, 160, 235);
+  z-index: 1;
+  position: absolute;
+  left: -110px;
+  top: -380px;
+  border-radius: 40%;
+  animation: animate1 5s linear 1.8s infinite;
+}
+
+.btntxt123 {
+  position: relative;
+  z-index: 1;
+  font-size: 22px;
+  /* font-family: sans-serif; */
+  letter-spacing: 2px;
+}
+
+@keyframes animate1 {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.newtree{
+  width: 200px;
+  border-radius: 100%;
+  margin-bottom: 30px;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  justify-items: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.collectiontree {
+  width: 80px;
+  height: 80px;
+ border-radius: 100%;
+}
+
+.treeItem {
+  text-align: center;
+}
+
+.treeItem p{
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: 14px;
+}

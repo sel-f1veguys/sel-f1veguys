@@ -52,12 +52,6 @@ const CampaignList = () => {
       {/* 파란색 배경만 존재 */}
       <div className={styles.bluebg}></div>
 
-      {/* 상단 아이콘들 */}
-      <div className={styles.topIcons}>
-        <BiDotsVerticalRounded className={styles.moreIcon} />
-        <BiUser className={styles.userIcon} />
-      </div>
-
       {/* 캠페인 검색 및 리스트 */}
       <div className={styles.campaignContainer}>
         <p className={styles.campaignTitle}>캠페인 모아보기</p>
@@ -118,6 +112,12 @@ const CampaignList = () => {
         ) : (
           <p>캠페인을 찾을 수 없습니다.</p> // 검색 결과가 없을 때 표시할 텍스트
         )}
+        <div 
+        style={{
+          height:"80px",
+        }}>
+          {/* 안보이는 하단의 처리를 위하여 */}
+        </div>
       </div>
     </div>
   );

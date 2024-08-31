@@ -10,6 +10,7 @@ import TreeView from "./components/tree/Tree";
 import Navbar from "./components/navbar/Navbar"; 
 import Header from './components/header/Header';
 import MyPointView from './components/mypoint/MyPoint.jsx';
+import QuizView from './components/quiz/TodayQuiz';
 import './App.css';
 import Game from './components/game/Game.jsx';
 
@@ -30,7 +31,7 @@ const AppContent = () => {
 
   return (
     <div className="App">
-      {/* <Header /> */}
+      <Header />
       <Routes>
       <Route path="/" element={<MainView />} />
       <Route path="/analytics" element={<AnalyticsView />} />
@@ -40,6 +41,7 @@ const AppContent = () => {
       <Route path="/mypage" element={<MypageView />} />
       <Route path="/tree" element={<TreeView />} />
       <Route path="/mypoint" element={<MyPointView />} />
+      <Route path="/todayquiz" element={<QuizView />} />
       <Route path='/game' element={<Game /> } />
       </Routes>
       <Navbar />  
