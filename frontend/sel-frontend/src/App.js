@@ -11,6 +11,7 @@ import Navbar from "./components/navbar/Navbar";
 import Header from './components/header/Header';
 import MyPointView from './components/mypoint/MyPoint.jsx';
 import './App.css';
+import Game from './components/game/Game.jsx';
 
 const App = () => {
   return (
@@ -39,6 +40,7 @@ const AppContent = () => {
       <Route path="/mypage" element={<MypageView />} />
       <Route path="/tree" element={<TreeView />} />
       <Route path="/mypoint" element={<MyPointView />} />
+      <Route path='/game' element={<Game /> } />
       </Routes>
       <Navbar />  
     </div>
