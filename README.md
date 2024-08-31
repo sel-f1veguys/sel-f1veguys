@@ -22,10 +22,11 @@
 ### 2. [프로젝트 설계](#프로젝트-설계)  
 - [ERD](#erd)
 - [서비스 아키텍쳐](#서비스-아키텍쳐)
-### 3. [기술 스택](#기술-스택)    
-### 4. [화면 구성](#화면-구성)    
-### 5. [핵심 기능](#핵심-기능)    
-### 6. [프로젝트 회고](#프로젝트-회고)  
+### 3. [빌드 및 개발환경]
+### 4. [기술 스택](#기술-스택)    
+### 5. [화면 구성](#화면-구성)    
+### 6. [핵심 기능](#핵심-기능)    
+### 7. [프로젝트 회고](#프로젝트-회고)  
 
 
 ## 프로젝트 개요
@@ -47,6 +48,19 @@
 ![ARCHITECTURE](./img/architecture.PNG)
 
 ### [Convention](https://github.com/sel-f1veguys/sel-f1veguys/wiki/Convention)
+
+## 빌드 및 배포
+
+```
+npm install
+npm run build
+sudo systemctl start nginx
+```
+
+```
+./gradlew clean build
+nohup java -jar sel-0.0.1-SNAPSHOT.jar &
+```
 
 ## 기술 스택
 
