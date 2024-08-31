@@ -331,17 +331,6 @@
         sceneTree.playCSS(); // 애니메이션 실행
       }
     }, [level]);
-    
-
-
-    useEffect(() => {
-      console.log(waterPoint)
-    }, [waterPoint]); // Only runs when level changes to 6
-
-
-    useEffect(() => {
-      console.log(tree5)
-    }, [tree5]); // Only runs when level changes to 6
 
     const handleButtonClick = async () => {
       try {

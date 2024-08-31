@@ -295,3 +295,25 @@
  .gameButton2:hover::before {
   width: 100%;
  }
+
+ .todayQuiz{
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+ }
+
+ .quizbanner{
+  width: 80%;
+  max-width: 400px;
+ }
+
+ .lefttext{
+  width: 80%;
+  max-width: 400px;
+ }
+
+ .lefttext p{
+  margin-bottom: 0px;
+ }

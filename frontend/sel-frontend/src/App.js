@@ -10,6 +10,7 @@ import TreeView from "./components/tree/Tree";
 import Navbar from "./components/navbar/Navbar"; 
 import Header from './components/header/Header';
 import MyPointView from './components/mypoint/MyPoint.jsx';
+import QuizView from './components/quiz/TodayQuiz';
 import './App.css';
 
 const App = () => {
@@ -39,6 +40,7 @@ const AppContent = () => {
       <Route path="/mypage" element={<MypageView />} />
       <Route path="/tree" element={<TreeView />} />
       <Route path="/mypoint" element={<MyPointView />} />
+      <Route path="/todayquiz" element={<QuizView />} />
       </Routes>
       <Navbar />  
     </div>
