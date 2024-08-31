@@ -51,39 +51,36 @@ const Main = () => {
       {/* 파란색 배경만 존재 */}
       <div className={styles.bluebg}></div>
 
-      {/* 배경 아래에 콘텐츠 */}
-      <div className={styles.contentContainer}>
-        <div className={styles.titlename}>
-          <p className={styles.pointText}>포인트 사용</p>
-        </div>
-        <div className={styles.cardcontain}>
-          <div className={styles.gameBox}>
-            <div className={styles.treegrow}>
-              <p className={styles.gameTitle1}>
-                나무
-                <br /> 키우기
-              </p>
-              {/* <button className={styles.gameButton} onClick={() => navigate('/tree')}>게임<br/>바로가기</button> */}
-              <button
-                className={styles.gameButton2}
-                onClick={() => navigate("/tree")}
-              >
-                물<br />
-                주러가기
+            {/* 배경 아래에 콘텐츠 */}
+            <div className={styles.contentContainer}>
+            <div className={styles.titlename}>
+              <p className={styles.pointText}>포인트 사용</p>
+              </div>
+              <div className={styles.cardcontain}>
+                <div className={styles.gameBox}>
+                  <div className={styles.treegrow}>
+                    <p className={styles.gameTitle1}>나무<br/> 키우기</p>
+                    {/* <button className={styles.gameButton} onClick={() => navigate('/tree')}>게임<br/>바로가기</button> */}
+                    <button className={styles.gameButton2} onClick={() => navigate('/tree')}>게임<br/>바로가기</button>
+                  </div>
+                  <img className={styles.treeImage} src="./assets/treetree.png" alt="Tree Image" />
+                </div>
+              </div>
+            </div>
+            <div className={styles.todayQuiz}>
+              <div className={styles.lefttext}>
+              <p>오늘의 퀴즈</p>
+              </div>
+            <button className={styles.gameButton3} onClick={() => navigate('/todayquiz')}>
+              <img src="/assets/quizquiz.png" className={styles.quizbanner} />
+              {/* 오늘의 퀴즈 바로가기 */}
               </button>
             </div>
-            <img
-              className={styles.treeImage}
-              src="./assets/treetree.png"
-              alt="Tree Image"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* 캠페인 Carousel */}
-      <div className={styles.campaignContainer}>
-        <p className={styles.campaignTitle}>캠페인 모아보기</p>
+            {/* 캠페인 Carousel */}
+            <div className={styles.campaignContainer}>
+            
+              <p className={styles.campaignTitle}>캠페인 모아보기</p>
+     
 
         {imagesLoaded ? (
           <div>
