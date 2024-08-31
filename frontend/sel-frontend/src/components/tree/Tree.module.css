@@ -265,3 +265,8 @@
   margin-bottom: 0px;
   font-size: 14px;
 }
+
+.toastContainer {
+  margin-top: 50px;
+  z-index: 3000; /* Header보다 높은 z-index 설정 */
+}

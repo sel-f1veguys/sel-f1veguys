@@ -340,6 +340,7 @@
         const newLevel = response.data.count / 500;
         setLevel(newLevel); 
         setWaterPoint(newLevel);
+        toast.success("물을 주었습니다.");
     
         if (newLevel === 6) {
           // 6 레벨에 도달하면 랜덤 배지 API 호출
@@ -506,7 +507,7 @@
     return (
       <div className={styles.mainmain}>
       <div className="treecontainer">
-          <ToastContainer position="top-center" autoClose={3000} /> 
+          <ToastContainer position="top-center" autoClose={1000} className={styles.toastContainer}/> 
         <div className="treebackground">
         <div className="flower roundpetal petal5 flower1">
       <div className="petal">
@@ -571,7 +572,7 @@
               <i className="bi bi-book"></i>
               </button>
             <button className="receive-button" onClick={receiveGift}>
-              <i class="bi bi-gift"></i>
+              <i className="bi bi-gift"></i>
             </button>
             </div>
           )}
